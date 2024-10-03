@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOFO Checklists</title>
+</head>
+<body>
+    <header>
+        <h1>NOFO Requirements Checklist</h1>
+    </header>
+    <section>
+        <h2>Documents Required</h2>
+        <ul>
+            {% for item in checklists.documents_required %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        <h2>Narrative Sections</h2>
+        <ul>
+            {% for item in checklists.narrative_sections %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        <h2>Eligibility Criteria</h2>
+        <ul>
+            {% for item in checklists.eligibility_criteria %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+        <h2>Key Deadlines</h2>
+        <ul>
+            {% for item in checklists.key_deadlines %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+</body>
+</html>
