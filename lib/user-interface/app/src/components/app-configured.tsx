@@ -31,6 +31,8 @@ export default function AppConfigured() {
         if (user) {
           setAuthenticated(true);
         }
+        // TAKE THIS OUT LATER
+        // setAuthenticated(true);
         setConfig(awsExports);
         setConfigured(true);
       } catch (e) {

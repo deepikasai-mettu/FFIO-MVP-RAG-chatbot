@@ -13,7 +13,7 @@ import Playground from "./pages/chatbot/playground/playground";
 import DataPage from "./pages/admin/data-view-page";
 import UserFeedbackPage from "./pages/admin/user-feedback-page";
 import SessionPage from "./pages/chatbot/sessions/sessions"
-import Welcome from "./pages/landing page/basePage";
+import Welcome from "./pages/landing-page/basePage";
 import { v4 as uuidv4 } from "uuid";
 import "./styles/app.scss";
 
@@ -32,8 +32,11 @@ function App() {
                 index
                 path="/"
                 //element={<Navigate to={`/chatbot/playground/${uuidv4()}`} replace />}
-                element={<Navigate to={`/landing/basePage/${uuidv4()}`} replace />}
-            />            
+                element={<Navigate to={`/landing-page/basePage`} replace />}
+            />   
+            <Route path="/landing-page/basePage" element={<Outlet />}>
+              <Route path="/basePage" element={<Welcome theme={undefined} />} />           
+            </Route>         
             <Route path="/chatbot" element={<Outlet />}>
               <Route path="playground/:sessionId" element={<Playground />} />
               <Route path="sessions" element={<SessionPage />} />              

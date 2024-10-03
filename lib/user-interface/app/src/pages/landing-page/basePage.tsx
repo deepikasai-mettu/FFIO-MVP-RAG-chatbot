@@ -16,7 +16,8 @@ import BaseAppLayout from "../../components/base-app-layout";
 import RouterButton from "../../components/wrappers/router-button";
 import useOnFollow from "../../common/hooks/use-on-follow";
 import {CHATBOT_NAME} from "../../common/constants";
-import CarouselNext from "../../components/carousel";
+// import CarouselNext from "../../components/carousel";
+
 
 export default function Welcome({theme}) {
     const onFollow = useOnFollow();
@@ -40,16 +41,16 @@ export default function Welcome({theme}) {
                         <Header
                             variant="h1"
                             description="Experiment and chat with different models. Compare and contrast their responses for your target uses."
-                            actions={
-                                <RouterButton
-                                    iconAlign="right"
-                                    iconName="contact"
-                                    variant="primary"
-                                    href="/chatbot/playground"
-                                >
-                                    Getting Started
-                                </RouterButton>
-                            }
+                            // <RouterButton
+                            //         props = {}
+                            //     >
+                            //         Getting Started
+                            //     </RouterButton>
+                            // iconAlign="right"
+                            // iconName="contact"
+                            // variant="primary"
+                            // href="/chatbot/playground"
+                            actions= {undefined }
                         >
                             <span className="grantAssistantHome">Grant Assistant Home</span>
                         </Header>
@@ -102,7 +103,7 @@ export default function Welcome({theme}) {
                                 ],
                             }}
                             cardsPerRow={[{cards: 1}, {minWidth: 992, cards: 2}]}
-                            
+                            // <CarouselNext theme={theme}></CarouselNext>
                             items={[
                                 {
                                     name: "Chatbot",
@@ -137,10 +138,9 @@ export default function Welcome({theme}) {
                             Tasks
                         </Header>
 
-                        <div className="task-container">
-                            <CarouselNext theme={theme}></CarouselNext>
-                        </div>
-                        
+                         <div className="task-container">
+                          
+                        </div>                        
                         <Header
                             variant="h2"
                             description="Explore our comprehensive library of learning materials designed to enhance your skills in generative AI, prompt engineering, and other cutting-edge AI technologies. Dive into tutorials, guides, and interactive courses tailored for all levels, from beginners to advanced practitioners."
