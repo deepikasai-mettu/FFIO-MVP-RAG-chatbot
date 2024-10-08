@@ -160,4 +160,138 @@ def parse_llm_response(response_text):
         narrative_match = re.search(pattern_narrative, response_text)
         if narrative_match:
             checklists['narrative_sections'] = re.findall(r'[-–•]\s?(.*)', narrative_match.group(1))
-  
+        else:
+            print("No match found for Narrative Sections")
+
+        eligibility_match = re.search(pattern_eligibility, response_text)
+        if eligibility_match:
+            checklists['eligibility_criteria'] = re.findall(r'[-–•]\s?(.*)', eligibility_match.group(1))
+        else:
+            print("No match found for Eligibility Criteria")
+
+        deadlines_match = re.search(pattern_deadlines, response_text)
+        if deadlines_match:
+            checklists['key_deadlines'] = re.findall(r'[-–•]\s?(.*)', deadlines_match.group(1))
+        else:
+            print("No match found for Key Deadlines")
+
+    except Exception as e:
+        print(f"Error parsing LLM response: {e}")
+        checklists = {'response': response_text}
+
+    # Print the parsed checklists for debugging
+    print("Parsed Checklists:")
+    print(checklists)
+
+    return checklists
+
+
+def extract_grant_name_from_text(NOFO_text):
+    """
+    Attempts to extract the grant name from the NOFO text.
+    """
+    import re
+
+    # Split the text into lines
+    lines = NOFO_text.split('\n')
+
+    # Remove empty lines and strip whitespace
+    lines = [line.strip() for line in lines if line.strip()]
+
+    # Possible patterns to look for
+    patterns = [
+        r'Funding Opportunity Title:\s*(.*)',
+        r'Notice of Funding Opportunity Title:\s*(.*)',
+        r'Program Name:\s*(.*)',
+        r'Funding Opportunity:\s*(.*)',
+        r'Grant Program:\s*(.*)',
+        r'Title of Opportunity:\s*(.*)',
+        r'Funding Opportunity Number and Title:\s*\w+\s*-\s*(.*)'
+    ]
+
+    # Search the first 100 lines for potential matches
+    for i, line in enumerate(lines[:100]):
+        for pattern in patterns:
+            match = re.match(pattern, line, re.IGNORECASE)
+            if match:
+                grant_name = match.group(1).strip()
+                # Remove any trailing punctuation
+                grant_name = grant_name.rstrip('.,;:')
+                return grant_name
+
+    # If no pattern matched, try to use the first non-empty line as the title
+    if lines:
+        grant_name = lines[0]
+        return grant_name
+
+    # If still no grant name found, return a default value
+    return 'Unknown Grant'
+
+
+@app.route('/')
+def home():
+    return redirect(url_for('landing_page'))
+
+
+@app.route('/landing')
+def landing_page():
+    # Retrieves the list of NOFOs from the previous function
+    nofo_list = get_nofo_list_from_s3()
+    # Passes the list of NOFOs off to the landing file
+    return render_template('landing.html', nofos=nofo_list)
+
+
+@app.route('/process_nofo', methods=['POST'])
+def process_nofo():
+    # Retrieve the name of the NOFO the user selected from the dropdown
+    nofo_name = request.form.get('nofo')
+
+    # If the user hits submit without choosing a NOFO
+    if not nofo_name:
+        print("Please select a NOFO.")
+        return redirect(url_for('landing_page'))
+
+    # Download the selected NOFO file from S3
+    s3_client = boto3.client('s3')
+    file_extension = os.path.splitext(nofo_name)[1].lower()
+    file_path = f'/tmp/{nofo_name}'
+    s3_client.download_file(S3_NOFOS_BUCKET, nofo_name, file_path)
+
+    # Convert file to text based on its extension
+    if file_extension == '.pdf':
+        NOFO_text = convert_pdf_to_text(file_path)
+    elif file_extension == '.docx':
+        NOFO_text = convert_docx_to_text(file_path)
+    else:
+        print("Unsupported file type.")
+        return redirect(url_for('landing_page'))
+
+    # **Extract the grant name from the NOFO text**
+    grant_name = extract_grant_name_from_text(NOFO_text)
+    print(f"Extracted Grant Name: {grant_name}")
+
+    # Preprocess the text to extract relevant sentences
+    preprocessed_text = extract_relevant_sentences(NOFO_text)
+
+    # The preprocessed text is passed to the LLM
+    checklists = gather_requirements_from_nofo(preprocessed_text)
+
+    # Pass the grant name to the template
+    return render_template('checklists.html', checklists=checklists, grant_name=grant_name)
+
+    ## connect checklists to chatbot
+@app.route('/chatbot')
+def chatbot():
+    # Serve the chatbot page (this could point to your built React/TypeScript chatbot)
+    return redirect('/landing-page/basePage')  # Adjust this based on the actual path of the chatbot frontend
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+
+
+
+
+
