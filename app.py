@@ -1,7 +1,3 @@
-# import sys
-# print(sys.executable)  # This will print the Python interpreter being used
-# print(sys.path)        # This will print the Python path to verify where it's looking for packages
-
 import boto3
 import os
 import re
@@ -279,7 +275,7 @@ def process_nofo():
     # Pass the grant name to the template
     return render_template('checklists.html', checklists=checklists, grant_name=grant_name)
 
-    ## connect checklists to chatbot
+## connect checklists to chatbot
 @app.route('/chatbot')
 def chatbot():
     # Serve the chatbot page (this could point to your built React/TypeScript chatbot)
