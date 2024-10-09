@@ -3,6 +3,7 @@ import { CardBody } from "react-bootstrap";
 import useOnFollow from "../common/hooks/use-on-follow";
 import {Mode} from "@cloudscape-design/global-styles";
 import { Link } from "@cloudscape-design/components";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export interface ChatBotTaskCard {
   name: string;

@@ -10,11 +10,19 @@ import {
   Link,
 } from '@cloudscape-design/components';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+export default Welcome;
 
 function Welcome({ theme }) {
   const [documents, setDocuments] = useState([]);
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [file, setFile] = useState(null);
+  const navigate = useNavigate();
+
+  // Function to navigate to the Checklists page
+  const goToChecklists = () => {
+      navigate(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`);
+  };
 
   // Fetch NOFO list from the Flask backend
   useEffect(() => {
@@ -50,6 +58,7 @@ function Welcome({ theme }) {
     }
   };
 
+
   return (
     <Container>
       <Header variant="h1" description="Manage your NOFO documents and learning resources.">
@@ -72,6 +81,13 @@ function Welcome({ theme }) {
           <input type="file" onChange={(e) => setFile(e.target.files[0])} />
           <Button onClick={handleUpload} variant="primary">
             Upload Document
+          </Button>
+        </Box>
+
+        {/* Button to navigate to Checklists */}
+        <Box>
+          <Button onClick={goToChecklists} variant="primary">
+            To Checklists
           </Button>
         </Box>
 
@@ -149,7 +165,6 @@ function Welcome({ theme }) {
   );
 }
 
-export default Welcome;
 
 // import {
 //     ContentLayout,

@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import {
   BrowserRouter,
-  HashRouter,
   Outlet,
   Route,
   Routes,
@@ -12,12 +11,13 @@ import GlobalHeader from "./components/global-header";
 import Playground from "./pages/chatbot/playground/playground";
 import DataPage from "./pages/admin/data-view-page";
 import UserFeedbackPage from "./pages/admin/user-feedback-page";
-import SessionPage from "./pages/chatbot/sessions/sessions"
+import SessionPage from "./pages/chatbot/sessions/sessions";
 import Welcome from "./pages/landing-page/basePage";
+import Checklists from "./pages/requirements-gathering/checklist"; // Import the new Checklists page
 import { useState } from "react";
 //import { v4 as uuidv4 } from "uuid";
 import "./styles/app.scss";
-import {Mode} from "@cloudscape-design/global-styles"
+import { Mode } from "@cloudscape-design/global-styles";
 import { StorageHelper } from "./common/helpers/storage-helper";
 
 function App() {
@@ -31,24 +31,24 @@ function App() {
         <GlobalHeader />
         <div style={{ height: "56px", backgroundColor: "#000716" }}>&nbsp;</div>
         <div>
-          <Routes>            
+          <Routes>
             <Route
-                index
-                path="/"
-                //element={<Navigate to={`/chatbot/playground/${uuidv4()}`} replace />}
-                element={<Navigate to={`/landing-page/basePage`} replace />} // root path
-            />   
+              index
+              path="/"
+              element={<Navigate to={`/landing-page/basePage`} replace />} // root path
+            />
             <Route path="/landing-page/basePage" element={<Outlet />}>
-              <Route path="" element={<Welcome theme={theme} />} />      
-            </Route>         
+              <Route path="" element={<Welcome theme={theme} />} />
+              <Route path="checklists/:documentUrl" element={<Checklists />} />
+            </Route>
             <Route path="/chatbot" element={<Outlet />}>
               <Route path="playground/:sessionId" element={<Playground />} />
-              <Route path="sessions" element={<SessionPage />} />              
+              <Route path="sessions" element={<SessionPage />} />
             </Route>
-            <Route path="/admin" element={<Outlet />}>                 
-             <Route path="data" element={<DataPage />} />   
-             <Route path="user-feedback" element={<UserFeedbackPage />} />                           
-            </Route>            
+            <Route path="/admin" element={<Outlet />}>
+              <Route path="data" element={<DataPage />} />
+              <Route path="user-feedback" element={<UserFeedbackPage />} />
+            </Route>
             <Route path="*" element={<Navigate to={`/landing-page/basePage`} replace />} />
           </Routes>
         </div>

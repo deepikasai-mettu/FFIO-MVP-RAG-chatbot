@@ -279,7 +279,7 @@ def process_nofo():
 @app.route('/chatbot')
 def chatbot():
     # Serve the chatbot page (this could point to your built React/TypeScript chatbot)
-    return redirect('/landing-page/basePage')  # Adjust this based on the actual path of the chatbot frontend
+    return redirect('/playground/${uuidv4()}')  # Adjust this based on the actual path of the chatbot frontend
 
 
 if __name__ == '__main__':
