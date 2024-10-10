@@ -23,10 +23,12 @@
   },
   "dependencies": {
     "@aws-amplify/auth": "^6.5.1",
+    "@aws-sdk/client-s3": "^3.668.0",
     "@cloudscape-design/components": "^3.0.779",
     "@cloudscape-design/global-styles": "^1.0.32",
     "aws-amplify": "^6.6.4",
     "aws-cdk-lib": "2.140.0",
+    "aws-sdk": "^2.1691.0",
     "axios": "^1.7.7",
     "cdk-nag": "^2.28.114",
     "constructs": "^10.0.0",

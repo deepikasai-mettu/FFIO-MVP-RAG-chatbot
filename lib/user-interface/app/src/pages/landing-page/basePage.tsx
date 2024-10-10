@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import {
   Header,
   SpaceBetween,
@@ -9,55 +10,71 @@ import {
   Container,
   Link,
 } from '@cloudscape-design/components';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-export default Welcome;
 
+import { useNavigate } from 'react-router-dom';
+
+const s3Client = new S3Client();
+const bucketName = "ffio-nofos-bucket";
+
+async function getNOFOListFromS3() {
+  console.log("calling retrive function")
+  try {
+      const response = await s3Client.send(new ListObjectsV2Command({ Bucket: bucketName }));
+      const nofoList = response.Contents?.filter(item => item.Key?.endsWith('.pdf') || item.Key?.endsWith('.docx')).map(item => ({
+          name: item.Key,
+          url: `https://${bucketName}.s3.amazonaws.com/${item.Key}`
+      }));
+      console.log("found nofos");
+      
+      return nofoList || [];
+  } catch (error) {
+      console.error('Error fetching NOFO list:', error);
+      return [];
+  }
+}
+export default Welcome;
 function Welcome({ theme }) {
+  console.log("entering base page")
   const [documents, setDocuments] = useState([]);
   const [selectedDocument, setSelectedDocument] = useState(null);
-  const [file, setFile] = useState(null);
   const navigate = useNavigate();
+  const [file, setFile] = useState(null);
 
-  // Function to navigate to the Checklists page
-  const goToChecklists = () => {
-      navigate(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`);
-  };
-
-  // Fetch NOFO list from the Flask backend
+  // Fetch NOFO list from S3
   useEffect(() => {
+    console.log('entering fetching 1 in base page')
     const fetchDocuments = async () => {
-      try {
-        const response = await axios.get('/api/get_nofo_list');
-        setDocuments(response.data.map((doc) => ({ label: doc.name, value: doc.url })));
-      } catch (error) {
-        console.error('Error fetching documents', error);
-      }
+      console.log('entering fetching 2 in base page')
+        const nofos = await getNOFOListFromS3();
+        console.log('nofos:', nofos)
+        setDocuments(nofos.map((doc) => ({ label: doc.name, value: doc.url })));
+        console.log('documents: ', documents)
     };
     fetchDocuments();
   }, []);
-
+  const goToChecklists = () => {
+    navigate(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`);
+};
   // Handle file upload
-  const handleUpload = async () => {
-    if (!file) {
-      alert('Please select a file to upload.');
-      return;
-    }
-    const formData = new FormData();
-    formData.append('file', file);
-    try {
-      await axios.post('/api/upload_nofo', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      alert('File uploaded successfully');
-      setFile(null); // Clear the file input after successful upload
-    } catch (error) {
-      console.error('Error uploading file', error);
-    }
-  };
-
+  // const handleUpload = async () => {
+  //   if (!file) {
+  //     alert('Please select a file to upload.');
+  //     return;
+  //   }
+  //   const formData = new FormData();
+  //   formData.append('file', file);
+  //   try {
+  //     await axios.post('/api/upload_nofo', formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     });
+  //     alert('File uploaded successfully');
+  //     setFile(null); // Clear the file input after successful upload
+  //   } catch (error) {
+  //     console.error('Error uploading file', error);
+  //   }
+  // };
 
   return (
     <Container>
@@ -66,37 +83,29 @@ function Welcome({ theme }) {
       </Header>
 
       <SpaceBetween size="l">
-        {/* Dropdown for selecting documents */}
-        <Box>
+        <div>
+          <h1> Select a NOFO Document</h1>
           <Select
             selectedOption={selectedDocument}
             onChange={({ detail }) => setSelectedDocument(detail.selectedOption)}
             options={documents}
             placeholder="Select a document"
           />
-        </Box>
-
-        {/* Upload button */}
+        </div>
+{/*}
         <Box>
           <input type="file" onChange={(e) => setFile(e.target.files[0])} />
           <Button onClick={handleUpload} variant="primary">
             Upload Document
           </Button>
         </Box>
-
-        {/* Button to navigate to Checklists */}
-        <Box>
-          <Button onClick={goToChecklists} variant="primary">
-            To Checklists
-          </Button>
-        </Box>
-
+/*}
         {/* Learning Resources Section */}
         <Header
           variant="h2"
-          description="Explore our comprehensive library of learning materials."
+          description="The Federal Funds & Infrastructure Office is dedicated to empowering Massachusetts local governments in their pursuit of federal funding opportunities for the betterment of their communities."
         >
-          Learn More
+          Resources for local leaders to maximize federal funding for Massachusetts communities.
         </Header>
 
         <Cards
@@ -131,40 +140,39 @@ function Welcome({ theme }) {
           cardsPerRow={[{ cards: 1 }, { minWidth: 700, cards: 3 }]}
           items={[
             {
-                name: "Learn What Generative AI Can Do",
+                name: "Register here for upcoming meetings",
                 type: " ",
                 external: true,
-                href: "https://youtu.be/jNNatjruXx8?si=dRhLLnnBxiNByon4",
+                href: "https://us02web.zoom.us/meeting/register/tZUucuyhrzguHNJkkh-XlmZBlQQKxxG_Acjl",
                 img: "/images/Welcome/GenAICapabilities.png",
                 description:
-                "Discover the capabilities of generative AI and learn how to craft effective prompts to enhance productivity.",
+                "FFIO leads the monthly Massachusetts Federal Funds Partnership meeting. This forum not only delivers critical updates but also offers a platform for addressing questions related to the many funding possibilities at the disposal of cities, towns and tribal organizations.",
                 tags: [""],
             },
             {
-                name: "Advanced Data Analytics",
+                name: "Federal Funds Grant Application Resources",
                 type: " ",
                 external: true,
-                href: "https://aws.amazon.com/blogs/big-data/amazon-opensearch-services-vector-database-capabilities-explained/",
+                href: "https://www.mass.gov/lists/federal-funds-grant-application-resources",
                 img: "/images/Welcome/AdvancedDataAnalytics.png",
                 description:
-                "Transform data into actionable insights, driving strategic decisions for your organization.",
+                "See for grant application resources sorted by policy area",
             },
             {
-                name: "Prompt Engineering Guide",
-                external: true,
-                type: " ",
-                href: "https://www.promptingguide.ai/",
-                img: "images/Welcome/PromptEngineeringGuide.png",
-                description:
-                "Prompt engineering is the skill of crafting clear and specific questions to get the best answers from an AI system.",
-            },
+              name: "Prompt Engineering Guide",
+              type: " ",
+              external: true,
+              href: "https://www.promptingguide.ai/",
+              img: "/images/Welcome/PromptEngineeringGuide.png",
+              description:
+              "Prompt engineering is the skill of crafting clear and specific questions to get the best answers from an AI system.",
+          },
           ]}
         />
       </SpaceBetween>
     </Container>
   );
 }
-
 
 // import {
 //     ContentLayout,
