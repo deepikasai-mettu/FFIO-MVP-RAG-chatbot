@@ -1,35 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import {
   Header,
   SpaceBetween,
   Cards,
   Select,
-  Button,
-  Box,
   Container,
   Link,
 } from '@cloudscape-design/components';
 
 import { useNavigate } from 'react-router-dom';
 
-const s3Client = new S3Client();
-const bucketName = "ffio-nofos-bucket";
-
 async function getNOFOListFromS3() {
   console.log("calling retrive function")
   try {
-      const response = await s3Client.send(new ListObjectsV2Command({ Bucket: bucketName }));
-      const nofoList = response.Contents?.filter(item => item.Key?.endsWith('.pdf') || item.Key?.endsWith('.docx')).map(item => ({
-          name: item.Key,
-          url: `https://${bucketName}.s3.amazonaws.com/${item.Key}`
-      }));
-      console.log("found nofos");
+    const s3Client = new S3Client();
+    const bucketName = "ffio-nofos-bucket";
+    const response = await s3Client.send(new ListObjectsV2Command({ Bucket: bucketName }));
+    const nofoList = response.Contents?.filter(item => item.Key?.endsWith('.pdf') || item.Key?.endsWith('.docx')).map(item => ({
+      name: item.Key,
+      url: `https://${bucketName}.s3.amazonaws.com/${item.Key}`
+    }));
+    console.log("found nofos");
       
-      return nofoList || [];
+    return nofoList || [];
   } catch (error) {
-      console.error('Error fetching NOFO list:', error);
-      return [];
+    console.error('Error fetching NOFO list:', error);
+    return [];
   }
 }
 export default Welcome;
@@ -144,7 +141,7 @@ function Welcome({ theme }) {
                 type: " ",
                 external: true,
                 href: "https://us02web.zoom.us/meeting/register/tZUucuyhrzguHNJkkh-XlmZBlQQKxxG_Acjl",
-                img: "/images/Welcome/GenAICapabilities.png",
+                img: "/images/Welcome/massFlag.png",
                 description:
                 "FFIO leads the monthly Massachusetts Federal Funds Partnership meeting. This forum not only delivers critical updates but also offers a platform for addressing questions related to the many funding possibilities at the disposal of cities, towns and tribal organizations.",
                 tags: [""],
@@ -154,7 +151,7 @@ function Welcome({ theme }) {
                 type: " ",
                 external: true,
                 href: "https://www.mass.gov/lists/federal-funds-grant-application-resources",
-                img: "/images/Welcome/AdvancedDataAnalytics.png",
+                img: "/images/Welcome/resourcesImage.png",
                 description:
                 "See for grant application resources sorted by policy area",
             },
