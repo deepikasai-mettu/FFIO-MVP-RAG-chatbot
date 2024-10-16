@@ -11,47 +11,59 @@ import {
 
 import { useNavigate } from 'react-router-dom';
 
-async function getNOFOListFromS3() {
-  console.log("calling retrive function")
-  try {
-    const s3Client = new S3Client();
-    const bucketName = "ffio-nofos-bucket";
-    const response = await s3Client.send(new ListObjectsV2Command({ Bucket: bucketName }));
-    const nofoList = response.Contents?.filter(item => item.Key?.endsWith('.pdf') || item.Key?.endsWith('.docx')).map(item => ({
-      name: item.Key,
-      url: `https://${bucketName}.s3.amazonaws.com/${item.Key}`
-    }));
-    console.log("found nofos");
+// const s3Client = new S3Client();
+// const bucketName = "ffio-nofos-bucket";
+
+// async function getNOFOListFromS3() {
+//   console.log("calling retrive function")
+//   try {
+//       const response = await s3Client.send(new ListObjectsV2Command({ Bucket: bucketName }));
+//       const nofoList = response.Contents?.filter(item => item.Key?.endsWith('.pdf') || item.Key?.endsWith('.docx')).map(item => ({
+//           name: item.Key,
+//           url: `https://${bucketName}.s3.amazonaws.com/${item.Key}`
+//       }));
+//       console.log("found nofos");
       
-    return nofoList || [];
-  } catch (error) {
-    console.error('Error fetching NOFO list:', error);
-    return [];
-  }
-}
+//       return nofoList || [];
+//   } catch (error) {
+//       console.error('Error fetching NOFO list:', error);
+//       return [];
+//   }
+// }
 export default Welcome;
 function Welcome({ theme }) {
-  console.log("entering base page")
-  const [documents, setDocuments] = useState([]);
+  console.log('entering base page');
+  const [documents, setDocuments] = useState([
+    { label: 'Doc 1', value: 'doc1-url' },
+    { label: 'Doc 2', value: 'doc2-url' },
+  ]);
   const [selectedDocument, setSelectedDocument] = useState(null);
   const navigate = useNavigate();
-  const [file, setFile] = useState(null);
+  // const [file, setFile] = useState(null);
 
-  // Fetch NOFO list from S3
-  useEffect(() => {
-    console.log('entering fetching 1 in base page')
-    const fetchDocuments = async () => {
-      console.log('entering fetching 2 in base page')
-        const nofos = await getNOFOListFromS3();
-        console.log('nofos:', nofos)
-        setDocuments(nofos.map((doc) => ({ label: doc.name, value: doc.url })));
-        console.log('documents: ', documents)
-    };
-    fetchDocuments();
-  }, []);
+  // // Fetch NOFO list from S3
+  // useEffect(() => {
+  //   console.log('entering fetching 1 in base page')
+  //   const fetchDocuments = async () => {
+  //     console.log('entering fetching 2 in base page')
+  //       const nofos = await getNOFOListFromS3();
+  //       console.log('nofos:', nofos)
+  //       setDocuments(nofos.map((doc) => ({ label: doc.name, value: doc.url })));
+  //       console.log('documents: ', documents)
+  //   };
+  //   fetchDocuments();
+  // }, []);
   const goToChecklists = () => {
-    navigate(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`);
-};
+    // navigate(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`);
+    if (selectedDocument) {
+      navigate(
+        `/landing-page/basePage/checklists/${encodeURIComponent(
+          selectedDocument.value
+        )}`
+      );
+    }
+
+  };
   // Handle file upload
   // const handleUpload = async () => {
   //   if (!file) {
@@ -81,13 +93,37 @@ function Welcome({ theme }) {
 
       <SpaceBetween size="l">
         <div>
-          <h1> Select a NOFO Document</h1>
-          <Select
-            selectedOption={selectedDocument}
-            onChange={({ detail }) => setSelectedDocument(detail.selectedOption)}
-            options={documents}
-            placeholder="Select a document"
-          />
+          <h1>Select a NOFO Document</h1>
+          {/* Flex container to align dropdown and button horizontally */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              width: '50%', // Adjust the width as needed
+              minWidth: '300px', // Minimum width for responsiveness
+              marginBottom: '20px',
+            }}
+          >
+            <div style={{ width: '70%' }}>
+              <Select
+                selectedOption={selectedDocument}
+                onChange={({ detail }) =>
+                  setSelectedDocument(detail.selectedOption)
+                }
+                options={documents}
+                placeholder="Select a document"
+              />
+            </div>
+            <div style={{ marginLeft: '10px' }}>
+              <Button
+                onClick={goToChecklists}
+                disabled={!selectedDocument}
+                variant="primary"
+              >
+                Submit
+              </Button>
+            </div>
+          </div>
         </div>
 {/*}
         <Box>

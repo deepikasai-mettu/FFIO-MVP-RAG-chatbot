@@ -39,7 +39,12 @@ function App() {
             />
             <Route path="/landing-page/basePage" element={<Outlet />}>
               <Route path="" element={<Welcome theme={theme} />} />
-              <Route path="checklists/:documentUrl" element={<Checklists />} />
+              {/* <Route path="checklists/:documentUrl" element={<Checklists />} /> */}
+              {/* Route for the checklists page with a dynamic parameter */}
+            <Route
+              path="/landing-page/basePage/checklists/:documentUrl"
+              element={<Checklists />}
+            />
             </Route>
             <Route path="/chatbot" element={<Outlet />}>
               <Route path="playground/:sessionId" element={<Playground />} />
