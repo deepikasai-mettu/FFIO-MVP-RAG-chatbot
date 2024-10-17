@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Box, Button, Header, SpaceBetween } from '@cloudscape-design/components';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from "uuid";
 
 export default function ReqNav() {
   const navigate = useNavigate(); // Hook for page navigation
@@ -12,9 +13,9 @@ export default function ReqNav() {
     setIsDrawerOpen(!isDrawerOpen); // Toggle drawer visibility
   };
 
-  const handleNavigation = (path: string) => {
-    navigate(path); // Handle navigation between pages
-  };
+  // const handleNavigation = (path: string) => {
+  //   navigate(path); // Handle navigation between pages
+  // };
 
   return (
     <Box
@@ -27,11 +28,13 @@ export default function ReqNav() {
       padding="l"
       transition="left 0.3s ease-in-out"
       zIndex={1000}
-    >
 
+    >
       <SpaceBetween size="l">
         <Header variant="h2">Manage application sessions</Header>
-        <Button onClick={() => handleNavigation('/chatbot')}>Start new application for x grant</Button>
+        <Button onClick={() => navigate(
+        `/chatbot/playground/${uuidv4()}`
+      )}>Start new application for x grant</Button>
       </SpaceBetween>
     </Box>
   );
