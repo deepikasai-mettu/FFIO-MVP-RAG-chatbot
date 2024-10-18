@@ -15,6 +15,7 @@ interface LambdaFunctionStackProps {
   readonly feedbackTable : Table;
   readonly feedbackBucket : s3.Bucket;
   readonly knowledgeBucket : s3.Bucket;
+  readonly ffioNofosBucket : s3.Bucket;
   readonly knowledgeBase : bedrock.CfnKnowledgeBase;
   readonly knowledgeBaseSource: bedrock.CfnDataSource;
 }
@@ -27,6 +28,7 @@ export class LambdaFunctionStack extends cdk.Stack {
   public readonly getS3Function : lambda.Function;
   public readonly uploadS3Function : lambda.Function;
   public readonly syncKBFunction : lambda.Function;
+  public readonly getNOFOsList: lambda.Function;
 
   constructor(scope: Construct, id: string, props: LambdaFunctionStackProps) {
     super(scope, id);    
@@ -167,6 +169,28 @@ export class LambdaFunctionStack extends cdk.Stack {
       resources: [props.knowledgeBucket.bucketArn,props.knowledgeBucket.bucketArn+"/*"]
     }));
     this.getS3Function = getS3APIHandlerFunction;
+
+    const getS3APIHandlerFunctionForNOFOs = new lambda.Function(scope, 'GetS3APIHandlerFunctionForNOFOs', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      code: lambda.Code.fromAsset(path.join(__dirname, 'landing-page/retrieve-nofos')),
+      handler: 'index.handler',
+      environment: {
+        "BUCKET" : props.ffioNofosBucket.bucketName,
+      },
+      timeout: cdk.Duration.minutes(3)
+    });
+
+    getS3APIHandlerFunctionForNOFOs.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: [
+        's3:*'
+        //'s3:GetObject',     // Read objects from the bucket
+        //'s3:ListBucket'     // List the contents of the bucket
+      ],
+      resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*"]
+    }));
+    this.getNOFOsList = getS3APIHandlerFunctionForNOFOs
+
 
 
     const kbSyncAPIHandlerFunction = new lambda.Function(scope, 'SyncKBHandlerFunction', {

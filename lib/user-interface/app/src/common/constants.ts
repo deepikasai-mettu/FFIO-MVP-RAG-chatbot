@@ -41,4 +41,4 @@ export const feedbackTypes = [
   {label: "Other", value:"other", disabled: false}
 ]
 
-export const CHATBOT_NAME = "Testing landing page 10/7";
+export const CHATBOT_NAME = "GrantWell";

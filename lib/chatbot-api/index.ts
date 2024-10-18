@@ -55,6 +55,7 @@ export class ChatBotApi extends Construct {
         knowledgeBucket: buckets.knowledgeBucket,
         knowledgeBase: knowledgeBase.knowledgeBase,
         knowledgeBaseSource : knowledgeBase.dataSource,
+        ffioNofosBucket: buckets.ffioNofosBucket,
 
       })
 
@@ -120,6 +121,14 @@ export class ChatBotApi extends Construct {
       path: "/s3-bucket-data",
       methods: [apigwv2.HttpMethod.POST],
       integration: s3GetAPIIntegration,
+      authorizer: httpAuthorizer,
+    })
+
+    const s3GetNofosAPIIntegration = new HttpLambdaIntegration('S3GetNofosAPIIntegration', lambdaFunctions.getNOFOsList);
+    restBackend.restAPI.addRoutes({
+      path: "/s3-nofo-bucket-data",
+      methods: [apigwv2.HttpMethod.GET],
+      integration: s3GetNofosAPIIntegration,
       authorizer: httpAuthorizer,
     })
 

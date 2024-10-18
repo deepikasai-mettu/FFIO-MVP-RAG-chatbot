@@ -2,13 +2,14 @@ import { AppConfig } from "../types";
 import { SessionsClient } from "./sessions-client";
 import { KnowledgeManagementClient } from "./knowledge-management-client";
 import { UserFeedbackClient } from "./user-feedback-client";
-
+import { LandingPageClient } from "./landing-page-clients";
 export class ApiClient {
 
   private _sessionsClient: SessionsClient | undefined;
 
   private _knowledgeManagementClient : KnowledgeManagementClient | undefined;
   private _userFeedbackClient: UserFeedbackClient | undefined;
+  private _landingPageClient: LandingPageClient | undefined;
 
  
 
@@ -19,6 +20,15 @@ export class ApiClient {
     }
 
     return this._knowledgeManagementClient;
+  }
+
+  /** Construct the landing page sub-client */
+  public get landingPage() {
+    if (!this._landingPageClient) {
+      this._landingPageClient = new LandingPageClient(this._appConfig);      
+    }
+
+    return this._landingPageClient;
   }
 
   /** Construct the Sessions sub-client */

@@ -1,60 +1,62 @@
-import React, { useState, useEffect } from 'react';
-import { S3Client, ListObjectsV2Command } from '@aws-sdk/client-s3';
+import { useContext, useState, useEffect } from 'react';
+import { ApiClient } from "../../common/api-client/api-client";
+import { AppContext } from "../../common/app-context";
 import {
   Header,
   SpaceBetween,
   Cards,
   Select,
-  Button,
-  Box,
   Container,
   Link,
+  Button,
 } from '@cloudscape-design/components';
-
 import { useNavigate } from 'react-router-dom';
 
-const s3Client = new S3Client();
-const bucketName = "ffio-nofos-bucket";
-
-async function getNOFOListFromS3() {
-  console.log("calling retrive function")
-  try {
-      const response = await s3Client.send(new ListObjectsV2Command({ Bucket: bucketName }));
-      const nofoList = response.Contents?.filter(item => item.Key?.endsWith('.pdf') || item.Key?.endsWith('.docx')).map(item => ({
-          name: item.Key,
-          url: `https://${bucketName}.s3.amazonaws.com/${item.Key}`
-      }));
-      console.log("found nofos");
-      
-      return nofoList || [];
-  } catch (error) {
-      console.error('Error fetching NOFO list:', error);
-      return [];
-  }
-}
-export default Welcome;
-function Welcome({ theme }) {
+export default function Welcome({ theme }) {
   console.log("entering base page")
-  const [documents, setDocuments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const appContext = useContext(AppContext);
+  const apiClient = new ApiClient(appContext);
   const [selectedDocument, setSelectedDocument] = useState(null);
   const navigate = useNavigate();
-  const [file, setFile] = useState(null);
+  const [documents, setDocuments] = useState([]);
+
+  const getNOFOListFromS3 = async () => {
+      setLoading(true);
+      try {
+        // Call the API to fetch NOFOs
+        const result = await apiClient.landingPage.getNOFOs();
+        console.log("result: ", result);
+        // Set the documents to the state
+        setDocuments(result.Contents.map((doc) => ({ label: doc.Key, value: doc.Key })));
+      } catch (error) {
+        console.log("print error: ", error);
+        console.log("Error with retriveing NOFOs");
+      }
+      setLoading(false);
+    };
 
   // Fetch NOFO list from S3
   useEffect(() => {
-    console.log('entering fetching 1 in base page')
     const fetchDocuments = async () => {
-      console.log('entering fetching 2 in base page')
-        const nofos = await getNOFOListFromS3();
-        console.log('nofos:', nofos)
-        setDocuments(nofos.map((doc) => ({ label: doc.name, value: doc.url })));
-        console.log('documents: ', documents)
+      try {
+        await getNOFOListFromS3();
+      } catch (error) {
+        console.error('Failed to fetch NOFO documents:', error);
+      }
     };
     fetchDocuments();
   }, []);
+
   const goToChecklists = () => {
-    navigate(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`);
-};
+    if (selectedDocument) {
+      navigate(
+        `/landing-page/basePage/checklists/${encodeURIComponent(
+          selectedDocument.value
+        )}`
+      );
+    }
+  };
   // Handle file upload
   // const handleUpload = async () => {
   //   if (!file) {
@@ -78,35 +80,54 @@ function Welcome({ theme }) {
 
   return (
     <Container>
-      <Header variant="h1" description="Manage your NOFO documents and learning resources.">
-        Grant Assistant Home
-      </Header>
+      <h1 style={{ fontSize: '50px', marginBottom: '40px' }}>
+        GrantWell
+      </h1>
+
+      <p style={{ fontSize: '17px', marginBottom: '20px' }}>
+        The Federal Funds & Infrastructure Office is dedicated to empowering Massachusetts local governments in their pursuit of federal funding opportunities for the betterment of their communities.
+      </p>
 
       <SpaceBetween size="l">
         <div>
-          <h1> Select a NOFO Document</h1>
-          <Select
-            selectedOption={selectedDocument}
-            onChange={({ detail }) => setSelectedDocument(detail.selectedOption)}
-            options={documents}
-            placeholder="Select a document"
-          />
+          <h2>
+            Select a NOFO Document
+          </h2>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              width: '50%',
+              minWidth: '300px',
+              marginBottom: '20px',
+            }}
+          >
+            <div style={{ width: '70%' }}>
+              <Select
+                selectedOption={selectedDocument}
+                onChange={({ detail }) =>
+                  setSelectedDocument(detail.selectedOption)
+                }
+                options={documents}
+                placeholder="Select a document"
+              />
+            </div>
+            <div style={{ marginLeft: '10px' }}>
+              <Button
+                onClick={goToChecklists}
+                disabled={!selectedDocument}
+                variant="primary"
+              >
+                Submit
+              </Button>
+            </div>
+          </div>
         </div>
-{/*}
-        <Box>
-          <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-          <Button onClick={handleUpload} variant="primary">
-            Upload Document
-          </Button>
-        </Box>
-/*}
-        {/* Learning Resources Section */}
-        <Header
-          variant="h2"
-          description="The Federal Funds & Infrastructure Office is dedicated to empowering Massachusetts local governments in their pursuit of federal funding opportunities for the betterment of their communities."
-        >
-          Resources for local leaders to maximize federal funding for Massachusetts communities.
-        </Header>
+
+        {/* Additional Resources Section */}
+        <h2>
+          Additional Resources
+        </h2>
 
         <Cards
           cardDefinition={{
@@ -144,7 +165,7 @@ function Welcome({ theme }) {
                 type: " ",
                 external: true,
                 href: "https://us02web.zoom.us/meeting/register/tZUucuyhrzguHNJkkh-XlmZBlQQKxxG_Acjl",
-                img: "/images/Welcome/GenAICapabilities.png",
+                img: "/images/Welcome/massFlag.png",
                 description:
                 "FFIO leads the monthly Massachusetts Federal Funds Partnership meeting. This forum not only delivers critical updates but also offers a platform for addressing questions related to the many funding possibilities at the disposal of cities, towns and tribal organizations.",
                 tags: [""],
@@ -154,7 +175,7 @@ function Welcome({ theme }) {
                 type: " ",
                 external: true,
                 href: "https://www.mass.gov/lists/federal-funds-grant-application-resources",
-                img: "/images/Welcome/AdvancedDataAnalytics.png",
+                img: "/images/Welcome/resourcesImage.png",
                 description:
                 "See for grant application resources sorted by policy area",
             },

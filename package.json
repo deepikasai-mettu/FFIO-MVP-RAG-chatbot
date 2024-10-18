@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@aws-amplify/auth": "^6.5.1",
-    "@aws-sdk/client-s3": "^3.668.0",
+    "@aws-sdk/client-s3": "^3.670.0",
     "@cloudscape-design/components": "^3.0.779",
     "@cloudscape-design/global-styles": "^1.0.32",
     "aws-amplify": "^6.6.4",
