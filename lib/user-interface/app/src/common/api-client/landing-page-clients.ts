@@ -36,7 +36,7 @@ export class LandingPageClient {
 
     try {
       const auth = await Utils.authenticate();
-      const response = await fetch(`${this.API}/upload-s3`, { // Updated path
+      const response = await fetch(`${this.API}/upload-nofos`, { // Updated path
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,8 @@ export class LandingPageClient {
   // Uploads the file to S3 using the presigned URL provided by the backend
   async uploadFileToS3(signedUrl: string, file: File) {
     try {
-      const response = await fetch(signedUrl, {
+      // const response = await fetch(signedUrl, {
+        const response = await fetch('/test-url', {
         method: 'PUT',
         headers: {
           'Content-Type': file.type,

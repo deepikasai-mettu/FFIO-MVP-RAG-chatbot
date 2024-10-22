@@ -1,7 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { ApiClient } from "../../common/api-client/api-client";
 import { AppContext } from "../../common/app-context";
-// import { uploadFileToS3 } from '../../common/api-client/landing-page-clients';
 import {
   SpaceBetween,
   Cards,
@@ -44,7 +43,7 @@ export default function Welcome({ theme }) {
     fetchDocuments();
   }, []);
 
-  //
+  // upload a NOFO to the NOFO s3
   const uploadNOFO = async () => {
     if (!selectedDocument) {
       alert('Please select a file to upload.');
