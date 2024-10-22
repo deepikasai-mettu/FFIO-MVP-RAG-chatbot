@@ -27,6 +27,7 @@ export class LambdaFunctionStack extends cdk.Stack {
   public readonly deleteS3Function : lambda.Function;
   public readonly getS3Function : lambda.Function;
   public readonly uploadS3Function : lambda.Function;
+  public readonly uploadNOFOS3Function : lambda.Function;
   public readonly syncKBFunction : lambda.Function;
   public readonly getNOFOsList: lambda.Function;
 
@@ -231,6 +232,26 @@ export class LambdaFunctionStack extends cdk.Stack {
       resources: [props.knowledgeBucket.bucketArn,props.knowledgeBucket.bucketArn+"/*"]
     }));
     this.uploadS3Function = uploadS3APIHandlerFunction;
+
+
+    const nofoUploadS3APIHandlerFunction = new lambda.Function(scope, 'nofoUploadS3FilesHandlerFunction', {
+      runtime: lambda.Runtime.NODEJS_20_X, // Choose any supported Node.js runtime
+      code: lambda.Code.fromAsset(path.join(__dirname, 'landing-page/upload-nofos')), // Points to the lambda directory
+      handler: 'index.handler', // Points to the 'hello' file in the lambda directory
+      environment: {
+        "BUCKET" : props.ffioNofosBucket.bucketName,        
+      },
+      timeout: cdk.Duration.seconds(60)
+    });
+
+    nofoUploadS3APIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: [
+        's3:*'
+      ],
+      resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*"]
+    }));
+    this.uploadNOFOS3Function = nofoUploadS3APIHandlerFunction;
 
   }
 }
