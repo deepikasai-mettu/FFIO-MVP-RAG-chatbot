@@ -20,7 +20,7 @@ export class KnowledgeManagementClient {
 
     try {
       const auth = await Utils.authenticate();
-      const response = await fetch(this.API + '/signed-url', {
+      const response = await fetch(`${this.API}/upload-s3`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
