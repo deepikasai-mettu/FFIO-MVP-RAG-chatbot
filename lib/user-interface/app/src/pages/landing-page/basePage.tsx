@@ -44,6 +44,34 @@ export default function Welcome({ theme }) {
     fetchDocuments();
   }, []);
 
+  // NOFO upload attempt from base
+  const uploadNOFO = async () => {
+    // if (selectedDocument) {
+    //   alert('Please select a file to upload.');
+    //   return;
+    // }
+  
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+  
+    fileInput.onchange = async (event) => {
+      const file = (event.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+  
+      try {
+        const signedUrl = await apiClient.landingPage.getUploadURL(file.name, file.type);
+        await apiClient.landingPage.uploadFileToS3(signedUrl, file);
+        alert('File uploaded successfully!');
+      } catch (error) {
+        console.error('Upload failed:', error);
+        alert('Failed to upload the file.');
+      }
+    };
+  
+    fileInput.click();
+  };
+
+
   const goToChecklists = () => {
     if (selectedDocument) {
       navigate(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`);
@@ -75,6 +103,9 @@ export default function Welcome({ theme }) {
             <div style={{ marginLeft: '10px' }}>
               <Button onClick={goToChecklists} disabled={!selectedDocument} variant="primary">
                 Submit
+              </Button>
+              <Button onClick={uploadNOFO} variant="primary">
+                Upload
               </Button>
             </div>
           </div>
@@ -133,13 +164,12 @@ export default function Welcome({ theme }) {
             },
             {
               name: "Prompt Suggestions for Effective Chatbot Use",
-              type: " ",
               external: false,
               href: "/images/Prompt Suggestions for Grantwell's Chatbot Users.pdf",
               img: "/images/Welcome/promptSuggestions.png",
               description:
-              "Resource document with prompts to help users effectively interact with an AI chatbot designed to assist in understanding grant NOFOs, drafting narrative sections, refining drafts, addressing tone, anticipating reviewer feedback, and clarifying eligibility criteria.",
-          },
+                "Resource document with prompts to help users effectively interact with an AI chatbot designed to assist in understanding grant NOFOs, drafting narrative sections, refining drafts, addressing tone, anticipating reviewer feedback, and clarifying eligibility criteria.",
+            }
           ]}
         />
       </SpaceBetween>
