@@ -117,28 +117,28 @@ export default function Welcome({ theme }) {
           cardsPerRow={[{ cards: 1 }, { minWidth: 700, cards: 3 }]}
           items={[
             {
-              name: "Register here for upcoming meetings",
+              name: "Register for Upcoming Federal Funds Partnership Meetings",
               external: true,
               href: "https://us02web.zoom.us/meeting/register/tZUucuyhrzguHNJkkh-XlmZBlQQKxxG_Acjl",
               img: "/images/Welcome/massFlag.png",
               description:
-                "FFIO leads the monthly Massachusetts Federal Funds Partnership meeting, providing critical updates and addressing funding questions.",
+                "FFIO leads the monthly Massachusetts Federal Funds Partnership meeting, which provides critical funding updates and addresses questions.",
             },
             {
-              name: "Federal Funds Grant Application Resources",
+              name: "Federal Grant Application Resources",
               external: true,
               href: "https://www.mass.gov/lists/federal-funds-grant-application-resources",
               img: "/images/Welcome/resourcesImage.png",
-              description: "Find grant application resources sorted by policy area.",
+              description: "Grant application resources sorted by policy area.",
             },
             {
-              name: "Prompt Engineering Guide",
+              name: "Prompt Suggestions for Effective Chatbot Use",
               type: " ",
-              external: true,
-              href: "https://www.promptingguide.ai/",
-              img: "/images/Welcome/PromptEngineeringGuide.png",
+              external: false,
+              href: "/images/Prompt Suggestions for Grantwell's Chatbot Users.pdf",
+              img: "/images/Welcome/promptSuggestions.png",
               description:
-              "Prompt engineering is the skill of crafting clear and specific questions to get the best answers from an AI system.",
+              "Resource document with prompts to help users effectively interact with an AI chatbot designed to assist in understanding grant NOFOs, drafting narrative sections, refining drafts, addressing tone, anticipating reviewer feedback, and clarifying eligibility criteria.",
           },
           ]}
         />
