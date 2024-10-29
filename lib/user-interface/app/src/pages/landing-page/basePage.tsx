@@ -11,6 +11,7 @@ import {
   Button,
 } from '@cloudscape-design/components';
 import { useNavigate } from 'react-router-dom';
+import CarouselNext from "../../components/carousel";
 
 export default function Welcome({ theme }) {
   console.log("entering base page");
@@ -26,12 +27,19 @@ export default function Welcome({ theme }) {
     try {
       const result = await apiClient.landingPage.getNOFOs();
       console.log("result: ", result);
-      setDocuments(result.Contents.map((doc) => ({ label: doc.Key, value: doc.Key })));
+  
+      // Map documents with folder paths correctly
+      setDocuments(
+        result.Contents.map((doc) => ({
+          label: doc.Key, // Full path (e.g., 'documents/report/report.pdf')
+          value: doc.Key,
+        }))
+      );
     } catch (error) {
       console.error("Error retrieving NOFOs: ", error);
     }
     setLoading(false);
-  };
+  };  
 
   useEffect(() => {
     const fetchDocuments = async () => {
@@ -46,30 +54,40 @@ export default function Welcome({ theme }) {
 
   // NOFO upload attempt from base
   const uploadNOFO = async () => {
-    // if (selectedDocument) {
-    //   alert('Please select a file to upload.');
-    //   return;
-    // }
-  
-    const fileInput = document.createElement('input');
-    fileInput.type = 'file';
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
   
     fileInput.onchange = async (event) => {
-      const file = (event.target as HTMLInputElement).files?.[0];
+      const target = event.target as HTMLInputElement;
+      const file = target.files?.[0]; // Get the selected file
+  
       if (!file) return;
   
       try {
-        const signedUrl = await apiClient.landingPage.getUploadURL(file.name, file.type);
+        // Extract the document name without extension to use as the folder name
+        const documentName = file.name.split(".").slice(0, -1).join("");
+        
+        // Modify the filename to place it inside a new folder
+        const newFilePath = `${documentName}/${file.name}`;
+  
+        // Get the signed URL for the new path (backend should support this structure)
+        const signedUrl = await apiClient.landingPage.getUploadURL(newFilePath, file.type);
+  
+        // Upload the file to the specified path using the signed URL
         await apiClient.landingPage.uploadFileToS3(signedUrl, file);
-        alert('File uploaded successfully!');
+  
+        alert("File uploaded successfully!");
+  
+        // Refresh the list of documents to reflect the new upload
+        await getNOFOListFromS3();
       } catch (error) {
-        console.error('Upload failed:', error);
-        alert('Failed to upload the file.');
+        console.error("Upload failed:", error);
+        alert("Failed to upload the file.");
       }
     };
   
-    fileInput.click();
-  };
+    fileInput.click(); // Trigger the file selection dialog
+  };  
 
 
   const goToChecklists = () => {
@@ -87,6 +105,11 @@ export default function Welcome({ theme }) {
       <p style={{ fontSize: '17px', marginBottom: '20px' }}>
         The Federal Funds & Infrastructure Office is dedicated to empowering Massachusetts local governments in their pursuit of federal funding opportunities for the betterment of their communities.
       </p>
+
+      {/* Carousel Section */}
+      <div style={{ marginBottom: '40px' }}>
+      <CarouselNext theme={theme} documents={documents} />
+      </div>
 
       <SpaceBetween size="l">
         <div>
