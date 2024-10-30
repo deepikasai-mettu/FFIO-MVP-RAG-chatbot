@@ -19,6 +19,7 @@ import { ApiClient } from "../../common/api-client/api-client";
 import { AppContext } from "../../common/app-context";
 import RouterButton from "../wrappers/router-button";
 import { DateTime } from "luxon";
+import { useNavigate } from "react-router";
 // import { Session } from "../../API";
 
 export interface SessionsProps {
@@ -33,6 +34,7 @@ export default function Sessions(props: SessionsProps) {
   const [preferences, setPreferences] = useState({ pageSize: 20 });
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [deleteAllSessions, setDeleteAllSessions] = useState(false);
+  const navigate = useNavigate();
 
   const { items, collectionProps, paginationProps } = useCollection(sessions, {
     filtering: {
@@ -218,14 +220,15 @@ export default function Sessions(props: SessionsProps) {
             // variant="awsui-h1-sticky"
             actions={
               <SpaceBetween direction="horizontal" size="m">
-                <RouterButton
-                  iconName="add-plus"
-                  href={`/chatbot/playground/${uuidv4()}`}
-                  // variant="inline-link"
-                  // onClick={() => getSessions()}
-                >
-                  New session
-                </RouterButton>
+                  <RouterButton
+                    iconName="add-plus"
+                    onClick={() => {
+                      const nofoId = "sample_nofo_id"; // Replace with actual NOFO_ID from the selected NOFO
+                      navigate(`/chatbot/playground/${uuidv4()}`, { state: { nofo_id: nofoId } });
+                    }}
+                  >
+                    New session
+                  </RouterButton>
                 <Button
                   iconAlt="Refresh list"
                   iconName="refresh"

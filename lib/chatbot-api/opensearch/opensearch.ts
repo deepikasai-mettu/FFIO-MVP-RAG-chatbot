@@ -56,6 +56,11 @@ export class OpenSearchStack extends cdk.Stack {
       assumedBy: new iam.ServicePrincipal('bedrock.amazonaws.com'),      
     })
 
+    // Create an IAM role for API Gateway to access DynamoDB
+    const apiRole = new iam.Role(this, 'ApiGatewayRole', {
+      assumedBy: new iam.ServicePrincipal('apigateway.amazonaws.com'),
+    });
+
     this.knowledgeBaseRole = knowledgeBaseRole;
 
     const accessPolicy = new opensearchserverless.CfnAccessPolicy(scope, "OSSAccessPolicy", {
