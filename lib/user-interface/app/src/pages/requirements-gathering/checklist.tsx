@@ -2,18 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Header, SpaceBetween, Button } from '@cloudscape-design/components';
 import BaseAppLayout from '../../components/base-app-layout';
-import ReqNav from '../../components/req-nav'; // Custom Navigation Component
+import ReqNav from '../../components/req-nav';
 import ReactMarkdown from 'react-markdown';
 
+export interface SectionProps {
+  title: string;
+  content: string;
+  isOpenDefault?: boolean;
+}
+
+const CollapsibleSection: React.FC<SectionProps> = ({ title, content, isOpenDefault = true }) => {
+  const [isOpen, setIsOpen] = useState(isOpenDefault);
+
+  const toggleSection = () => setIsOpen((prev) => !prev);
+
+  return (
+    <Box>
+      <Header variant="h2">
+        {title}
+        <Button
+          variant="icon"
+          iconName={isOpen ? 'angle-down' : 'angle-right'}
+          onClick={toggleSection}
+          ariaLabel={`Toggle ${title} Section`}
+        />
+      </Header>
+      {isOpen && (
+        <Box margin={{ top: 's' }}>
+          <ReactMarkdown>{content}</ReactMarkdown>
+        </Box>
+      )}
+    </Box>
+  );
+};
 
 export default function Checklists() {
-  // State to manage visibility of sections
-  const [isProjectNarrativeOpen, setProjectNarrativeOpen] = useState(true);
-  const [isEligibilityOpen, setEligibilityOpen] = useState(true);
-  const [isDocumentsOpen, setDocumentsOpen] = useState(true);
-  const [isDeadlinesOpen, setDeadlinesOpen] = useState(true);
   const { documentUrl } = useParams<{ documentUrl: string }>();
-
   const [llmData, setLlmData] = useState({
     eligibility: '',
     documents: '',
@@ -24,6 +48,7 @@ export default function Checklists() {
   useEffect(() => {
     setLlmData({
       narrative: `
+      Project narrative requirements will populate here.
 - Project Description
 - Project Budget
 - Merit Criteria
@@ -51,7 +76,6 @@ export default function Checklists() {
 - Letters of Support (Optional)
       `,
       deadlines: `
-
 - **FY 2024 Deadline:** February 28, 2024 at 11:59 pm Eastern
 - **FY 2025 Deadline:** January 13, 2025 at 11:59 pm Eastern
 - **FY 2026 Deadline:** January 13, 2026 at 11:59 pm Eastern
@@ -59,10 +83,7 @@ export default function Checklists() {
     });
   }, [documentUrl]);
 
-  // Toggle section visibility
-  const toggleSection = (setter: React.Dispatch<React.SetStateAction<boolean>>) => {
-    setter((prev) => !prev);
-  };
+  const documentUrlWithoutExtension = decodeURIComponent(documentUrl).split('.').slice(0, -1).join('.');
 
   return (
     <BaseAppLayout
@@ -70,77 +91,25 @@ export default function Checklists() {
       content={
         <Box padding="m">
           <SpaceBetween size="l">
-            <Header variant="h1">Requirements for Selected Grant Name</Header>
-            <div>
-              <h1>Requirements Gathering Page</h1>
-              <p>You have selected the document:</p>
-              <pre>{decodeURIComponent(documentUrl)}</pre>
-              {/* Add your requirements gathering content here */}
-            </div>
+            <Header variant="h1">Application Requirements for {documentUrlWithoutExtension}</Header>
 
-            {/* Project Narrative Section */}
-            <Box>
-              <Header variant="h2">Project Narrative Components</Header>
-              <Button
-                variant="icon"
-                iconName={isProjectNarrativeOpen ? 'angle-down' : 'angle-right'}
-                onClick={() => toggleSection(setProjectNarrativeOpen)}
-                ariaLabel="Toggle Project Narrative Section"
-              />
-              {isProjectNarrativeOpen && (
-                <Box margin={{ top: 's' }}>
-                  <ReactMarkdown>{llmData.narrative}</ReactMarkdown>
-                </Box>
-              )}
-            </Box>
-
-            {/* Eligibility Criteria Section */}
-            <Box>
-              <Header variant="h2">Eligibility Criteria</Header>
-              <Button
-                variant="icon"
-                iconName={isEligibilityOpen ? 'angle-down' : 'angle-right'}
-                onClick={() => toggleSection(setEligibilityOpen)}
-                ariaLabel="Toggle Eligibility Section"
-              />
-              {isEligibilityOpen && (
-                <Box margin={{ top: 's' }}>
-                  <ReactMarkdown>{llmData.eligibility}</ReactMarkdown>
-                </Box>
-              )}
-            </Box>
-
-            {/* Documents Required Section */}
-            <Box>
-              <Header variant="h2">Documents Required</Header>
-              <Button
-                variant="icon"
-                iconName={isDocumentsOpen ? 'angle-down' : 'angle-right'}
-                onClick={() => toggleSection(setDocumentsOpen)}
-                ariaLabel="Toggle Documents Section"
-              />
-              {isDocumentsOpen && (
-                <Box margin={{ top: 's' }}>
-                  <ReactMarkdown>{llmData.documents}</ReactMarkdown>
-                </Box>
-              )}
-            </Box>
-
-            {/* Key Deadlines Section */}
-            <Box>
-              <Header variant="h2">Key Deadlines</Header>
-              <Button
-                variant="icon"
-                iconName={isDeadlinesOpen ? 'angle-down' : 'angle-right'}
-                onClick={() => toggleSection(setDeadlinesOpen)}
-                ariaLabel="Toggle Deadlines Section"
-              />
-              {isDeadlinesOpen && (
-                <Box margin={{ top: 's' }}>
-                  <ReactMarkdown>{llmData.deadlines}</ReactMarkdown>
-                </Box>
-              )}
-            </Box>
+            {/* Collapsible Sections */}
+            <CollapsibleSection
+              title="Project Narrative Components"
+              content={llmData.narrative}
+            />
+            <CollapsibleSection
+              title="Eligibility Criteria"
+              content={llmData.eligibility}
+            />
+            <CollapsibleSection
+              title="Documents Required"
+              content={llmData.documents}
+            />
+            <CollapsibleSection
+              title="Key Deadlines"
+              content={llmData.deadlines}
+            />
           </SpaceBetween>
         </Box>
       }
