@@ -48,6 +48,7 @@ export default function Checklists() {
   useEffect(() => {
     setLlmData({
       narrative: `
+      Project narrative requirements will populate here.
 - Project Description
 - Project Budget
 - Merit Criteria
@@ -82,18 +83,15 @@ export default function Checklists() {
     });
   }, [documentUrl]);
 
+  const documentUrlWithoutExtension = decodeURIComponent(documentUrl).split('.').slice(0, -1).join('.');
+
   return (
     <BaseAppLayout
       navigation={<ReqNav />}
       content={
         <Box padding="m">
           <SpaceBetween size="l">
-            <Header variant="h1">Requirements for Selected Grant Name</Header>
-            <div>
-              <h1>Requirements Gathering Page</h1>
-              <p>You have selected the document:</p>
-              <pre>{decodeURIComponent(documentUrl)}</pre>
-            </div>
+            <Header variant="h1">Application Requirements for {documentUrlWithoutExtension}</Header>
 
             {/* Collapsible Sections */}
             <CollapsibleSection

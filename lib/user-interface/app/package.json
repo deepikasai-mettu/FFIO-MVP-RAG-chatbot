@@ -13,6 +13,10 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.3.2",
+    "@aws-sdk/client-cloudwatch-logs": "^3.680.0",
+    "@aws-sdk/client-lex-runtime-service": "^3.679.0",
+    "@aws-sdk/middleware-retry": "^3.370.0",
+    "@aws-sdk/querystring-parser": "^3.370.0",
     "@cloudscape-design/components": "^3.0.405",
     "@cloudscape-design/design-tokens": "^3.0.28",
     "@cloudscape-design/global-styles": "^1.0.13",
@@ -21,15 +25,17 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "aws-amplify": "^5.3.12",
     "bootstrap": "^5.3.3",
+    "esbuild": "^0.24.0",
     "luxon": "^3.4.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.5",
     "react-dom": "^18.2.0",
     "react-json-view-lite": "^0.9.8",
     "react-markdown": "^9.0.0",
+    "react-multi-carousel": "^2.8.5",
     "react-router-dom": "^6.15.0",
     "react-speech-recognition": "^3.10.0",
-    "react-textarea-autosize": "^8.5.3",
+    "react-textarea-autosize": "^8.5.4",
     "react-use-websocket": "^4.5.0",
     "regenerator-runtime": "^0.14.0",
     "remark-gfm": "^4.0.0",
@@ -53,7 +59,7 @@
     "postcss": "^8.4.27",
     "sass": "^1.65.1",
     "typescript": "^5.0.2",
-    "vite": "^4.5.2",
+    "vite": "^5.4.10",
     "zen-observable": "^0.10.0"
   }
 }
