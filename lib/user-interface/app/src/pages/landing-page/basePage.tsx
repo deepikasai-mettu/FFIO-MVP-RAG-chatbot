@@ -30,9 +30,9 @@ export default function Welcome({ theme }) {
   
       // Map documents with folder paths correctly
       setDocuments(
-        result.Contents.map((doc) => ({
-          label: doc.Key, // Full path (e.g., 'documents/report/report.pdf')
-          value: doc.Key,
+        result.CommonPrefixes.map((doc) => ({
+          label: doc.Prefix.replace(/\/$/, ''),
+          value: doc.Prefix,
         }))
       );
     } catch (error) {

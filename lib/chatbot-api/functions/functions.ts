@@ -208,12 +208,12 @@ export class LambdaFunctionStack extends cdk.Stack {
 
     const RequirementsForNOFOs = new lambda.Function(scope, 'GetRequirementsForNOFOs', {
       runtime: lambda.Runtime.NODEJS_20_X,
-      code: lambda.Code.fromAsset(path.join(__dirname, 'landing-page/processAndSummarizeNOFO')),
+      code: lambda.Code.fromAsset(path.join(__dirname, 'landing-page/retrieveNOFOSummary')),
       handler: 'index.handler',
       environment: {
         "BUCKET" : props.ffioNofosBucket.bucketName,
       },
-      timeout: cdk.Duration.minutes(8)
+      timeout: cdk.Duration.minutes(2)
     });
 
     RequirementsForNOFOs.addToRolePolicy(new iam.PolicyStatement({
