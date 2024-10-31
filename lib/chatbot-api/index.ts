@@ -124,11 +124,21 @@ export class ChatBotApi extends Construct {
       authorizer: httpAuthorizer,
     })
 
+    // get nofo list
     const s3GetNofosAPIIntegration = new HttpLambdaIntegration('S3GetNofosAPIIntegration', lambdaFunctions.getNOFOsList);
     restBackend.restAPI.addRoutes({
       path: "/s3-nofo-bucket-data",
       methods: [apigwv2.HttpMethod.GET],
       integration: s3GetNofosAPIIntegration,
+      authorizer: httpAuthorizer,
+    })
+    
+    // get NOFO summary
+    const s3GetNofoSummaryAPIIntegration = new HttpLambdaIntegration('S3GetNofoSummaryAPIIntegration', lambdaFunctions.getNOFOSummary);
+    restBackend.restAPI.addRoutes({
+      path: "/s3-nofo-summary",
+      methods: [apigwv2.HttpMethod.GET],
+      integration: s3GetNofoSummaryAPIIntegration,
       authorizer: httpAuthorizer,
     })
 

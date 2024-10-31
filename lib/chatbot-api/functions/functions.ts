@@ -30,6 +30,7 @@ export class LambdaFunctionStack extends cdk.Stack {
   public readonly uploadNOFOS3Function : lambda.Function;
   public readonly syncKBFunction : lambda.Function;
   public readonly getNOFOsList: lambda.Function;
+  public readonly getNOFOSummary: lambda.Function;
 
   constructor(scope: Construct, id: string, props: LambdaFunctionStackProps) {
     super(scope, id);    
@@ -66,7 +67,7 @@ export class LambdaFunctionStack extends cdk.Stack {
           handler: 'index.handler', // Points to the 'hello' file in the lambda directory
           environment : {
             "WEBSOCKET_API_ENDPOINT" : props.wsApiEndpoint.replace("wss","https"),            
-            "PROMPT" : "Use the NOFO document and the gathered information from the previous page as context for your responses in this chatbot interface.\n\n" +
+            "PROMPT" : "Use the NOFO document and the gathered information from the summary as context for your responses in this chatbot interface.\n\n" +
                        "Start the conversation with the user by saying: \"I am here to help you craft the narrative document for the _______ {fill with grant name} grant. " +
                        "What community are you applying on behalf of?\"\n\n" +
                        "Once the user responds with the name of an organization/municipality/tribe, prompt the user with, \"Before we officially get started with writing the narrative, " +
@@ -204,6 +205,26 @@ export class LambdaFunctionStack extends cdk.Stack {
       resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*"]
     }));
     this.getNOFOsList = getS3APIHandlerFunctionForNOFOs
+
+    const RequirementsForNOFOs = new lambda.Function(scope, 'GetRequirementsForNOFOs', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      code: lambda.Code.fromAsset(path.join(__dirname, 'landing-page/processAndSummarizeNOFO')),
+      handler: 'index.handler',
+      environment: {
+        "BUCKET" : props.ffioNofosBucket.bucketName,
+      },
+      timeout: cdk.Duration.minutes(8)
+    });
+
+    RequirementsForNOFOs.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: [
+        's3:*',
+        'bedrock:*'
+      ],
+      resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*"]
+    }));
+    this.getNOFOSummary = RequirementsForNOFOs
 
 
 

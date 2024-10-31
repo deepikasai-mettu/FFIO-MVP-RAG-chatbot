@@ -26,6 +26,24 @@ export class LandingPageClient {
     return result;
   }
 
+  // Return NOFO summary from S3 bucket
+  async getNOFOSummary(){
+    const auth = await Utils.authenticate();
+    const response = await fetch(this.API + '/s3-nofo-summary', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization' : auth
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Failed to get files');
+    }
+    const result = await response.json();
+    return result;
+
+  }
+
   // Fetches a signed upload URL from the backend Lambda for uploading a file to S3
   async getUploadURL(fileName: string, fileType: string): Promise<string> {
     if (!fileType) {

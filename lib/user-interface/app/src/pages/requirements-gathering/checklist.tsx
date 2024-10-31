@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { Box, Header, SpaceBetween, Button } from '@cloudscape-design/components';
 import BaseAppLayout from '../../components/base-app-layout';
 import ReqNav from '../../components/req-nav';
 import ReactMarkdown from 'react-markdown';
+import { ApiClient } from "../../common/api-client/api-client";
+import { AppContext } from '../../common/app-context';
 
 export interface SectionProps {
   title: string;
@@ -37,53 +39,76 @@ const CollapsibleSection: React.FC<SectionProps> = ({ title, content, isOpenDefa
 };
 
 export default function Checklists() {
-  const { documentUrl } = useParams<{ documentUrl: string }>();
+  const appContext = useContext(AppContext);
+  const apiClient = new ApiClient(appContext);
   const [llmData, setLlmData] = useState({
+    grantName: '',
     eligibility: '',
     documents: '',
     narrative: '',
     deadlines: '',
   });
+  const getNOFOSummary = async () => {
+    try{
+      const result = await apiClient.landingPage.getNOFOSummary();
+      console.log("result: ", result);
+      setLlmData({
+        grantName: result.GrantName,  // Set the grantName from JSON response
+        narrative: result.ProjectNarrativeSections.map(section => `- **${section.item}**: ${section.description}`).join('\n'),
+        eligibility: result.EligibilityCriteria.map(criterion => `- **${criterion.item}**: ${criterion.description}`).join('\n'),
+        documents: result.RequiredDocuments.map(doc => `- **${doc.item}**: ${doc.description}`).join('\n'),
+        deadlines: result.KeyDeadlines.map(deadline => `- **${deadline.item}**: ${deadline.description}`).join('\n'),
+      });
+    } catch (error) {
+      console.error("Error loading NOFO summary: ", error);
+    }
+  } ;
 
+  const { documentUrl } = useParams<{ documentUrl: string }>();
   useEffect(() => {
-    setLlmData({
-      narrative: `
-      Project narrative requirements will populate here.
-- Project Description
-- Project Budget
-- Merit Criteria
-- Project Readiness
-- Benefit-Cost Analysis Narrative (capital projects only)
-      `,
-      eligibility: `
-- Eligible applicants include State, local, Tribal, and U.S. territories governments, including transit agencies, port authorities, metropolitan planning organizations, and other political subdivisions of State or local governments.
-- Multiple States or jurisdictions may submit a joint application and should identify a lead applicant as the primary point of contact.
-- Each lead applicant may submit no more than three applications.
-- Projects must have a total cost of at least $5 million for urban projects and at least $1 million for rural projects.
-- Urban projects must have at least 20% in non-Federal funding. Rural projects must have at least 10% in non-Federal funding.
-      `,
-      documents: `
-- SF-424
-- Project Information Form (Excel file)
-- Project Description (PDF)
-- Project Location File
-- Project Budget (PDF)
-- Funding Commitment Documentation
-- Merit Criteria Narrative (PDF)
-- Project Readiness (PDF)
-- Benefit-Cost Analysis Narrative (PDF, capital projects only)
-- Benefit-Cost Analysis Calculations (Excel, capital projects only)
-- Letters of Support (Optional)
-      `,
-      deadlines: `
-- **FY 2024 Deadline:** February 28, 2024 at 11:59 pm Eastern
-- **FY 2025 Deadline:** January 13, 2025 at 11:59 pm Eastern
-- **FY 2026 Deadline:** January 13, 2026 at 11:59 pm Eastern
-      `,
-    });
+    getNOFOSummary();
   }, [documentUrl]);
+  
 
-  const documentUrlWithoutExtension = decodeURIComponent(documentUrl).split('.').slice(0, -1).join('.');
+//   useEffect(() => {
+//     setLlmData({
+//       narrative: `
+//       Project narrative requirements will populate here.
+// - Project Description
+// - Project Budget
+// - Merit Criteria
+// - Project Readiness
+// - Benefit-Cost Analysis Narrative (capital projects only)
+//       `,
+//       eligibility: `
+// - Eligible applicants include State, local, Tribal, and U.S. territories governments, including transit agencies, port authorities, metropolitan planning organizations, and other political subdivisions of State or local governments.
+// - Multiple States or jurisdictions may submit a joint application and should identify a lead applicant as the primary point of contact.
+// - Each lead applicant may submit no more than three applications.
+// - Projects must have a total cost of at least $5 million for urban projects and at least $1 million for rural projects.
+// - Urban projects must have at least 20% in non-Federal funding. Rural projects must have at least 10% in non-Federal funding.
+//       `,
+//       documents: `
+// - SF-424
+// - Project Information Form (Excel file)
+// - Project Description (PDF)
+// - Project Location File
+// - Project Budget (PDF)
+// - Funding Commitment Documentation
+// - Merit Criteria Narrative (PDF)
+// - Project Readiness (PDF)
+// - Benefit-Cost Analysis Narrative (PDF, capital projects only)
+// - Benefit-Cost Analysis Calculations (Excel, capital projects only)
+// - Letters of Support (Optional)
+//       `,
+//       deadlines: `
+// - **FY 2024 Deadline:** February 28, 2024 at 11:59 pm Eastern
+// - **FY 2025 Deadline:** January 13, 2025 at 11:59 pm Eastern
+// - **FY 2026 Deadline:** January 13, 2026 at 11:59 pm Eastern
+//       `,
+//     });
+//   }, [documentUrl]);
+
+//   const documentUrlWithoutExtension = decodeURIComponent(documentUrl).split('.').slice(0, -1).join('.');
 
   return (
     <BaseAppLayout
@@ -91,7 +116,7 @@ export default function Checklists() {
       content={
         <Box padding="m">
           <SpaceBetween size="l">
-            <Header variant="h1">Application Requirements for {documentUrlWithoutExtension}</Header>
+            <Header variant="h1">Application Requirements for {llmData.grantName}</Header>
 
             {/* Collapsible Sections */}
             <CollapsibleSection
