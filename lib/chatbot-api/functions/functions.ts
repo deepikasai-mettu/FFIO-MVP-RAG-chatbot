@@ -14,7 +14,7 @@ interface LambdaFunctionStackProps {
   readonly sessionTable : Table;  
   readonly feedbackTable : Table;
   readonly feedbackBucket : s3.Bucket;
-  readonly knowledgeBucket : s3.Bucket;
+  //readonly knowledgeBucket : s3.Bucket;
   readonly ffioNofosBucket : s3.Bucket;
   readonly knowledgeBase : bedrock.CfnKnowledgeBase;
   readonly knowledgeBaseSource: bedrock.CfnDataSource;
@@ -152,7 +152,7 @@ export class LambdaFunctionStack extends cdk.Stack {
       code: lambda.Code.fromAsset(path.join(__dirname, 'knowledge-management/delete-s3')), // Points to the lambda directory
       handler: 'lambda_function.lambda_handler', // Points to the 'hello' file in the lambda directory
       environment: {
-        "BUCKET" : props.knowledgeBucket.bucketName,        
+        "BUCKET" : props.ffioNofosBucket.bucketName,        
       },
       timeout: cdk.Duration.seconds(30)
     });
@@ -162,7 +162,7 @@ export class LambdaFunctionStack extends cdk.Stack {
       actions: [
         's3:*'
       ],
-      resources: [props.knowledgeBucket.bucketArn,props.knowledgeBucket.bucketArn+"/*"]
+      resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*"]
     }));
     this.deleteS3Function = deleteS3APIHandlerFunction;
 
@@ -171,7 +171,7 @@ export class LambdaFunctionStack extends cdk.Stack {
       code: lambda.Code.fromAsset(path.join(__dirname, 'knowledge-management/get-s3')), // Points to the lambda directory
       handler: 'index.handler', // Points to the 'hello' file in the lambda directory
       environment: {
-        "BUCKET" : props.knowledgeBucket.bucketName,        
+        "BUCKET" : props.ffioNofosBucket.bucketName,        
       },
       timeout: cdk.Duration.seconds(30)
     });
@@ -181,7 +181,7 @@ export class LambdaFunctionStack extends cdk.Stack {
       actions: [
         's3:*'
       ],
-      resources: [props.knowledgeBucket.bucketArn,props.knowledgeBucket.bucketArn+"/*"]
+      resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*"]
     }));
     this.getS3Function = getS3APIHandlerFunction;
 
@@ -273,7 +273,7 @@ export class LambdaFunctionStack extends cdk.Stack {
       code: lambda.Code.fromAsset(path.join(__dirname, 'knowledge-management/upload-s3')), // Points to the lambda directory
       handler: 'index.handler', // Points to the 'hello' file in the lambda directory
       environment: {
-        "BUCKET" : props.knowledgeBucket.bucketName,        
+        "BUCKET" : props.ffioNofosBucket.bucketName,        
       },
       timeout: cdk.Duration.seconds(30)
     });
@@ -283,7 +283,7 @@ export class LambdaFunctionStack extends cdk.Stack {
       actions: [
         's3:*'
       ],
-      resources: [props.knowledgeBucket.bucketArn,props.knowledgeBucket.bucketArn+"/*"]
+      resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*"]
     }));
     this.uploadS3Function = uploadS3APIHandlerFunction;
 

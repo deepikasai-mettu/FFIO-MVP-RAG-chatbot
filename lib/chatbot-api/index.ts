@@ -39,7 +39,7 @@ export class ChatBotApi extends Construct {
     
     const openSearch = new OpenSearchStack(this,"OpenSearchStack",{})
     const knowledgeBase = new KnowledgeBaseStack(this,"KnowledgeBaseStack",{ openSearch : openSearch,
-      s3bucket : buckets.knowledgeBucket})
+      s3bucket : buckets.ffioNofosBucket})
 
     const restBackend = new RestBackendAPI(this, "RestBackend", {})
     this.httpAPI = restBackend;
@@ -52,7 +52,7 @@ export class ChatBotApi extends Construct {
         sessionTable: tables.historyTable,        
         feedbackTable: tables.feedbackTable,
         feedbackBucket: buckets.feedbackBucket,
-        knowledgeBucket: buckets.knowledgeBucket,
+        //knowledgeBucket: buckets.knowledgeBucket,
         knowledgeBase: knowledgeBase.knowledgeBase,
         knowledgeBaseSource : knowledgeBase.dataSource,
         ffioNofosBucket: buckets.ffioNofosBucket,
