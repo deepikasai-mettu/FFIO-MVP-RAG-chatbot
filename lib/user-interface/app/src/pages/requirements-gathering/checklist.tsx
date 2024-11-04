@@ -50,14 +50,15 @@ export default function Checklists() {
   });
   const getNOFOSummary = async () => {
     try{
-      const result = await apiClient.landingPage.getNOFOSummary();
+      console.log("document key: ", documentUrl);
+      const result = await apiClient.landingPage.getNOFOSummary(documentUrl);
       console.log("result: ", result);
       setLlmData({
-        grantName: result.GrantName,  // Set the grantName from JSON response
-        narrative: result.ProjectNarrativeSections.map(section => `- **${section.item}**: ${section.description}`).join('\n'),
-        eligibility: result.EligibilityCriteria.map(criterion => `- **${criterion.item}**: ${criterion.description}`).join('\n'),
-        documents: result.RequiredDocuments.map(doc => `- **${doc.item}**: ${doc.description}`).join('\n'),
-        deadlines: result.KeyDeadlines.map(deadline => `- **${deadline.item}**: ${deadline.description}`).join('\n'),
+        grantName: result.data.GrantName,  // Set the grantName from JSON response
+        narrative: result.data.ProjectNarrativeSections.map(section => `- **${section.item}**: ${section.description}`).join('\n'),
+        eligibility: result.data.EligibilityCriteria.map(criterion => `- **${criterion.item}**: ${criterion.description}`).join('\n'),
+        documents: result.data.RequiredDocuments.map(doc => `- **${doc.item}**: ${doc.description}`).join('\n'),
+        deadlines: result.data.KeyDeadlines.map(deadline => `- **${deadline.item}**: ${deadline.description}`).join('\n'),
       });
     } catch (error) {
       console.error("Error loading NOFO summary: ", error);
@@ -68,7 +69,39 @@ export default function Checklists() {
   useEffect(() => {
     getNOFOSummary();
   }, [documentUrl]);
-  
+
+  return (
+    <BaseAppLayout
+      navigation={<ReqNav />}
+      content={
+        <Box padding="m">
+          <SpaceBetween size="l">
+            <Header variant="h1">Application Requirements for {llmData.grantName}</Header>
+
+            {/* Collapsible Sections */}
+            <CollapsibleSection
+              title="Project Narrative Components"
+              content={llmData.narrative}
+            />
+            <CollapsibleSection
+              title="Eligibility Criteria"
+              content={llmData.eligibility}
+            />
+            <CollapsibleSection
+              title="Documents Required"
+              content={llmData.documents}
+            />
+            <CollapsibleSection
+              title="Key Deadlines"
+              content={llmData.deadlines}
+            />
+          </SpaceBetween>
+        </Box>
+      }
+    />
+  );
+}
+
 
 //   useEffect(() => {
 //     setLlmData({
@@ -110,37 +143,6 @@ export default function Checklists() {
 
 //   const documentUrlWithoutExtension = decodeURIComponent(documentUrl).split('.').slice(0, -1).join('.');
 
-  return (
-    <BaseAppLayout
-      navigation={<ReqNav />}
-      content={
-        <Box padding="m">
-          <SpaceBetween size="l">
-            <Header variant="h1">Application Requirements for {llmData.grantName}</Header>
-
-            {/* Collapsible Sections */}
-            <CollapsibleSection
-              title="Project Narrative Components"
-              content={llmData.narrative}
-            />
-            <CollapsibleSection
-              title="Eligibility Criteria"
-              content={llmData.eligibility}
-            />
-            <CollapsibleSection
-              title="Documents Required"
-              content={llmData.documents}
-            />
-            <CollapsibleSection
-              title="Key Deadlines"
-              content={llmData.deadlines}
-            />
-          </SpaceBetween>
-        </Box>
-      }
-    />
-  );
-}
 
 // import React, { useState, useEffect } from 'react';
 // import { useParams } from 'react-router-dom';

@@ -27,9 +27,11 @@ export class LandingPageClient {
   }
 
   // Return NOFO summary from S3 bucket
-  async getNOFOSummary(){
+  async getNOFOSummary(documentKey){
     const auth = await Utils.authenticate();
-    const response = await fetch(this.API + '/s3-nofo-summary', {
+    const url = new URL(this.API + '/s3-nofo-summary');
+    url.searchParams.append('documentKey', documentKey);
+    const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

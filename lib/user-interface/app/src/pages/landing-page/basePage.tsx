@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { ApiClient } from "../../common/api-client/api-client";
 import { AppContext } from "../../common/app-context";
+import HistoryCarousel from './history-carousel';
 import {
   Header,
   SpaceBetween,
@@ -30,9 +31,9 @@ export default function Welcome({ theme }) {
   
       // Map documents with folder paths correctly
       setDocuments(
-        result.CommonPrefixes.map((doc) => ({
-          label: doc.Prefix.replace(/\/$/, ''),
-          value: doc.Prefix,
+        result.CommonPrefixes.map((document) => ({
+          label: document.Prefix.replace(/\/$/, ''),
+          value: document.Prefix,
         }))
       );
     } catch (error) {
@@ -51,6 +52,11 @@ export default function Welcome({ theme }) {
     };
     fetchDocuments();
   }, []);
+  // Function to handle NOFO selection and navigate to requirements page
+  const handleNOFOSelect = (href: string) => {
+    console.log("Navigating to:", href); // Log the navigation path
+    navigate(href);
+  };
 
   // NOFO upload attempt from base
   const uploadNOFO = async () => {
@@ -68,7 +74,8 @@ export default function Welcome({ theme }) {
         const documentName = file.name.split(".").slice(0, -1).join("");
         
         // Modify the filename to place it inside a new folder
-        const newFilePath = `${documentName}/${file.name}`;
+        //const newFilePath = `${documentName}/${file.name}`;
+        const newFilePath = `${documentName}/NOFO-File`;
   
         // Get the signed URL for the new path (backend should support this structure)
         const signedUrl = await apiClient.landingPage.getUploadURL(newFilePath, file.type);
@@ -92,7 +99,8 @@ export default function Welcome({ theme }) {
 
   const goToChecklists = () => {
     if (selectedDocument) {
-      navigate(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`);
+      const summaryFileKey = `${selectedDocument.value}summary-${selectedDocument.label}.json`;
+      navigate(`/landing-page/basePage/checklists/${encodeURIComponent(summaryFileKey)}`);
     }
   };
 
@@ -107,9 +115,10 @@ export default function Welcome({ theme }) {
       </p>
 
       {/* Carousel Section */}
-      <div style={{ marginBottom: '40px' }}>
+      {/* <div style={{ marginBottom: '40px' }}>
       <CarouselNext theme={theme} documents={documents} />
-      </div>
+      </div> */}
+      
 
       <SpaceBetween size="l">
         <div>
@@ -132,6 +141,11 @@ export default function Welcome({ theme }) {
               </Button>
             </div>
           </div>
+        </div>
+        {/* History Carousel Section with New Heading */}
+        <div>
+          <h2>Recently Viewed NOFOs</h2>
+          <HistoryCarousel onNOFOSelect={handleNOFOSelect} />
         </div>
 
         {/* Additional Resources Section */}
@@ -199,6 +213,7 @@ export default function Welcome({ theme }) {
     </Container>
   );
 }
+
 
 // import {
 //     ContentLayout,

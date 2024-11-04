@@ -40,7 +40,7 @@ export default function DocumentsTab(props: DocumentsTabProps) {
    * You will likely need to take the items object from useCollection in the
    * Cloudscape component, but it currently just takes in pages directly.
    */
-  const { items, collectionProps, paginationProps } = useCollection(pages, {
+  const { items, collectionProps, paginationProps } = useCollection(pages.flat(), {
     filtering: {
       empty: (
         <Box margin={{ vertical: "xs" }} textAlign="center" color="inherit">
@@ -109,29 +109,63 @@ export default function DocumentsTab(props: DocumentsTabProps) {
   }, [pages, props.lastSyncTime, props.setShowUnsyncedAlert]);
 
   /** Function to get documents */
+  // const getDocuments = useCallback(
+  //   async (params: { continuationToken?: string; pageIndex?: number }) => {
+  //     setLoading(true);
+  //     try {
+  //       const result = await apiClient.knowledgeManagement.getDocuments(params?.continuationToken, params?.pageIndex)
+  //       console.log("Result: ", result);
+  //       await props.statusRefreshFunction();
+  //       setPages((current) => {
+  //         if (params.pageIndex !== undefined) {
+  //           current[params.pageIndex - 1] = result.CommonPrefixes.map((doc) => ({
+  //             key: doc.Prefix.replace(/\/$/, ''),
+  //             //Key: `${doc.Prefix.replace(/\/$/, '')}-${index}`,
+  //           }));
+  //           return [...current];
+  //         } else {
+  //           console.log("enter else");
+  //           const finalResult = result.CommonPrefixes.map((document) => ({
+  //             key: document.Prefix.replace(/\/$/, '')
+  //           }));
+  //           console.log("print result: ", finalResult);
+  //           return [...current, finalResult];
+  //         }
+  //       });
+  //     } catch (error) {
+  //       console.error(Utils.getErrorMessage(error));
+  //     }
+
+  //     console.log("Pages: ", pages);
+  //     setLoading(false);
+  //   },
+  //   [appContext, props.documentType]
+  // );
   const getDocuments = useCallback(
     async (params: { continuationToken?: string; pageIndex?: number }) => {
       setLoading(true);
       try {
-        const result = await apiClient.knowledgeManagement.getDocuments(params?.continuationToken, params?.pageIndex)
+        const result = await apiClient.knowledgeManagement.getDocuments(params?.continuationToken, params?.pageIndex);
+        console.log("Result: ", result);
         await props.statusRefreshFunction();
-        setPages((current) => {
-          if (typeof params.pageIndex !== "undefined") {
-            current[params.pageIndex - 1] = result;
-            return [...current];
-          } else {
-            return [...current, result];
-          }
-        });
+  
+        const documents = result.CommonPrefixes.map((doc, index) => ({
+          Key: `${doc.Prefix.replace(/\/$/, '')}-${index}`,  // Ensures uniqueness
+          key: doc.Prefix.replace(/\/$/, ''),
+        }));
+  
+        // Replace the `pages` instead of appending to avoid duplicates
+        setPages([documents]);
       } catch (error) {
         console.error(Utils.getErrorMessage(error));
       }
-
-      console.log(pages);
+  
+      console.log("Pages: ", pages);
       setLoading(false);
     },
     [appContext, props.documentType]
   );
+  
 
   /** Whenever the memoized function changes, call it again */
   useEffect(() => {
@@ -168,7 +202,20 @@ export default function DocumentsTab(props: DocumentsTabProps) {
     }
   };
 
-  const columnDefinitions = getColumnDefinition(props.documentType);
+  //const columnDefinitions = getColumnDefinition(props.documentType);
+  const columnDefinitions = [
+    {
+      id: "key",
+      header: "Name",
+      cell: (item) => item.key,
+      isRowHeader: true,
+    },
+    // {
+    //   id: "size",
+    //   header: "Size",
+    //   cell: (item) => Utils.bytesToSize(item.Size!),
+    // },
+  ];
 
   /** Deletes selected files */
   const deleteSelectedFiles = async () => {
@@ -275,8 +322,8 @@ export default function DocumentsTab(props: DocumentsTabProps) {
           setSelectedItems(detail.selectedItems);
         }}
         selectedItems={selectedItems}
-        items={pages[Math.min(pages.length - 1, currentPageIndex - 1)]?.Contents!}
-        trackBy="Key"
+        items={pages.flat()}
+        trackBy="key"
         header={
           <Header
             actions={
