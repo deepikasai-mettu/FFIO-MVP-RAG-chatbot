@@ -9,6 +9,7 @@ import {
   Spinner,
 } from "@cloudscape-design/components";
 import { useCallback, useContext, useEffect, useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import { AdminDataType } from "../../common/types";
 import { ApiClient } from "../../common/api-client/api-client";
 import { AppContext } from "../../common/app-context";
@@ -35,6 +36,12 @@ export default function DocumentsTab(props: DocumentsTabProps) {
   const [selectedItems, setSelectedItems] = useState<any[]>([]);
   const [showModalDelete, setShowModalDelete] = useState(false);
   const { addNotification, removeNotification } = useNotifications();
+  // const documentIdentifier = new URLSearchParams(location.search).get("folder");
+  //const { documentIdentifier } = useParams();
+  const [searchParams] = useSearchParams();
+  const documentIdentifier = searchParams.get("folder");
+  console.log("INSIDE OF DATA TAB")
+  console.log("DATA IDENTIFIER", documentIdentifier);
 
   /** Pagination, but this is currently not working.
    * You will likely need to take the items object from useCollection in the
@@ -142,10 +149,10 @@ export default function DocumentsTab(props: DocumentsTabProps) {
   //   [appContext, props.documentType]
   // );
   const getDocuments = useCallback(
-    async (params: { continuationToken?: string; pageIndex?: number }) => {
+    async (params: { folderPrefix?: string, continuationToken?: string; pageIndex?: number }) => {
       setLoading(true);
       try {
-        const result = await apiClient.knowledgeManagement.getDocuments(params?.continuationToken, params?.pageIndex);
+        const result = await apiClient.knowledgeManagement.getDocuments(documentIdentifier, params?.continuationToken, params?.pageIndex);
         console.log("Result: ", result);
         await props.statusRefreshFunction();
   
@@ -163,14 +170,14 @@ export default function DocumentsTab(props: DocumentsTabProps) {
       console.log("Pages: ", pages);
       setLoading(false);
     },
-    [appContext, props.documentType]
+    [appContext, props.documentType, documentIdentifier]
   );
   
 
   /** Whenever the memoized function changes, call it again */
   useEffect(() => {
     getDocuments({});
-  }, [getDocuments]);
+  }, [getDocuments, documentIdentifier]);
 
   /** Handle clicks on the next page button, as well as retrievals of new pages if needed*/
   const onNextPageClick = async () => {

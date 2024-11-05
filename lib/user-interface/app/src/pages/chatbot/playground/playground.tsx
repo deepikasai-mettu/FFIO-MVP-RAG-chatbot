@@ -1,11 +1,14 @@
 import BaseAppLayout from "../../../components/base-app-layout";
 import Chat from "../../../components/chatbot/chat";
 
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useSearchParams } from "react-router-dom";
 import { Header, HelpPanel } from "@cloudscape-design/components";
 
 export default function Playground() {
   const { sessionId } = useParams();
+  const [searchParams] = useSearchParams();
+  const documentIdentifier = searchParams.get("folder"); // Retrieve documentIdentifier
+  console.log("PLAYGROUND Identifier:", documentIdentifier); // For debugging
 
   return (    
     <BaseAppLayout
@@ -34,6 +37,7 @@ export default function Playground() {
           </p>
         </HelpPanel>
       }
+      documentIdentifier={documentIdentifier} // Pass documentIdentifier to BaseAppLayout
       toolsWidth={300}       
       content={
        <div>

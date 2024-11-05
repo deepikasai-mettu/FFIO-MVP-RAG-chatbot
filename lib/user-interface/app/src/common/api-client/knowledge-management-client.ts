@@ -42,7 +42,7 @@ export class KnowledgeManagementClient {
   }
 
   // Returns a list of documents in the S3 bucket (hard-coded on the backend)
-  async getDocuments(continuationToken?: string, pageIndex?: number) {
+  async getDocuments(folderPrefix: string, continuationToken?: string, pageIndex?: number) {
     const auth = await Utils.authenticate();
     const response = await fetch(this.API + '/s3-bucket-data', {
       method: 'POST',
@@ -51,6 +51,7 @@ export class KnowledgeManagementClient {
         'Authorization' : auth
       },
       body: JSON.stringify({
+        folderPrefix: folderPrefix,
         continuationToken: continuationToken,
         pageIndex: pageIndex,
       }),

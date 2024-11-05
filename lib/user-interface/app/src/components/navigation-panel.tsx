@@ -13,6 +13,7 @@ import { AppContext } from "../common/app-context";
 import PencilSquareIcon from "../../public/images/pencil-square.jsx";
 import RouterButton from "../components/wrappers/router-button";
 import { useContext, useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { ApiClient } from "../common/api-client/api-client";
 import { Auth } from "aws-amplify";
 import { v4 as uuidv4 } from "uuid";
@@ -21,7 +22,7 @@ import { useNotifications } from "../components/notif-manager";
 import { Utils } from "../common/utils.js";
 
 
-export default function NavigationPanel() {
+export default function NavigationPanel({ documentIdentifier }) {
   const appContext = useContext(AppContext);
   const apiClient = new ApiClient(appContext);
   const onFollow = useOnFollow();
@@ -35,6 +36,7 @@ export default function NavigationPanel() {
   const [activeHref, setActiveHref] = useState(
     window.location.pathname
   );
+  console.log("NAV PANEL: ", documentIdentifier)
 
 
 
@@ -111,7 +113,7 @@ export default function NavigationPanel() {
             type: "section",
             text: "Admin",
             items: [
-              { type: "link", text: "Data", href: "/admin/data" },
+              { type: "link", text: "Data", href: `/admin/data?folder=${encodeURIComponent(documentIdentifier)}` },
               { type: "link", text: "User Feedback", href: "/admin/user-feedback" }
             ],
           },)

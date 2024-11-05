@@ -5,9 +5,11 @@ import { v4 as uuidv4 } from "uuid";
 import RouterButton from './wrappers/router-button'
 import PencilSquareIcon from "../../public/images/pencil-square.jsx";;
 
-export default function ReqNav() {
+export default function ReqNav({ documentIdentifier }) {
   const navigate = useNavigate();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  console.log("REQ NAV: ", documentIdentifier)
   
   return (
     <Box margin="m" padding={{ top: "l" }} textAlign="center">
@@ -83,7 +85,8 @@ export default function ReqNav() {
               name: "Write a Proposal for This Grant",
               external: false,
               //href: "https://us02web.zoom.us/meeting/register/tZUucuyhrzguHNJkkh-XlmZBlQQKxxG_Acjl",
-              href: "/chatbot/playground/${uuidv4()}",
+              //href: "/chatbot/playground/${uuidv4()}",
+              href: `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}`,
               img: "/images/Welcome/massFlag.png",
               description:
                 "The GrantWell chatbot allows you to upload data and converse with a chatbot to craft the perfect project narrative for your grant proposal.",

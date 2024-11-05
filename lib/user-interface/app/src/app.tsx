@@ -42,7 +42,9 @@ function App() {
               {/* <Route path="checklists/:documentUrl" element={<Checklists />} /> */}
               {/* Route for the checklists page with a dynamic parameter */}
             <Route
-              path="/landing-page/basePage/checklists/:documentUrl"
+              // path="/landing-page/basePage/checklists/:documentUrl"
+              // element={<Checklists />}
+              path="/landing-page/basePage/checklists/:documentIdentifier"
               element={<Checklists />}
             />
             </Route>

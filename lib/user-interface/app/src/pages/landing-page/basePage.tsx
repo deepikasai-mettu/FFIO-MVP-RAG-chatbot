@@ -20,6 +20,7 @@ export default function Welcome({ theme }) {
   const appContext = useContext(AppContext);
   const apiClient = new ApiClient(appContext);
   const [selectedDocument, setSelectedDocument] = useState(null);
+  console.log("Selected doc: ", selectedDocument)
   const navigate = useNavigate();
   const [documents, setDocuments] = useState([]);
 
@@ -99,8 +100,12 @@ export default function Welcome({ theme }) {
 
   const goToChecklists = () => {
     if (selectedDocument) {
-      const summaryFileKey = `${selectedDocument.value}summary-${selectedDocument.label}.json`;
-      navigate(`/landing-page/basePage/checklists/${encodeURIComponent(summaryFileKey)}`);
+      const documentIdentifier = selectedDocument.value.replace(/\/$/, ''); // Remove trailing slash
+      console.log("DOC IDENTIFIER", documentIdentifier)
+
+      //const summaryFileKey = `${selectedDocument.value}summary-${selectedDocument.label}.json`;
+      navigate(`/landing-page/basePage/checklists/${encodeURIComponent(documentIdentifier)}`, { state: { knowledgeBaseFolder: selectedDocument.value } });
+      //navigate(`/landing-page/basePage/checklists?folder=${encodeURIComponent(documentIdentifier)}`, { state: { knowledgeBaseFolder: documentIdentifier } });
     }
   };
 

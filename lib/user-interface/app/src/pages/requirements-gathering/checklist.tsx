@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { Box, Header, SpaceBetween, Button } from '@cloudscape-design/components';
 import BaseAppLayout from '../../components/base-app-layout';
 import ReqNav from '../../components/req-nav';
@@ -39,6 +39,9 @@ const CollapsibleSection: React.FC<SectionProps> = ({ title, content, isOpenDefa
 };
 
 export default function Checklists() {
+  const location = useLocation();
+  const { documentIdentifier } = useParams();
+  console.log("CHECKLIST IDENTIFIER: ", documentIdentifier)
   const appContext = useContext(AppContext);
   const apiClient = new ApiClient(appContext);
   const [llmData, setLlmData] = useState({
@@ -50,7 +53,7 @@ export default function Checklists() {
   });
   const getNOFOSummary = async () => {
     try{
-      console.log("document key: ", documentUrl);
+      //console.log("document key: ", documentUrl);
       const result = await apiClient.landingPage.getNOFOSummary(documentUrl);
       console.log("result: ", result);
       setLlmData({
@@ -72,7 +75,7 @@ export default function Checklists() {
 
   return (
     <BaseAppLayout
-      navigation={<ReqNav />}
+      navigation={<ReqNav documentIdentifier={documentIdentifier} />}
       content={
         <Box padding="m">
           <SpaceBetween size="l">
