@@ -8,6 +8,7 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import { Table } from 'aws-cdk-lib/aws-dynamodb';
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as bedrock from "aws-cdk-lib/aws-bedrock";
+import { S3EventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
 
 interface LambdaFunctionStackProps {  
   readonly wsApiEndpoint : string;  
@@ -31,6 +32,7 @@ export class LambdaFunctionStack extends cdk.Stack {
   public readonly syncKBFunction : lambda.Function;
   public readonly getNOFOsList: lambda.Function;
   public readonly getNOFOSummary: lambda.Function;
+  public readonly processAndSummarizeNOFO: lambda.Function;
 
   constructor(scope: Construct, id: string, props: LambdaFunctionStackProps) {
     super(scope, id);    
@@ -205,6 +207,29 @@ export class LambdaFunctionStack extends cdk.Stack {
       resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*"]
     }));
     this.getNOFOsList = getS3APIHandlerFunctionForNOFOs
+
+    const processNOFOAPIHandlerFunction = new lambda.Function(scope, 'ProcessNOFOAPIHandlerFunction', {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      code: lambda.Code.fromAsset(path.join(__dirname, 'landing-page/processAndSummarizeNOFO')),
+      handler: 'index.handler',
+      environment: {
+        "BUCKET": props.ffioNofosBucket.bucketName,
+      },
+      timeout: cdk.Duration.minutes(9)
+    });
+    processNOFOAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: [
+        's3:*',
+        'bedrock:*'
+      ],
+      resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*",'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0']
+    }));
+    this.processAndSummarizeNOFO = processNOFOAPIHandlerFunction;
+    processNOFOAPIHandlerFunction.addEventSource(new S3EventSource(props.ffioNofosBucket, {
+      events: [s3.EventType.OBJECT_CREATED],
+    }))
+    
 
     const RequirementsForNOFOs = new lambda.Function(scope, 'GetRequirementsForNOFOs', {
       runtime: lambda.Runtime.NODEJS_20_X,
