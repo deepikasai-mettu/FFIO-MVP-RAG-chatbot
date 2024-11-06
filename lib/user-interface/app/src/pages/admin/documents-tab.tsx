@@ -152,7 +152,7 @@ export default function DocumentsTab(props: DocumentsTabProps) {
     async (params: { folderPrefix?: string, continuationToken?: string; pageIndex?: number }) => {
       setLoading(true);
       try {
-        const result = await apiClient.knowledgeManagement.getDocuments(documentIdentifier, params?.continuationToken, params?.pageIndex);
+        const result = await apiClient.knowledgeManagement.getDocuments(documentIdentifier, params.continuationToken, params.pageIndex);
         console.log("Result: ", result);
         await props.statusRefreshFunction();
   
@@ -185,7 +185,7 @@ export default function DocumentsTab(props: DocumentsTabProps) {
 
     if (continuationToken) {
       if (pages.length <= currentPageIndex) {
-        await getDocuments({ continuationToken });
+        await getDocuments({ folderPrefix: documentIdentifier, continuationToken });
       }
       setCurrentPageIndex((current) => Math.min(pages.length + 1, current + 1));
     }
@@ -202,10 +202,10 @@ export default function DocumentsTab(props: DocumentsTabProps) {
   const refreshPage = async () => {
     // console.log(pages[Math.min(pages.length - 1, currentPageIndex - 1)]?.Contents!)
     if (currentPageIndex <= 1) {
-      await getDocuments({ pageIndex: currentPageIndex });
+      await getDocuments({ folderPrefix: documentIdentifier, pageIndex: currentPageIndex });
     } else {
       const continuationToken = pages[currentPageIndex - 2]?.NextContinuationToken!;
-      await getDocuments({ continuationToken });
+      await getDocuments({ folderPrefix: documentIdentifier, continuationToken });
     }
   };
 
@@ -240,7 +240,7 @@ export default function DocumentsTab(props: DocumentsTabProps) {
       console.error(e);
     }
     // refresh the documents after deletion
-    await getDocuments({ pageIndex: currentPageIndex });
+    await getDocuments({ folderPrefix: documentIdentifier, pageIndex: currentPageIndex });
 
     setSelectedItems([])
     setLoading(false);
