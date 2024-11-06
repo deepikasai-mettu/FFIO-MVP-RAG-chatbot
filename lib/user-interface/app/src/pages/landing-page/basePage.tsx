@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { ApiClient } from "../../common/api-client/api-client";
 import { AppContext } from "../../common/app-context";
-import HistoryCarousel from './history-carousel';
+//import HistoryCarousel from './history-carousel';
 import {
   Header,
   SpaceBetween,
@@ -12,7 +12,7 @@ import {
   Button,
 } from '@cloudscape-design/components';
 import { useNavigate } from 'react-router-dom';
-import CarouselNext from "../../components/carousel";
+//import CarouselNext from "../../components/carousel";
 
 export default function Welcome({ theme }) {
   console.log("entering base page");
@@ -20,9 +20,15 @@ export default function Welcome({ theme }) {
   const appContext = useContext(AppContext);
   const apiClient = new ApiClient(appContext);
   const [selectedDocument, setSelectedDocument] = useState(null);
+  const [recentlyViewedNOFOs, setRecentlyViewedNOFOs] = useState([]);
   console.log("Selected doc: ", selectedDocument)
   const navigate = useNavigate();
   const [documents, setDocuments] = useState([]);
+
+  useEffect(() => {
+    const storedHistory = JSON.parse(localStorage.getItem('recentlyViewedNOFOs')) || [];
+    setRecentlyViewedNOFOs(storedHistory);
+  }, []);
 
   const getNOFOListFromS3 = async () => {
     setLoading(true);
@@ -53,10 +59,15 @@ export default function Welcome({ theme }) {
     };
     fetchDocuments();
   }, []);
+  
   // Function to handle NOFO selection and navigate to requirements page
-  const handleNOFOSelect = (href: string) => {
-    console.log("Navigating to:", href); // Log the navigation path
-    navigate(href);
+  const handleNOFOSelect = (href, selectedNOFO) => {
+    console.log("Navigating to:", href);
+    // Update the history with the selected NOFO and limit history to the last three entries
+    const updatedHistory = [selectedNOFO, ...recentlyViewedNOFOs.filter(nofo => nofo.value !== selectedNOFO.value)].slice(0, 3);
+    setRecentlyViewedNOFOs(updatedHistory);
+    localStorage.setItem('recentlyViewedNOFOs', JSON.stringify(updatedHistory)); // Store history in localStorage
+    navigate(href); // Navigate to the requirements page for the selected NOFO
   };
 
   // NOFO upload attempt from base
@@ -100,14 +111,32 @@ export default function Welcome({ theme }) {
 
   const goToChecklists = () => {
     if (selectedDocument) {
-      const documentIdentifier = selectedDocument.value.replace(/\/$/, ''); // Remove trailing slash
-      console.log("DOC IDENTIFIER", documentIdentifier)
+      //working code for requirements gathering
+      const summaryFileKey = `${selectedDocument.value}summary-${selectedDocument.label}.json`;
+      navigate(`/landing-page/basePage/checklists/${encodeURIComponent(summaryFileKey)}`);
+      // const documentIdentifier = selectedDocument.value.replace(/\/$/, ''); // Remove trailing slash
+      // console.log("DOC IDENTIFIER", documentIdentifier)
 
-      //const summaryFileKey = `${selectedDocument.value}summary-${selectedDocument.label}.json`;
-      navigate(`/landing-page/basePage/checklists/${encodeURIComponent(documentIdentifier)}`, { state: { knowledgeBaseFolder: selectedDocument.value } });
-      //navigate(`/landing-page/basePage/checklists?folder=${encodeURIComponent(documentIdentifier)}`, { state: { knowledgeBaseFolder: documentIdentifier } });
+      // //const summaryFileKey = `${selectedDocument.value}summary-${selectedDocument.label}.json`;
+      // navigate(`/landing-page/basePage/checklists/${encodeURIComponent(documentIdentifier)}`, { state: { knowledgeBaseFolder: selectedDocument.value } });
+      // //navigate(`/landing-page/basePage/checklists?folder=${encodeURIComponent(documentIdentifier)}`, { state: { knowledgeBaseFolder: documentIdentifier } });
     }
   };
+  const HistoryPanel = () => (
+    <div>
+      <h2>Recently Viewed NOFOs</h2>
+      <SpaceBetween size="s">
+        {recentlyViewedNOFOs.map((nofo, index) => (
+           <Link
+           key={index}
+           onFollow={() => handleNOFOSelect(`/landing-page/basePage/checklists/${encodeURIComponent(nofo.value)}`, nofo)}
+         >
+           {nofo.label}
+         </Link>
+        ))}
+      </SpaceBetween>
+    </div>
+  );
 
   return (
     <Container>
@@ -147,11 +176,8 @@ export default function Welcome({ theme }) {
             </div>
           </div>
         </div>
-        {/* History Carousel Section with New Heading */}
-        <div>
-          <h2>Recently Viewed NOFOs</h2>
-          <HistoryCarousel onNOFOSelect={handleNOFOSelect} />
-        </div>
+        {/* History Section with New Heading */}
+        <HistoryPanel />
 
         {/* Additional Resources Section */}
         <h2>

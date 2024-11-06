@@ -221,7 +221,8 @@ export class LambdaFunctionStack extends cdk.Stack {
       effect: iam.Effect.ALLOW,
       actions: [
         's3:*',
-        'bedrock:*'
+        'bedrock:*',
+        'textract:*'
       ],
       resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*",'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0']
     }));
