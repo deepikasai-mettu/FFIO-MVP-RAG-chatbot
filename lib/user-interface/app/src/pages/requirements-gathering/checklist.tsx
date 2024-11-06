@@ -53,8 +53,8 @@ export default function Checklists() {
   });
   const getNOFOSummary = async () => {
     try{
-      //console.log("document key: ", documentUrl);
-      const result = await apiClient.landingPage.getNOFOSummary(documentUrl);
+      console.log("document key: ", documentIdentifier);
+      const result = await apiClient.landingPage.getNOFOSummary(documentIdentifier);
       console.log("result: ", result);
       setLlmData({
         grantName: result.data.GrantName,  // Set the grantName from JSON response
