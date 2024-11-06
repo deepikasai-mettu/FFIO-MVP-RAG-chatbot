@@ -118,7 +118,20 @@ export default function Welcome({ theme }) {
     fileInput.click(); // Trigger the file selection dialog
   };
 
-  // Component for displaying the history panel with recently viewed NOFOs
+
+  const goToChecklists = () => {
+    if (selectedDocument) {
+      //working code for requirements gathering
+      const summaryFileKey = `${selectedDocument.value}`;
+      navigate(`/landing-page/basePage/checklists/${encodeURIComponent(summaryFileKey)}`);
+      // const documentIdentifier = selectedDocument.value.replace(/\/$/, ''); // Remove trailing slash
+      // console.log("DOC IDENTIFIER", documentIdentifier)
+
+      // //const summaryFileKey = `${selectedDocument.value}summary-${selectedDocument.label}.json`;
+      // navigate(`/landing-page/basePage/checklists/${encodeURIComponent(documentIdentifier)}`, { state: { knowledgeBaseFolder: selectedDocument.value } });
+      // //navigate(`/landing-page/basePage/checklists?folder=${encodeURIComponent(documentIdentifier)}`, { state: { knowledgeBaseFolder: documentIdentifier } });
+    }
+  };
   const HistoryPanel = () => (
     <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0' }}>
       <h2>Recently Viewed NOFOs</h2>
