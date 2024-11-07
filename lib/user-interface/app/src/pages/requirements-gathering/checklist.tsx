@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { Box, Header, SpaceBetween, Button } from '@cloudscape-design/components';
+import { Box, Header, SpaceBetween, Button, Spinner } from '@cloudscape-design/components';
 import BaseAppLayout from '../../components/base-app-layout';
 import ReqNav from '../../components/req-nav';
 import ReactMarkdown from 'react-markdown';
@@ -51,6 +51,7 @@ export default function Checklists() {
     narrative: '',
     deadlines: '',
   });
+  const [isloading, setLoading] = useState(true);
   const getNOFOSummary = async () => {
     try{
       console.log("document key: ", documentIdentifier);
@@ -65,6 +66,8 @@ export default function Checklists() {
       });
     } catch (error) {
       console.error("Error loading NOFO summary: ", error);
+    }finally {
+      setLoading(false);
     }
   } ;
 
@@ -79,25 +82,36 @@ export default function Checklists() {
       content={
         <Box padding="m">
           <SpaceBetween size="l">
-            <Header variant="h1">Application Requirements for {llmData.grantName}</Header>
+            {
+              isloading ? (
+                <Box textAlign='center'>
+                  <Spinner size='large' />
+                  <p>Loading...</p>
+                </Box>
+              ) : (
+                <>
+                <Header variant="h1">Application Requirements for {llmData.grantName}</Header>
+                  {/* Collapsible Sections */}
+                  <CollapsibleSection
+                    title="Project Narrative Components"
+                    content={llmData.narrative}
+                  />
+                  <CollapsibleSection
+                    title="Eligibility Criteria"
+                    content={llmData.eligibility}
+                  />
+                  <CollapsibleSection
+                    title="Documents Required"
+                    content={llmData.documents}
+                  />
+                  <CollapsibleSection
+                    title="Key Deadlines"
+                    content={llmData.deadlines}
+                  />
+                </>
+              )
+            }
 
-            {/* Collapsible Sections */}
-            <CollapsibleSection
-              title="Project Narrative Components"
-              content={llmData.narrative}
-            />
-            <CollapsibleSection
-              title="Eligibility Criteria"
-              content={llmData.eligibility}
-            />
-            <CollapsibleSection
-              title="Documents Required"
-              content={llmData.documents}
-            />
-            <CollapsibleSection
-              title="Key Deadlines"
-              content={llmData.deadlines}
-            />
           </SpaceBetween>
         </Box>
       }
