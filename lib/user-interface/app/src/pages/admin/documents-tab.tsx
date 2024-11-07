@@ -156,9 +156,14 @@ export default function DocumentsTab(props: DocumentsTabProps) {
         console.log("Result: ", result);
         await props.statusRefreshFunction();
   
-        const documents = result.CommonPrefixes.map((doc, index) => ({
-          Key: `${doc.Prefix.replace(/\/$/, '')}-${index}`,  // Ensures uniqueness
-          key: doc.Prefix.replace(/\/$/, ''),
+        // Map over result.Contents instead of result.CommonPrefixes
+        const documents = result.Contents.map((doc, index) => ({
+          Key: doc.Key,
+          key: doc.Key,
+          LastModified: doc.LastModified,
+          Size: doc.Size,
+          ETag: doc.ETag,
+          StorageClass: doc.StorageClass,
         }));
   
         // Replace the `pages` instead of appending to avoid duplicates
@@ -172,6 +177,7 @@ export default function DocumentsTab(props: DocumentsTabProps) {
     },
     [appContext, props.documentType, documentIdentifier]
   );
+  
   
 
   /** Whenever the memoized function changes, call it again */
@@ -210,19 +216,25 @@ export default function DocumentsTab(props: DocumentsTabProps) {
   };
 
   //const columnDefinitions = getColumnDefinition(props.documentType);
-  const columnDefinitions = [
+ const columnDefinitions = [
     {
       id: "key",
       header: "Name",
-      cell: (item) => item.key,
+      cell: (item) => item.Key,
       isRowHeader: true,
+    },
+    {
+      id: "lastModified",
+      header: "Last Modified",
+      cell: (item) => new Date(item.LastModified).toLocaleString(),
     },
     // {
     //   id: "size",
     //   header: "Size",
-    //   cell: (item) => Utils.bytesToSize(item.Size!),
+    //   cell: (item) => Utils.bytesToSize(item.Size),
     // },
   ];
+  
 
   /** Deletes selected files */
   const deleteSelectedFiles = async () => {
