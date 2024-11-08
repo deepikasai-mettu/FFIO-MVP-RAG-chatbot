@@ -73,7 +73,7 @@ export default function Welcome({ theme }) {
         lastViewed: now,
         viewCount: (recentlyViewedNOFOs.find(nofo => nofo.value === selectedNOFO.value)?.viewCount || 0) + 1,
       },
-      ...recentlyViewedNOFOs.filter(nofo => nofo.value !== selectedNOFO.value)
+      ...recentlyViewedNOFOs.filter(nofo => nofo.value !== selectedNOFO.value),
     ].slice(0, 3);
 
     setRecentlyViewedNOFOs(updatedHistory);
@@ -125,7 +125,7 @@ export default function Welcome({ theme }) {
     fileInput.click(); // Trigger the file selection dialog
   };
 
-
+  // WHAT WAS MISSING: 
   const goToChecklists = () => {
     if (selectedDocument) {
       //working code for requirements gathering
@@ -137,33 +137,33 @@ export default function Welcome({ theme }) {
     }
   };
 
-    // Component for displaying the history panel with recently viewed NOFOs
-    const HistoryPanel = () => (
-      <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0', marginBottom: '40px' }}>
-        <h2 style={{ fontSize: '24px' }}>Recently Viewed NOFOs</h2>
-        <SpaceBetween size="s">
-          {recentlyViewedNOFOs.length > 0 ? (
-            recentlyViewedNOFOs.map((nofo, index) => (
-              <div key={index} style={{ padding: '10px', borderBottom: '1px solid #e1e4e8' }}>
-                <Link
-                  onFollow={() => handleNOFOSelect(`/landing-page/basePage/checklists/${encodeURIComponent(nofo.value)}`, nofo)}
-                >
-                  <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{nofo.label}</span>
-                </Link>
-                <div style={{ fontSize: '12px', color: '#6c757d' }}>
-                  <span>Last viewed: {nofo.lastViewed}</span><br />
-                  <span>View count: {nofo.viewCount}</span>
-                </div>
+  // Component for displaying the history panel with recently viewed NOFOs
+  const HistoryPanel = () => (
+    <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0', marginBottom: '40px' }}>
+      <h2 style={{ fontSize: '24px' }}>Recently Viewed NOFOs</h2>
+      <SpaceBetween size="s">
+        {recentlyViewedNOFOs.length > 0 ? (
+          recentlyViewedNOFOs.map((nofo, index) => (
+            <div key={index} style={{ padding: '10px', borderBottom: '1px solid #e1e4e8' }}>
+              <Link
+                onFollow={() => handleNOFOSelect(`/landing-page/basePage/checklists/${encodeURIComponent(nofo.value)}`, nofo)}
+              >
+                <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{nofo.label}</span>
+              </Link>
+              <div style={{ fontSize: '12px', color: '#6c757d' }}>
+                <span>Last viewed: {nofo.lastViewed}</span><br />
+                <span>View count: {nofo.viewCount}</span>
               </div>
-            ))
-          ) : (
-            <p style={{ color: '#6c757d', fontSize: '14px' }}>
-              You haven’t viewed any NOFOs recently. Select or upload a document at the top of this page to get started.
-            </p>
-          )}
-        </SpaceBetween>
-      </div>
-    );
+            </div>
+          ))
+        ) : (
+          <p style={{ color: '#6c757d', fontSize: '14px' }}>
+            You haven’t viewed any NOFOs recently. Select or upload a document at the top of this page to get started.
+          </p>
+        )}
+      </SpaceBetween>
+    </div>
+  );
 
   return (
     <Container>
@@ -171,8 +171,8 @@ export default function Welcome({ theme }) {
         GrantWell
       </h1>
 
-      <p style={{ fontSize: '17px', marginBottom: '50px', marginTop: '10px'}}>
-        The Federal Funds & Infrastructure Office is dedicated to empowering Massachusetts local governments in their pursuit of federal funding opportunities for the betterment of their communities.
+      <p style={{ fontSize: '17px', marginBottom: '50px', marginTop: '10px' }}>
+        The Federal Funds & Infrastructure Office (FFIO) is dedicated to empowering Massachusetts local governments in their pursuit of federal funding opportunities for the betterment of their communities.
       </p>
 
       <SpaceBetween size="xl">
@@ -291,7 +291,7 @@ export default function Welcome({ theme }) {
             Thank you for helping us make GrantWell better for everyone!
           </p>
         </div>
-        
+
       </SpaceBetween>
     </Container>
   );
