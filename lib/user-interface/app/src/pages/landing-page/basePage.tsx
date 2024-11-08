@@ -37,10 +37,11 @@ export default function Welcome({ theme }) {
     try {
       const result = await apiClient.landingPage.getNOFOs();
       console.log("result: ", result);
+      const folders = result.folders || [];
       setDocuments(
-        result.CommonPrefixes.map((document) => ({
-          label: document.Prefix.replace(/\/$/, ''),
-          value: document.Prefix,
+        folders.map((document) => ({
+          label: document,
+          value: document + '/',
         }))
       );
     } catch (error) {
@@ -97,7 +98,15 @@ export default function Welcome({ theme }) {
       try {
         // Extract the document name without extension to use as the folder name
         const documentName = file.name.split(".").slice(0, -1).join("");
-        const newFilePath = `${documentName}/NOFO-File`;
+        //const newFilePath = `${documentName}/NOFO-File`;
+        let newFilePath;
+        if (file.type == 'text/plain'){
+          newFilePath = `${documentName}/NOFO-File-TXT`;
+        }else if (file.type == 'application/pdf'){
+          newFilePath = `${documentName}/NOFO-File-PDF`;
+        }else{
+          newFilePath = `${documentName}/NOFO-File`;
+        }
 
         // Get the signed URL for the new path (backend should support this structure)
         const signedUrl = await apiClient.landingPage.getUploadURL(newFilePath, file.type);
@@ -124,10 +133,7 @@ export default function Welcome({ theme }) {
       //working code for requirements gathering
       const summaryFileKey = `${selectedDocument.value}`;
       navigate(`/landing-page/basePage/checklists/${encodeURIComponent(summaryFileKey)}`);
-      // const documentIdentifier = selectedDocument.value.replace(/\/$/, ''); // Remove trailing slash
       // console.log("DOC IDENTIFIER", documentIdentifier)
-
-      // //const summaryFileKey = `${selectedDocument.value}summary-${selectedDocument.label}.json`;
       // navigate(`/landing-page/basePage/checklists/${encodeURIComponent(documentIdentifier)}`, { state: { knowledgeBaseFolder: selectedDocument.value } });
       // //navigate(`/landing-page/basePage/checklists?folder=${encodeURIComponent(documentIdentifier)}`, { state: { knowledgeBaseFolder: documentIdentifier } });
     }
@@ -169,12 +175,17 @@ export default function Welcome({ theme }) {
           <h2>Select a NOFO Document</h2>
           <div style={{ display: 'flex', alignItems: 'center', width: '50%', minWidth: '300px', marginBottom: '20px' }}>
             <div style={{ width: '70%' }}>
-              <Select
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                <Select
                 selectedOption={selectedDocument}
                 onChange={({ detail }) => setSelectedDocument(detail.selectedOption)}
                 options={documents}
-                placeholder="Select a document"
+                placeholder="Select document"
               />
+              )}
+              
             </div>
             <div style={{ marginLeft: '10px' }}>
               <Button onClick={() => handleNOFOSelect(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`, selectedDocument)} disabled={!selectedDocument} variant="primary">
