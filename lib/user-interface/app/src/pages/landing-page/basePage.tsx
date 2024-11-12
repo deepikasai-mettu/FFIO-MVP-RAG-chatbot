@@ -63,24 +63,24 @@ export default function Welcome({ theme }) {
   // Handle NOFO selection, update the history with view count and timestamp, and navigate
   const handleNOFOSelect = (href, selectedNOFO) => {
     console.log("Navigating to:", href);
-
+  
     const now = new Date().toLocaleString(); // Current timestamp
-
-    // Update or add NOFO in recently viewed list with lastViewed and viewCount
+  
     const updatedHistory = [
       {
-        ...selectedDocument,
+        label: selectedNOFO.label, // Ensure label is set
+        value: selectedNOFO.value, // Ensure value is set
         lastViewed: now,
         viewCount: (recentlyViewedNOFOs.find(nofo => nofo.value === selectedNOFO.value)?.viewCount || 0) + 1,
       },
       ...recentlyViewedNOFOs.filter(nofo => nofo.value !== selectedNOFO.value)
     ].slice(0, 3);
-
+  
     setRecentlyViewedNOFOs(updatedHistory);
     localStorage.setItem('recentlyViewedNOFOs', JSON.stringify(updatedHistory)); // Store history in localStorage
-
+  
     navigate(href);
-  };
+  };  
 
   // Function for uploading a new NOFO
   const uploadNOFO = async () => {
