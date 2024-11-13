@@ -23,18 +23,15 @@ export default function Welcome({ theme }) {
   const [recentlyViewedNOFOs, setRecentlyViewedNOFOs] = useState([]);
   const navigate = useNavigate();
 
-  // Load recently viewed NOFOs from localStorage when the component mounts
   useEffect(() => {
     const storedHistory = JSON.parse(localStorage.getItem('recentlyViewedNOFOs')) || [];
     setRecentlyViewedNOFOs(storedHistory);
   }, []);
 
-  // Function to retrieve NOFOs from S3 and store them in the 'documents' state
   const getNOFOListFromS3 = async () => {
     setLoading(true);
     try {
       const result = await apiClient.landingPage.getNOFOs();
-      console.log("result: ", result);
       const folders = result.folders || [];
       setDocuments(
         folders.map((document) => ({
@@ -48,7 +45,6 @@ export default function Welcome({ theme }) {
     setLoading(false);
   };
 
-  // Fetch NOFO documents from S3 on component mount
   useEffect(() => {
     const fetchDocuments = async () => {
       try {
@@ -60,61 +56,48 @@ export default function Welcome({ theme }) {
     fetchDocuments();
   }, []);
 
-  // Handle NOFO selection, update the history with view count and timestamp, and navigate
   const handleNOFOSelect = (href, selectedNOFO) => {
-    console.log("Navigating to:", href);
-  
-    const now = new Date().toLocaleString(); // Current timestamp
-  
+    const now = new Date().toLocaleString();
     const updatedHistory = [
       {
-        label: selectedNOFO.label, // Ensure label is set
-        value: selectedNOFO.value, // Ensure value is set
+        label: selectedNOFO.label,
+        value: selectedNOFO.value,
         lastViewed: now,
         viewCount: (recentlyViewedNOFOs.find(nofo => nofo.value === selectedNOFO.value)?.viewCount || 0) + 1,
       },
       ...recentlyViewedNOFOs.filter(nofo => nofo.value !== selectedNOFO.value)
     ].slice(0, 3);
-  
-    setRecentlyViewedNOFOs(updatedHistory);
-    localStorage.setItem('recentlyViewedNOFOs', JSON.stringify(updatedHistory)); // Store history in localStorage
-  
-    navigate(href);
-  };  
 
-  // Function for uploading a new NOFO
+    setRecentlyViewedNOFOs(updatedHistory);
+    localStorage.setItem('recentlyViewedNOFOs', JSON.stringify(updatedHistory));
+    navigate(href);
+  };
+
   const uploadNOFO = async () => {
     const fileInput = document.createElement("input");
     fileInput.type = "file";
 
     fileInput.onchange = async (event) => {
       const target = event.target as HTMLInputElement;
-      const file = target.files?.[0]; // Get the selected file
+      const file = target.files?.[0];
 
       if (!file) return;
 
       try {
-        // Extract the document name without extension to use as the folder name
         const documentName = file.name.split(".").slice(0, -1).join("");
-        //const newFilePath = `${documentName}/NOFO-File`;
         let newFilePath;
-        if (file.type == 'text/plain'){
+        if (file.type === 'text/plain'){
           newFilePath = `${documentName}/NOFO-File-TXT`;
-        }else if (file.type == 'application/pdf'){
+        } else if (file.type === 'application/pdf'){
           newFilePath = `${documentName}/NOFO-File-PDF`;
-        }else{
+        } else {
           newFilePath = `${documentName}/NOFO-File`;
         }
 
-        // Get the signed URL for the new path (backend should support this structure)
         const signedUrl = await apiClient.landingPage.getUploadURL(newFilePath, file.type);
-
-        // Upload the file to the specified path using the signed URL
         await apiClient.landingPage.uploadFileToS3(signedUrl, file);
 
         alert("File uploaded successfully!");
-
-        // Refresh the list of documents to reflect the new upload
         await getNOFOListFromS3();
       } catch (error) {
         console.error("Upload failed:", error);
@@ -122,103 +105,114 @@ export default function Welcome({ theme }) {
       }
     };
 
-    fileInput.click(); // Trigger the file selection dialog
+    fileInput.click();
   };
-
 
   const goToChecklists = () => {
     if (selectedDocument) {
-      //working code for requirements gathering
       const summaryFileKey = `${selectedDocument.value}`;
       navigate(`/landing-page/basePage/checklists/${encodeURIComponent(summaryFileKey)}`);
-      // console.log("DOC IDENTIFIER", documentIdentifier)
-      // navigate(`/landing-page/basePage/checklists/${encodeURIComponent(documentIdentifier)}`, { state: { knowledgeBaseFolder: selectedDocument.value } });
-      // //navigate(`/landing-page/basePage/checklists?folder=${encodeURIComponent(documentIdentifier)}`, { state: { knowledgeBaseFolder: documentIdentifier } });
     }
   };
 
-    // Component for displaying the history panel with recently viewed NOFOs
-    const HistoryPanel = () => (
-      <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0', marginBottom: '40px' }}>
-        <h2 style={{ fontSize: '24px' }}>Recently Viewed NOFOs</h2>
-        <SpaceBetween size="s">
-          {recentlyViewedNOFOs.length > 0 ? (
-            recentlyViewedNOFOs.map((nofo, index) => (
-              <div key={index} style={{ padding: '10px', borderBottom: '1px solid #e1e4e8' }}>
-                <Link
-                  onFollow={() => handleNOFOSelect(`/landing-page/basePage/checklists/${encodeURIComponent(nofo.value)}`, nofo)}
-                >
-                  <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{nofo.label}</span>
-                </Link>
-                <div style={{ fontSize: '12px', color: '#6c757d' }}>
-                  <span>Last viewed: {nofo.lastViewed}</span><br />
-                  <span>View count: {nofo.viewCount}</span>
-                </div>
+  const HistoryPanel = () => (
+    <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0' }}>
+      <h2 style={{ fontSize: '24px' }}>Recently Viewed NOFOs</h2>
+      <SpaceBetween size="s">
+        {recentlyViewedNOFOs.length > 0 ? (
+          recentlyViewedNOFOs.map((nofo, index) => (
+            <div key={index} style={{ padding: '10px', borderBottom: '1px solid #e1e4e8' }}>
+              <Link
+                onFollow={() => handleNOFOSelect(`/landing-page/basePage/checklists/${encodeURIComponent(nofo.value)}`, nofo)}
+              >
+                <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{nofo.label}</span>
+              </Link>
+              <div style={{ fontSize: '12px', color: '#6c757d' }}>
+                <span>Last viewed: {nofo.lastViewed}</span><br />
+                <span>View count: {nofo.viewCount}</span>
               </div>
-            ))
-          ) : (
-            <p style={{ color: '#6c757d', fontSize: '14px' }}>
-              You haven’t viewed any NOFOs recently. Select or upload a document at the top of this page to get started.
-            </p>
-          )}
-        </SpaceBetween>
-      </div>
-    );
+            </div>
+          ))
+        ) : (
+          <p style={{ color: '#6c757d', fontSize: '14px' }}>
+            You haven’t viewed any NOFOs recently. Select or upload a document at the top of this page to get started.
+          </p>
+        )}
+      </SpaceBetween>
+    </div>
+  );
 
   return (
     <Container>
-      <h1 style={{ fontSize: '60px', marginBottom: '50px' }}>
+      {/* <h1 style={{ fontSize: '60px', marginBottom: '50px' }}>
         GrantWell
-      </h1>
+      </h1> */}
 
-      <p style={{ fontSize: '17px', marginBottom: '50px', marginTop: '10px'}}>
+      {/* Header with logo and title */}
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+        <img src="/images/stateseal-color.png" alt="State Seal" style={{ width: '55px', height: '55px', marginRight: '15px' }} />
+        <h1 style={{ fontSize: '55px' }}>GrantWell</h1>
+      </div>
+
+      <p style={{
+        fontSize: '17px',
+        marginBottom: '20px',
+        marginTop: '10px',
+        columnCount: 1, // adjust number of columns
+        columnGap: '10px' // Adjust space between columns
+      }}>
         The Federal Funds & Infrastructure Office is dedicated to empowering Massachusetts local governments in their pursuit of federal funding opportunities for the betterment of their communities.
       </p>
 
+      <p style={{
+        fontSize: '17px',
+        marginBottom: '20px',
+        marginTop: '10px',
+        columnCount: 1, // adjust number of columns
+        columnGap: '10px' // Adjust space between columns
+      }}>
+        GrantWell leverages generative AI to quickly summarize funding requirements from NOFOs and draft tailored project narratives, helping you create competitive, impactful proposals with ease.
+      </p>
+
       <SpaceBetween size="xl">
-        {/* NOFO Selection Section with Grey Background */}
-        <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0', marginBottom: '40px' }}>
-          <h2 style={{ fontSize: '24px', marginBottom: '20px' }}>
-            Select a NOFO (Notice of Funding Opportunity) Document
-          </h2>
+        <div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+          <div style={{ flex: 1, padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0' }}>
+            <h2 style={{ fontSize: '24px', marginBottom: '10px' }}>Select a NOFO (Notice of Funding Opportunity) Document</h2>
 
-          {/* Step-by-step instructions for first-time users */}
-          <ol style={{ fontSize: '16px', color: '#555', marginBottom: '20px' }}>
-            <li>Select a NOFO from the dropdown</li>
-            <li>Click 'View Key Requirements' to review primary information from the NOFO</li>
-            <li>Click "Upload New NOFO" to add a document to the dropdown that you can then select and review</li>
-          </ol>
+            <ol style={{ fontSize: '16px', color: '#555', marginBottom: '20px' }}>
+              <li>Select a NOFO from the dropdown</li>
+              <li>Click 'View Key Requirements' to review primary information from the NOFO</li>
+              <li>Click "Upload New NOFO" to add a document to the dropdown that you can then select and review</li>
+            </ol>
 
-          {/* Integrated search within the dropdown */}
-          <div style={{ display: 'flex', alignItems: 'center', width: '50%', minWidth: '300px', marginBottom: '20px' }}>
-            <div style={{ width: '70%' }}>
-              <Select
-                selectedOption={selectedDocument}
-                onChange={({ detail }) => setSelectedDocument(detail.selectedOption)}
-                options={documents} // Full list of documents
-                placeholder="Select a document"
-                filteringType="auto" // Enables integrated search within dropdown
-                aria-label="Select a NOFO document" // ARIA label for screen readers
-              />
-            </div>
-            <div style={{ marginLeft: '10px' }}>
-              <Button onClick={() => handleNOFOSelect(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`, selectedDocument)} disabled={!selectedDocument} variant="primary" aria-label="View Key Requirements">
-                View Key Requirements
-              </Button>
-              <Button onClick={uploadNOFO} variant="primary" aria-label="Upload New NOFO">
-                Upload New NOFO
-              </Button>
+            <div style={{ display: 'flex', alignItems: 'center', width: '100%', minWidth: '300px', marginBottom: '20px' }}>
+              <div style={{ width: '70%' }}>
+                <Select
+                  selectedOption={selectedDocument}
+                  onChange={({ detail }) => setSelectedDocument(detail.selectedOption)}
+                  options={documents}
+                  placeholder="Select a document"
+                  filteringType="auto"
+                  aria-label="Select a NOFO document"
+                />
+              </div>
+              <div style={{ marginLeft: '10px' }}>
+
+                <Button onClick={() => handleNOFOSelect(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`, selectedDocument)} disabled={!selectedDocument} variant="primary" aria-label="View Key Requirements">
+                  View Key Requirements
+                </Button>
+                <Button onClick={uploadNOFO} variant="primary" aria-label="Upload New NOFO">
+                  Upload New NOFO
+                </Button>
+              </div>
             </div>
           </div>
+
+          <HistoryPanel />
         </div>
 
-        {/* History Panel Section */}
-        <HistoryPanel />
-
-        {/* Additional Resources Section with Grey Background */}
         <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0', marginBottom: '40px' }}>
           <h2 style={{ fontSize: '24px' }}>Additional Resources</h2>
-
           <Cards
             cardDefinition={{
               header: (item) => (
@@ -232,7 +226,7 @@ export default function Welcome({ theme }) {
                     <div style={{ minHeight: '200px' }}>
                       <img
                         src={item.img}
-                        alt={item.altText} // Use alt text from item object
+                        alt={item.altText}
                         style={{
                           width: '100%',
                           height: '180px',
@@ -278,7 +272,6 @@ export default function Welcome({ theme }) {
           />
         </div>
 
-        {/* Feedback Section */}
         <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0', marginBottom: '40px' }}>
           <h2 style={{ fontSize: '24px' }}>We Value Your Feedback!</h2>
           <p style={{ fontSize: '16px', color: '#555' }}>
