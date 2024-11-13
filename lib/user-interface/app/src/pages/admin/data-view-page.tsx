@@ -36,51 +36,51 @@ export default function DataPage() {
     }
   }
 
-  /** Checks for admin status */
-  useEffect(() => {
-    (async () => {
-      try {
-        const result = await Auth.currentAuthenticatedUser();
-        if (!result || Object.keys(result).length === 0) {
-          console.log("Signed out!")
-          Auth.signOut();
-          return;
-        }
-        const admin = result?.signInUserSession?.idToken?.payload["custom:role"]
-        if (admin) {
-          const data = JSON.parse(admin);
-          if (data.includes("Admin")) {
-            setAdmin(true);
-          }
-        }
-      }
-      /** If there is some issue checking for admin status, just do nothing and the
-       * error page will show up
-        */
-      catch (e) {
-        console.log(e);
-      }
-    })();
-  }, []);
+  // /** Checks for admin status */
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const result = await Auth.currentAuthenticatedUser();
+  //       if (!result || Object.keys(result).length === 0) {
+  //         console.log("Signed out!")
+  //         Auth.signOut();
+  //         return;
+  //       }
+  //       const admin = result?.signInUserSession?.idToken?.payload["custom:role"]
+  //       if (admin) {
+  //         const data = JSON.parse(admin);
+  //         if (data.includes("Admin")) {
+  //           setAdmin(true);
+  //         }
+  //       }
+  //     }
+  //     /** If there is some issue checking for admin status, just do nothing and the
+  //      * error page will show up
+  //       */
+  //     catch (e) {
+  //       console.log(e);
+  //     }
+  //   })();
+  // }, []);
 
-  /** If the admin status check fails, just show an access denied page*/
-  if (!admin) {
-    return (
-      <div
-        style={{
-          height: "90vh",
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Alert header="Configuration error" type="error">
-          You are not authorized to view this page!
-        </Alert>
-      </div>
-    );
-  }
+  // /** If the admin status check fails, just show an access denied page*/
+  // if (!admin) {
+  //   return (
+  //     <div
+  //       style={{
+  //         height: "90vh",
+  //         width: "100%",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //       }}
+  //     >
+  //       <Alert header="Configuration error" type="error">
+  //         You are not authorized to view this page!
+  //       </Alert>
+  //     </div>
+  //   );
+  // }
 
   return (
     <BaseAppLayout
@@ -91,7 +91,7 @@ export default function DataPage() {
           items={[
             {
               text: CHATBOT_NAME,
-              href: "/",
+              href: "/chatbot/playground/${uuidv4()}",
             },
             {
               text: "View Data",

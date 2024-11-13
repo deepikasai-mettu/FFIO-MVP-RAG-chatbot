@@ -11,17 +11,39 @@ import {
   Button,
 } from '@cloudscape-design/components';
 import { useNavigate } from 'react-router-dom';
+import { Auth } from 'aws-amplify';
 
 export default function Welcome({ theme }) {
   console.log("entering base page");
 
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false); // Track admin status
   const appContext = useContext(AppContext);
   const apiClient = new ApiClient(appContext);
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [recentlyViewedNOFOs, setRecentlyViewedNOFOs] = useState([]);
   const navigate = useNavigate();
+
+   // Check for admin status
+   useEffect(() => {
+    (async () => {
+      try {
+        const result = await Auth.currentAuthenticatedUser();
+        if (!result || Object.keys(result).length === 0) {
+          console.log("Signed out!");
+          Auth.signOut();
+          return;
+        }
+        const adminRole = result?.signInUserSession?.idToken?.payload["custom:role"];
+        if (adminRole && adminRole.includes("Admin")) {
+          setIsAdmin(true); // Set admin status to true if user has admin role
+        }
+      } catch (e) {
+        console.error("Error checking admin status:", e);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     const storedHistory = JSON.parse(localStorage.getItem('recentlyViewedNOFOs')) || [];
@@ -115,9 +137,55 @@ export default function Welcome({ theme }) {
     }
   };
 
+    // /** Checks for admin status */
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const result = await Auth.currentAuthenticatedUser();
+  //       if (!result || Object.keys(result).length === 0) {
+  //         console.log("Signed out!")
+  //         Auth.signOut();
+  //         return;
+  //       }
+  //       const admin = result?.signInUserSession?.idToken?.payload["custom:role"]
+  //       if (admin) {
+  //         const data = JSON.parse(admin);
+  //         if (data.includes("Admin")) {
+  //           setAdmin(true);
+  //         }
+  //       }
+  //     }
+  //     /** If there is some issue checking for admin status, just do nothing and the
+  //      * error page will show up
+  //       */
+  //     catch (e) {
+  //       console.log(e);
+  //     }
+  //   })();
+  // }, []);
+
+  // /** If the admin status check fails, just show an access denied page*/
+  // if (!admin) {
+  //   return (
+  //     <div
+  //       style={{
+  //         height: "90vh",
+  //         width: "100%",
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //       }}
+  //     >
+  //       <Alert header="Configuration error" type="error">
+  //         You are not authorized to view this page!
+  //       </Alert>
+  //     </div>
+  //   );
+  // }
+
   const HistoryPanel = () => (
     <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0' }}>
-      <h2 style={{ fontSize: '24px' }}>Recently Viewed NOFOs</h2>
+      <h2 style={{ fontSize: '30px', lineHeight: '1'  }}>Recently Viewed NOFOs</h2>
       <SpaceBetween size="s">
         {recentlyViewedNOFOs.length > 0 ? (
           recentlyViewedNOFOs.map((nofo, index) => (
@@ -149,9 +217,11 @@ export default function Welcome({ theme }) {
       </h1> */}
 
       {/* Header with logo and title */}
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: '10px' }}>
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
         <img src="/images/stateseal-color.png" alt="State Seal" style={{ width: '55px', height: '55px', marginRight: '15px' }} />
         <h1 style={{ fontSize: '55px' }}>GrantWell</h1>
+      </div>
       </div>
 
       <p style={{
@@ -176,15 +246,26 @@ export default function Welcome({ theme }) {
 
       <SpaceBetween size="xl">
         <div style={{ display: 'flex', flexDirection: 'row', gap: '20px' }}>
+          
           <div style={{ flex: 1, padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0' }}>
-            <h2 style={{ fontSize: '24px', marginBottom: '10px' }}>Select a NOFO (Notice of Funding Opportunity) Document</h2>
+            <h2 style={{ fontSize: '35px', marginBottom: '25px', lineHeight: '1' }}>Select a NOFO (Notice of Funding Opportunity) Document</h2>
 
             <ol style={{ fontSize: '16px', color: '#555', marginBottom: '20px' }}>
               <li>Select a NOFO from the dropdown</li>
               <li>Click 'View Key Requirements' to review primary information from the NOFO</li>
-              <li>Click "Upload New NOFO" to add a document to the dropdown that you can then select and review</li>
             </ol>
-
+            {isAdmin && (
+              <p style={{ fontSize: '16px', fontStyle: 'italic', color: '#555', marginBottom: '20px' }}>
+                ADMIN: Click "Upload New NOFO" to upload a document to the dropdown that you can then select and review
+              </p>
+            )}
+            {isAdmin && (
+                <div style={{ marginLeft: '10px', marginBottom: '20px' }}>
+                  <Button onClick={uploadNOFO} variant="primary" aria-label="Upload New NOFO">
+                    Upload New NOFO
+                  </Button>
+                </div>
+              )}
             <div style={{ display: 'flex', alignItems: 'center', width: '100%', minWidth: '300px', marginBottom: '20px' }}>
               <div style={{ width: '70%' }}>
                 <Select
@@ -196,13 +277,10 @@ export default function Welcome({ theme }) {
                   aria-label="Select a NOFO document"
                 />
               </div>
-              <div style={{ marginLeft: '10px' }}>
+              <div style={{ marginLeft: '10px', flexDirection: 'row' }}>
               <SpaceBetween size="xs">
                 <Button onClick={() => handleNOFOSelect(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`, selectedDocument)} disabled={!selectedDocument} variant="primary" aria-label="View Key Requirements">
                   View Key Requirements
-                </Button>
-                <Button onClick={uploadNOFO} variant="primary" aria-label="Upload New NOFO">
-                  Upload New NOFO
                 </Button>
                 </SpaceBetween>
               </div>
