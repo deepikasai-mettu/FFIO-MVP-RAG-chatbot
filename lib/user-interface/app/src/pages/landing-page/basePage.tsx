@@ -197,13 +197,14 @@ export default function Welcome({ theme }) {
                 />
               </div>
               <div style={{ marginLeft: '10px' }}>
-
+              <SpaceBetween size="xs">
                 <Button onClick={() => handleNOFOSelect(`/landing-page/basePage/checklists/${encodeURIComponent(selectedDocument.value)}`, selectedDocument)} disabled={!selectedDocument} variant="primary" aria-label="View Key Requirements">
                   View Key Requirements
                 </Button>
                 <Button onClick={uploadNOFO} variant="primary" aria-label="Upload New NOFO">
                   Upload New NOFO
                 </Button>
+                </SpaceBetween>
               </div>
             </div>
           </div>

@@ -87,14 +87,19 @@ export default function Checklists() {
                 <Box textAlign='center'>
                   <Spinner size='large' />
                   <p>Loading...</p>
+                  <p>If you've just uploaded a new NOFO for the first time, processing may take up to 5 minutes.</p>
                 </Box>
               ) : (
                 <>
                 <Header variant="h1">Application Requirements for {llmData.grantName}</Header>
+                <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+                  Review each section carefully to ensure compliance with NOFO guidelines.
+                </p>
                   {/* Collapsible Sections */}
                   <CollapsibleSection
                     title="Project Narrative Components"
-                    content={llmData.narrative}
+                    content=
+                    {llmData.narrative}
                   />
                   <CollapsibleSection
                     title="Eligibility Criteria"

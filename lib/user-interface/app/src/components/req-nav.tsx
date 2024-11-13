@@ -12,40 +12,16 @@ export default function ReqNav({ documentIdentifier }) {
   console.log("REQ NAV: ", documentIdentifier);
 
   return (
-    <Box margin="m" padding={{ top: "l" }} textAlign="left">
+    <Box margin="xl" padding={{ top: "xl" }} textAlign="left">
       <SpaceBetween size="xl">
-        <Header variant="h1">GrantWell</Header>
-
-        {/* Centered "Write a Proposal" Card */}
-        <Cards
-          cardDefinition={{
-            header: (item) => (
-              <Link href={item.href} external={item.external} fontSize="heading-l">
-                {item.name}
-              </Link>
-            ),
-            sections: [
-              {
-                content: (item) => <div>{item.description}</div>,
-              },
-            ],
-          }}
-          cardsPerRow={[{ cards: 1 }, { minWidth: 300, cards: 1 }]}
-          items={[
-            {
-              name: "Write a Proposal for This Grant",
-              external: false,
-              href: `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}`,
-              description:
-                "The GrantWell chatbot allows you to upload data and converse with a chatbot to craft a comprehensive project narrative for your grant proposal.",
-            },
-          ]}
-        />
-        {/* <Box variant="p">
-          Return to the homepage to select a new NOFO.
-        </Box> */}
-
-        {/* Return to Home Page Button */}
+        <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0', marginBottom: '0px' }}>
+          <Link href="/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}">
+          <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Click Here to Start a Proposal For This Grant</h2>
+          </Link>
+          <p style={{ fontSize: '16px', color: '#555' }}>
+          The GrantWell chatbot allows you to upload data and converse with a chatbot to craft a comprehensive project narrative for your grant proposal.
+          </p>
+        </div>
         <Button 
           onClick={() => navigate('/landing-page/basePage')}
           variant="primary"
@@ -54,7 +30,19 @@ export default function ReqNav({ documentIdentifier }) {
         >
           Back to Home
         </Button>
-      </SpaceBetween>
+      <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0', marginBottom: '40px' }}>
+          <h2 style={{ fontSize: '24px' }}>We Value Your Feedback!</h2>
+          <p style={{ fontSize: '16px', color: '#555' }}>
+            Your insights are essential to helping us improve the GrantWell tool. If you have any general feedback, suggestions on current features, or ideas for new functionalities, please take a moment to fill out our <Link href="https://forms.gle/jNHk8usCSNBzhL998" external>Google Form</Link> to share your thoughts.
+          </p>
+          <p style={{ fontSize: '16px', color: '#555' }}>
+            We’re committed to making GrantWell as effective and user-friendly as possible, and we’ll do our best to incorporate your feedback into future updates.
+          </p>
+          <p style={{ fontSize: '16px', color: '#555' }}>
+            Thank you for helping us make GrantWell better for everyone!
+          </p>
+        </div>
+        </SpaceBetween>
     </Box>
   );
 }
