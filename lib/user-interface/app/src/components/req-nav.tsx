@@ -10,19 +10,12 @@ export default function ReqNav({ documentIdentifier }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   console.log("REQ NAV: ", documentIdentifier);
+  const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}`;
 
   return (
-    <Box margin="xl" padding={{ top: "xl" }} textAlign="left">
+    <Box margin="xl" textAlign="left">
       <SpaceBetween size="xl">
-        <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0', marginBottom: '0px' }}>
-          <Link href="/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}">
-          <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Click Here to Start a Proposal For This Grant</h2>
-          </Link>
-          <p style={{ fontSize: '16px', color: '#555' }}>
-          The GrantWell chatbot allows you to upload data and converse with a chatbot to craft a comprehensive project narrative for your grant proposal.
-          </p>
-        </div>
-        <Button 
+      <Button 
           onClick={() => navigate('/landing-page/basePage')}
           variant="primary"
           aria-label="Return to Home Page"
@@ -30,6 +23,14 @@ export default function ReqNav({ documentIdentifier }) {
         >
           Back to Home
         </Button>
+        <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0', marginBottom: '0px' }}>
+          <Link href={linkUrl}>
+          <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Click Here to Start a Proposal For This Grant</h2>
+          </Link>
+          <p style={{ fontSize: '16px', color: '#555' }}>
+          The GrantWell chatbot allows you to upload data and converse with a chatbot to craft a comprehensive project narrative for your grant proposal.
+          </p>
+        </div>
       <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0', marginBottom: '40px' }}>
           <h2 style={{ fontSize: '24px' }}>We Value Your Feedback!</h2>
           <p style={{ fontSize: '16px', color: '#555' }}>
