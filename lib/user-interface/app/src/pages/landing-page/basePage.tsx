@@ -344,8 +344,8 @@ export default function Welcome({ theme }) {
                 external: true,
                 href: "https://www.usdigitalresponse.org/grant/grant-finder",
                 img: "/images/Welcome/grantFinder.png",
-                altText: "Animated illustration of four characters celebrating federal grant funding, holding a check, coins, and a magnifying glass.",
-                description: "Enchanced search and collaboration tools to optimize access to grants",
+                altText: "Animated illustration of four characters celebrating federal grant funding, holding a check, coins, and a magnifying glass",
+                description: "Enchanced search and collaboration tools to optimize access to grants.",
               },
             ]}
           />
