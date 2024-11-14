@@ -501,6 +501,28 @@ export default function Welcome({ theme }) {
           </p>
         </div>
       </SpaceBetween>
+      <div style={{ 
+        backgroundColor: '#161d26', 
+        color: '#fff', 
+        padding: '60px 20px', 
+        marginTop: '40px', 
+        width: '100vw', 
+        position: 'relative', 
+        left: '50%', 
+        right: '50%', 
+        marginLeft: '-50vw', 
+        marginRight: '-50vw' 
+        }}>
+      <h2 style={{ fontSize: '24px', textAlign: 'center', marginBottom: '20px' }}>Our Affiliations</h2>
+      <p style={{ fontSize: '16px', textAlign: 'center', maxWidth: '800px', margin: '0 auto 40px' }}>
+        GrantWell is proudly owned by the Burnes Center for Social Change. This message can be changed as needed.
+      </p>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '40px', flexWrap: 'wrap' }}>
+        <img src="/images/burnes_logo.png" alt="Company 1 Logo" style={{ width: '250px', height: 'auto' }} />
+        <img src="/images/northeastern.png" alt="Company 2 Logo" style={{ width: '250px', height: 'auto' }} />
+        {/* Add more logos as needed */}
+  </div>
+</div>
     </Container>
   );
 }

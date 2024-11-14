@@ -5,11 +5,13 @@ import {
   Button,
   Link,
   Box,
-  StatusIndicator
+  StatusIndicator,
+  SpaceBetween
 } from "@cloudscape-design/components";
 import { useContext, useState, useEffect } from "react";
 import useOnFollow from "../common/hooks/use-on-follow";
 import { useNavigationPanelState } from "../common/hooks/use-navigation-panel-state";
+import { useNavigate } from 'react-router-dom';
 import { AppContext } from "../common/app-context";
 import PencilSquareIcon from "../../public/images/pencil-square.jsx";
 import RouterButton from "../components/wrappers/router-button";
@@ -19,12 +21,14 @@ import { v4 as uuidv4 } from "uuid";
 import { SessionRefreshContext } from "../common/session-refresh-context";
 import { useNotifications } from "../components/notif-manager";
 import { Utils } from "../common/utils.js";
+import BackArrowIcon from "../../public/images/back-arrow.jsx";
 
 export default function NavigationPanel({ documentIdentifier }) {
   const appContext = useContext(AppContext);
   const apiClient = new ApiClient(appContext);
   const onFollow = useOnFollow();
   const [navigationPanelState, setNavigationPanelState] = useNavigationPanelState();
+  const navigate = useNavigate();
   const [items, setItems] = useState<SideNavigationProps.Item[]>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
   const { needsRefresh, setNeedsRefresh } = useContext(SessionRefreshContext);
@@ -87,34 +91,34 @@ export default function NavigationPanel({ documentIdentifier }) {
       },
       {
         type: "section",
-        text: "Admin",
+        text: "Resources",
         items: [
-          { type: "link", text: "Data", href: `/admin/data?folder=${encodeURIComponent(documentIdentifier)}` },
-          { type: "link", text: "User Feedback", href: "/admin/user-feedback" },
-        ],
-      },
-      {
-        type: "section",
-        text: "Additional Resources",
-        items: [
+          { type: "link", text: "Upload Data", href: `/admin/data?folder=${encodeURIComponent(documentIdentifier)}` },
           {
             type: "link",
-            text: "Prompt Suggestions for Effective Chatbot Use",
+            text: "Prompt Engineering Guide",
             href: "/images/Prompt Suggestions for Grantwell's Chatbot Users.pdf",
             external: true
           },
-          {
-            type: "link",
-            text: "Federal Grant Application Resources",
-            href: "https://www.mass.gov/lists/federal-funds-grant-application-resources",
-            external: true
-          },
-          {
-            type: "link",
-            text: "Register for Federal Funds Partnership Meetings",
-            href: "https://us02web.zoom.us/meeting/register/tZUucuyhrzguHNJkkh-XlmZBlQQKxxG_Acjl",
-            external: true
-          }
+          { type: "link", text: "Provide Feedback", href: "https://forms.gle/jNHk8usCSNBzhL998", external: true },
+      //   ],
+      // },
+      // {
+      //   type: "section",
+      //   text: "Additional Resources",
+      //   items: [
+          // {
+          //   type: "link",
+          //   text: "Federal Grant Application Resources",
+          //   href: "https://www.mass.gov/lists/federal-funds-grant-application-resources",
+          //   external: true
+          // },
+          // {
+          //   type: "link",
+          //   text: "Register for Federal Funds Partnership Meetings",
+          //   href: "https://us02web.zoom.us/meeting/register/tZUucuyhrzguHNJkkh-XlmZBlQQKxxG_Acjl",
+          //   external: true
+          // }
         ]
       }
     ];
@@ -138,6 +142,16 @@ export default function NavigationPanel({ documentIdentifier }) {
   return (
     <div>
       <Box margin="xs" padding={{ top: "l" }} textAlign="center">
+      <SpaceBetween size="xl">
+        <Button 
+          onClick={() => navigate(`/landing-page/basePage/checklists/${encodeURIComponent(documentIdentifier)}`)}
+          variant="primary"
+          aria-label="Return to Home Page"
+          iconSvg={<BackArrowIcon />}
+        >
+          Back to requirements
+        </Button>
+
         <RouterButton
           iconAlign="right"
           iconSvg={<PencilSquareIcon />}
@@ -147,8 +161,9 @@ export default function NavigationPanel({ documentIdentifier }) {
           className="new-chat-button"
           style={{ textAlign: "right" }}
         >
-          New session
+          Start new session
         </RouterButton>
+        </SpaceBetween>
       </Box>
       {loaded ? (
         <SideNavigation
