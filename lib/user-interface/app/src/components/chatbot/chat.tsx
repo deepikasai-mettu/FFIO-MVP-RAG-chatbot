@@ -15,7 +15,7 @@ import styles from "../../styles/chat.module.scss";
 import { CHATBOT_NAME } from "../../common/constants";
 import { useNotifications } from "../notif-manager";
 
-export default function Chat(props: { sessionId?: string}) {
+export default function Chat(props: { sessionId?: string; documentIdentifier?: string}) {
   const appContext = useContext(AppContext);
   const [running, setRunning] = useState<boolean>(true);
   const [session, setSession] = useState<{ id: string; loading: boolean }>({
@@ -42,7 +42,15 @@ export default function Chat(props: { sessionId?: string}) {
        * backend, there will be no errors - the API will simply return a blank session
        */
       if (!props.sessionId) {
-        setSession({ id: uuidv4(), loading: false });
+        const newSessionId = uuidv4();
+        setSession({ id: newSessionId, loading: false });
+        const username = await Auth.currentAuthenticatedUser().then((value) => value.username);
+        const apiClient = new ApiClient(appContext);
+        try{
+          await apiClient.sessions.createSession(newSessionId, username, props.documentIdentifier);
+        }catch (error) {
+          console.error("Error creating new session:", error);
+        }
         return;
       }
 
@@ -74,6 +82,8 @@ export default function Chat(props: { sessionId?: string}) {
             top: 0,
             behavior: "instant",
           });
+        } else {
+          await apiClient.sessions.createSession(props.sessionId, username, props.documentIdentifier);
         }
         setSession({ id: props.sessionId, loading: false });
         setRunning(false);
@@ -101,7 +111,8 @@ export default function Chat(props: { sessionId?: string}) {
         topic: feedbackTopic,
         problem: feedbackProblem,
         comment: feedbackMessage,
-        sources: JSON.stringify(message.metadata.Sources)
+        sources: JSON.stringify(message.metadata.Sources),
+        documentIdentifier: props.documentIdentifier,
       };
       addUserFeedback(feedbackData);
     }
@@ -152,7 +163,8 @@ export default function Chat(props: { sessionId?: string}) {
           running={running}
           setRunning={setRunning}
           messageHistory={messageHistory}
-          setMessageHistory={(history) => setMessageHistory(history)}          
+          setMessageHistory={(history) => setMessageHistory(history)}
+          documentIdentifier = {props.documentIdentifier}          
         />
       </div>
     </div>

@@ -156,7 +156,8 @@ export default function NavigationPanel({ documentIdentifier }) {
           iconAlign="right"
           iconSvg={<PencilSquareIcon />}
           variant="primary"
-          href={`/chatbot/playground/${uuidv4()}`}
+          //href={`/chatbot/playground/${uuidv4()}`}
+          href={`/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}`}
           data-alignment="right"
           className="new-chat-button"
           style={{ textAlign: "right" }}

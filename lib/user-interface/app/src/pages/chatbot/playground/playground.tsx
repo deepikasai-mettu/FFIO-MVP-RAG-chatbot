@@ -43,7 +43,7 @@ export default function Playground() {
        <div>
       {/* <Chat sessionId={sessionId} /> */}
       
-      <Chat sessionId={sessionId} />
+      <Chat sessionId={sessionId} documentIdentifier={documentIdentifier} />
       </div>
      }
     />    

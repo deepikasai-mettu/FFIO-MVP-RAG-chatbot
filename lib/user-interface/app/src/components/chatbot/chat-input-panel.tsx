@@ -48,6 +48,7 @@ export interface ChatInputPanelProps {
   session: { id: string; loading: boolean };
   messageHistory: ChatBotHistoryItem[];
   setMessageHistory: (history: ChatBotHistoryItem[]) => void;  
+  documentIdentifier: string;
 }
 
 export abstract class ChatScrollState {
@@ -135,7 +136,11 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
   }, [props.messageHistory]);
 
   /**Sends a message to the chat API */
-  const handleSendMessage = async () => {    
+  const handleSendMessage = async () => {
+    if (!props.documentIdentifier){
+      addNotification('error', 'No Document selected. Please select a document to proceed.');
+      return;
+    }    
     if (props.running) return;
     if (readyState !== ReadyState.OPEN) return;
     ChatScrollState.userHasScrolled = false;
@@ -219,7 +224,8 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
             projectId: 'rsrs111111',
             user_id: username,
             session_id: props.session.id,
-            retrievalSource: selectedDataSource.value
+            retrievalSource: selectedDataSource.value,
+            documentIdentifier: props.documentIdentifier,
           }
         });
         

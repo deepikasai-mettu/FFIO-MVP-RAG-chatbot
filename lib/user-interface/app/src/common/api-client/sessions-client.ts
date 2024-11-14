@@ -9,6 +9,7 @@ import {
 
 
 import { AppConfig } from "../types";
+import { error } from "console";
 
 export class SessionsClient {
 
@@ -127,6 +128,7 @@ export class SessionsClient {
       return history;
     }
     output.forEach(function (value) {
+      console.log("Sources from sessions-client: ", value.metadata);
       let metadata = {}
       if (value.metadata) {
         metadata = { "Sources": JSON.parse(value.metadata) }
@@ -169,4 +171,29 @@ export class SessionsClient {
     }
     return "DONE";
   }
+
+  async createSession (
+    sessionId: string,
+    userId: string,
+    documentIdentifier: string,
+  ) {
+      const auth = await Utils.authenticate();
+      const response = await fetch(this.API + '/user-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + auth,
+        },
+        body: JSON.stringify({
+          sessionId: sessionId,
+          userId: userId,
+          documentIdentifier: documentIdentifier,
+        })
+
+      })
+      if (!response.ok) {
+        throw new Error ('Error creating new session: ${response.statusText}');
+      }
+      return await response.json()
+  } 
 }

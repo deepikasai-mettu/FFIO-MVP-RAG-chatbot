@@ -14,7 +14,7 @@ dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
 table = dynamodb.Table(DDB_TABLE_NAME)
 
 # Define a function to add a session or update an existing one in the DynamoDB table
-def add_session(session_id, user_id, chat_history, title, new_chat_entry):
+def add_session(session_id, user_id, chat_history, title, new_chat_entry, document_identifier):
     try:
         # Attempt to add an item to the DynamoDB table with provided details
         response = table.put_item(
@@ -23,7 +23,8 @@ def add_session(session_id, user_id, chat_history, title, new_chat_entry):
                 'session_id': session_id,  # Unique identifier for the session
                 'chat_history': [new_chat_entry],  # List of chat history, initiating with the new entry
                 "title": title.strip(),  # Title of the session
-                "time_stamp": str(datetime.now())  # Current timestamp as a string
+                "time_stamp": str(datetime.now()), # Current timestamp as a string
+                'document_identifier': document_identifier
             }
         )
         # Return any attributes returned by the DynamoDB operation, default to an empty dictionary if none
@@ -262,13 +263,14 @@ def lambda_handler(event, context):
     chat_history = data.get('chat_history', None)
     new_chat_entry = data.get('new_chat_entry')
     title = data.get('title', f"Chat on {str(datetime.now())}")
+    document_identifier = data.get('document_identifier')
     if operation != 'list_sessions_by_user_id':
         print(operation)
     print(data)
     print(new_chat_entry)
 
     if operation == 'add_session':
-        return add_session(session_id, user_id, chat_history, title, new_chat_entry)
+        return add_session(session_id, user_id, chat_history, title, new_chat_entry, document_identifier)
     elif operation == 'get_session':
         return get_session(session_id, user_id)
     elif operation == 'update_session':
