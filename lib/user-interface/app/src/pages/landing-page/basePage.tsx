@@ -340,12 +340,12 @@ export default function Welcome({ theme }) {
                 description: "Access categorized grant resources for streamlined applications.",
               },
               {
-                name: "Prompt Suggestions for Effective Chatbot Use",
-                external: false,
-                href: "/images/Prompt Suggestions for Grantwell's Chatbot Users.pdf",
-                img: "/images/Welcome/promptSuggestions.png",
-                altText: "Illustration of a person interacting with a chatbot on a smartphone, with the chatbot displayed on a large screen and speech bubbles representing the conversation.",
-                description: "Learn how to interact with our chatbot for application guidance.",
+                name: "Federal Grant Finder",
+                external: true,
+                href: "https://www.usdigitalresponse.org/grant/grant-finder",
+                img: "/images/Welcome/grantFinder.png",
+                altText: "Animated illustration of four characters celebrating federal grant funding, holding a check, coins, and a magnifying glass.",
+                description: "A grant finder by US Digital Response (USDR) to help organizations access federal funding more effectively.",
               },
             ]}
           />
