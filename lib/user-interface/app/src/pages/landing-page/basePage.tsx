@@ -227,18 +227,18 @@ export default function Welcome({ theme }) {
             src="/images/stateseal-color.png"
             alt="State Seal"
             style={{
-              width: '85px',
-              height: '85px',
+              width: '75px',
+              height: '75px',
               marginRight: '10px',
             }}
           />
-          <h1 style={{ fontSize: '80px' }}>GrantWell</h1>
+          <h1 style={{ fontSize: '70px' }}>GrantWell</h1>
         </div>
       </div>
 
       <p
         style={{
-          fontSize: '17px',
+          fontSize: '16px',
           marginBottom: '20px',
           marginTop: '10px',
           columnCount: 1,
@@ -252,7 +252,7 @@ export default function Welcome({ theme }) {
 
       <p
         style={{
-          fontSize: '17px',
+          fontSize: '16px',
           marginBottom: '50px', // Increased to add more space
           marginTop: '10px',
           columnCount: 1,
