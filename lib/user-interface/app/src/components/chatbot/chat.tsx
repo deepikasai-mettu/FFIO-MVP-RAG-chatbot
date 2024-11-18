@@ -50,12 +50,12 @@ export default function Chat(props: { sessionId?: string; documentIdentifier?: s
         console.log("printing setSession", newSessionId);
         const username = await Auth.currentAuthenticatedUser().then((value) => value.username);
         const apiClient = new ApiClient(appContext);
-        try{
-          console.log("in the try for async", props.documentIdentifier)
-          await apiClient.sessions.createSession(newSessionId, username, props.documentIdentifier);
-        }catch (error) {
-          console.error("Error creating new session:", error);
-        }
+        // try{
+        //   console.log("in the try for async", props.documentIdentifier)
+        //   await apiClient.sessions.createSession(newSessionId, username, props.documentIdentifier);
+        // }catch (error) {
+        //   console.error("Error creating new session:", error);
+        // }
         return;
       }
 
@@ -91,7 +91,7 @@ export default function Chat(props: { sessionId?: string; documentIdentifier?: s
           });
         } else {
           console.log("else of hist, for create session")
-          await apiClient.sessions.createSession(props.sessionId, username, props.documentIdentifier);
+          //await apiClient.sessions.createSession(props.sessionId, username, props.documentIdentifier);
         }
         setSession({ id: props.sessionId, loading: false });
         setRunning(false);

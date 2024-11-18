@@ -90,7 +90,7 @@ def get_session(session_id, user_id):
     return response_to_client
 
             
-def update_session(session_id, user_id, new_chat_entry):
+def update_session(session_id, user_id, new_chat_entry, document_identifier):
     try:
         # Fetch current session details
         session_response = get_session(session_id, user_id)
@@ -105,11 +105,14 @@ def update_session(session_id, user_id, new_chat_entry):
         # Append the new chat entry to the existing chat history
         updated_chat_history = current_chat_history + [new_chat_entry]
         
-        # Update the item in DynamoDB
+        # Update the item in DynamoDB with both chat_history and document_identifier
         response = table.update_item(
             Key={"session_id": session_id, "user_id": user_id},
-            UpdateExpression="set chat_history = :chat_history",
-            ExpressionAttributeValues={":chat_history": updated_chat_history},
+            UpdateExpression="set chat_history = :chat_history, document_identifier = :document_identifier",
+            ExpressionAttributeValues={
+                ":chat_history": updated_chat_history,
+                ":document_identifier": document_identifier
+            },
             ReturnValues="UPDATED_NEW"
         )
         return {
@@ -142,8 +145,9 @@ def update_session(session_id, user_id, new_chat_entry):
             'statusCode': 500,
             'headers': {'Access-Control-Allow-Origin': '*'},
             'error': str(general_error),
-            'body': 'An unexpected error occurred while updating the se.'
+            'body': 'An unexpected error occurred while updating the session.'
         }
+
 
 
 def delete_session(session_id, user_id):
@@ -284,7 +288,7 @@ def lambda_handler(event, context):
     elif operation == 'get_session':
         return get_session(session_id, user_id)
     elif operation == 'update_session':
-        return update_session(session_id, user_id, new_chat_entry)
+        return update_session(session_id, user_id, new_chat_entry, document_identifier)
     elif operation == 'list_sessions_by_user_id':
         return list_sessions_by_user_id(user_id)
     elif operation == 'list_all_sessions_by_user_id':
