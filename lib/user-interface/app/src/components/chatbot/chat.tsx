@@ -16,6 +16,7 @@ import { CHATBOT_NAME } from "../../common/constants";
 import { useNotifications } from "../notif-manager";
 
 export default function Chat(props: { sessionId?: string; documentIdentifier?: string}) {
+  console.log("Chat props doc identifier: ", props.documentIdentifier);
   const appContext = useContext(AppContext);
   const [running, setRunning] = useState<boolean>(true);
   const [session, setSession] = useState<{ id: string; loading: boolean; }>({
