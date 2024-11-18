@@ -185,9 +185,14 @@ export class SessionsClient {
           'Authorization': 'Bearer ' + auth,
         },
         body: JSON.stringify({
+          operation: "add_session",
           sessionId: sessionId,
           userId: userId,
           documentIdentifier: documentIdentifier,
+          new_chat_entry: {
+            type: 'system',
+            content: 'Session started',  // can modify later
+          }
         })
 
       })

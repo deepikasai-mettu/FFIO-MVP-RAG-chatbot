@@ -17,18 +17,27 @@ table = dynamodb.Table(DDB_TABLE_NAME)
 def add_session(session_id, user_id, chat_history, title, new_chat_entry, document_identifier):
     try:
         # Attempt to add an item to the DynamoDB table with provided details
-        response = table.put_item(
-            Item={
+        item={
                 'user_id': user_id,  # Identifier for the user
                 'session_id': session_id,  # Unique identifier for the session
-                'chat_history': [new_chat_entry],  # List of chat history, initiating with the new entry
                 "title": title.strip(),  # Title of the session
                 "time_stamp": str(datetime.now()), # Current timestamp as a string
-                'document_identifier': document_identifier
+                'document_identifier': document_identifier,
             }
-        )
+        if new_chat_entry:
+            item['chat_history'] = [new_chat_entry]
+        elif chat_history:
+            item['chat_history'] = chat_history
+        else:
+            item['chat_history'] =[]
+
+        response = table.put_item(Item = item)
         # Return any attributes returned by the DynamoDB operation, default to an empty dictionary if none
-        return response.get("Attributes", {})
+        return {
+            'statusCode': 200,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'message': 'Session created successfully'})
+        }
     except ClientError as error:
         # Check for specific DynamoDB client errors
         print("Caught error: DynamoDB error - could not add new session")
@@ -266,8 +275,9 @@ def lambda_handler(event, context):
     document_identifier = data.get('document_identifier')
     if operation != 'list_sessions_by_user_id':
         print(operation)
-    print(data)
-    print(new_chat_entry)
+    print("data",data)
+    print("new_chat_entry",new_chat_entry)
+    print("operation",operation)
 
     if operation == 'add_session':
         return add_session(session_id, user_id, chat_history, title, new_chat_entry, document_identifier)

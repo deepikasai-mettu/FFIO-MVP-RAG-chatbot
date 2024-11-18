@@ -87,7 +87,7 @@ export default function Checklists() {
                 <Box textAlign='center'>
                   <Spinner size='large' />
                   <p>Loading...</p>
-                  <p>If you've just uploaded a new NOFO for the first time, processing may take up to 5 minutes.</p>
+                  {/* <p>If you've just uploaded a new NOFO for the first time, processing may take up to 5 minutes.</p> */}
                 </Box>
               ) : (
                 <>
