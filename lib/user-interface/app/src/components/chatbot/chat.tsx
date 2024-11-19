@@ -16,11 +16,13 @@ import { CHATBOT_NAME } from "../../common/constants";
 import { useNotifications } from "../notif-manager";
 
 export default function Chat(props: { sessionId?: string; documentIdentifier?: string}) {
+  console.log("Chat props doc identifier: ", props.documentIdentifier);
   const appContext = useContext(AppContext);
   const [running, setRunning] = useState<boolean>(true);
-  const [session, setSession] = useState<{ id: string; loading: boolean }>({
+  const [session, setSession] = useState<{ id: string; loading: boolean; }>({
     id: props.sessionId ?? uuidv4(),
     loading: typeof props.sessionId !== "undefined",
+
   });  
 
   const { notifications, addNotification } = useNotifications();
@@ -36,6 +38,7 @@ export default function Chat(props: { sessionId?: string; documentIdentifier?: s
     setMessageHistory([]);
 
     (async () => {
+      console.log("starting chat.tsx", props);
       /** If there is no session ID, then this must be a new session
        * and there is no need to load one from the backend.
        * However, even if a session ID is set and there is no saved session in the 
@@ -44,19 +47,22 @@ export default function Chat(props: { sessionId?: string; documentIdentifier?: s
       if (!props.sessionId) {
         const newSessionId = uuidv4();
         setSession({ id: newSessionId, loading: false });
+        console.log("printing setSession", newSessionId);
         const username = await Auth.currentAuthenticatedUser().then((value) => value.username);
         const apiClient = new ApiClient(appContext);
-        try{
-          await apiClient.sessions.createSession(newSessionId, username, props.documentIdentifier);
-        }catch (error) {
-          console.error("Error creating new session:", error);
-        }
+        // try{
+        //   console.log("in the try for async", props.documentIdentifier)
+        //   await apiClient.sessions.createSession(newSessionId, username, props.documentIdentifier);
+        // }catch (error) {
+        //   console.error("Error creating new session:", error);
+        // }
         return;
       }
 
       setSession({ id: props.sessionId, loading: true });
       const apiClient = new ApiClient(appContext);
       try {
+        console.log("Start setSession from chat.tsx");
         // const result = await apiClient.sessions.getSession(props.sessionId);
         let username;
         await Auth.currentAuthenticatedUser().then((value) => username = value.username);
@@ -64,6 +70,7 @@ export default function Chat(props: { sessionId?: string; documentIdentifier?: s
         const hist = await apiClient.sessions.getSession(props.sessionId,username);
 
         if (hist) {
+          console.log("in the if statement after setsession", hist);
           
           ChatScrollState.skipNextHistoryUpdate = true;
           ChatScrollState.skipNextScrollEvent = true;
@@ -83,7 +90,8 @@ export default function Chat(props: { sessionId?: string; documentIdentifier?: s
             behavior: "instant",
           });
         } else {
-          await apiClient.sessions.createSession(props.sessionId, username, props.documentIdentifier);
+          console.log("else of hist, for create session")
+          //await apiClient.sessions.createSession(props.sessionId, username, props.documentIdentifier);
         }
         setSession({ id: props.sessionId, loading: false });
         setRunning(false);
@@ -93,7 +101,7 @@ export default function Chat(props: { sessionId?: string; documentIdentifier?: s
         addNotification("info","Please refresh the page")
       }
     })();
-  }, [appContext, props.sessionId]);
+  }, [appContext, props.sessionId, props.documentIdentifier]);
 
   /** Adds some metadata to the user's feedback */
   const handleFeedback = (feedbackType: 1 | 0, idx: number, message: ChatBotHistoryItem, feedbackTopic? : string, feedbackProblem? : string, feedbackMessage? : string) => {

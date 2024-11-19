@@ -17,18 +17,27 @@ table = dynamodb.Table(DDB_TABLE_NAME)
 def add_session(session_id, user_id, chat_history, title, new_chat_entry, document_identifier):
     try:
         # Attempt to add an item to the DynamoDB table with provided details
-        response = table.put_item(
-            Item={
+        item={
                 'user_id': user_id,  # Identifier for the user
                 'session_id': session_id,  # Unique identifier for the session
-                'chat_history': [new_chat_entry],  # List of chat history, initiating with the new entry
                 "title": title.strip(),  # Title of the session
                 "time_stamp": str(datetime.now()), # Current timestamp as a string
-                'document_identifier': document_identifier
+                'document_identifier': document_identifier,
             }
-        )
+        if new_chat_entry:
+            item['chat_history'] = [new_chat_entry]
+        elif chat_history:
+            item['chat_history'] = chat_history
+        else:
+            item['chat_history'] =[]
+
+        response = table.put_item(Item = item)
         # Return any attributes returned by the DynamoDB operation, default to an empty dictionary if none
-        return response.get("Attributes", {})
+        return {
+            'statusCode': 200,
+            'headers': {'Access-Control-Allow-Origin': '*'},
+            'body': json.dumps({'message': 'Session created successfully'})
+        }
     except ClientError as error:
         # Check for specific DynamoDB client errors
         print("Caught error: DynamoDB error - could not add new session")
@@ -81,7 +90,7 @@ def get_session(session_id, user_id):
     return response_to_client
 
             
-def update_session(session_id, user_id, new_chat_entry):
+def update_session(session_id, user_id, new_chat_entry, document_identifier):
     try:
         # Fetch current session details
         session_response = get_session(session_id, user_id)
@@ -96,11 +105,14 @@ def update_session(session_id, user_id, new_chat_entry):
         # Append the new chat entry to the existing chat history
         updated_chat_history = current_chat_history + [new_chat_entry]
         
-        # Update the item in DynamoDB
+        # Update the item in DynamoDB with both chat_history and document_identifier
         response = table.update_item(
             Key={"session_id": session_id, "user_id": user_id},
-            UpdateExpression="set chat_history = :chat_history",
-            ExpressionAttributeValues={":chat_history": updated_chat_history},
+            UpdateExpression="set chat_history = :chat_history, document_identifier = :document_identifier",
+            ExpressionAttributeValues={
+                ":chat_history": updated_chat_history,
+                ":document_identifier": document_identifier
+            },
             ReturnValues="UPDATED_NEW"
         )
         return {
@@ -133,8 +145,9 @@ def update_session(session_id, user_id, new_chat_entry):
             'statusCode': 500,
             'headers': {'Access-Control-Allow-Origin': '*'},
             'error': str(general_error),
-            'body': 'An unexpected error occurred while updating the se.'
+            'body': 'An unexpected error occurred while updating the session.'
         }
+
 
 
 def delete_session(session_id, user_id):
@@ -266,15 +279,16 @@ def lambda_handler(event, context):
     document_identifier = data.get('document_identifier')
     if operation != 'list_sessions_by_user_id':
         print(operation)
-    print(data)
-    print(new_chat_entry)
+    print("data",data)
+    print("new_chat_entry",new_chat_entry)
+    print("operation",operation)
 
     if operation == 'add_session':
         return add_session(session_id, user_id, chat_history, title, new_chat_entry, document_identifier)
     elif operation == 'get_session':
         return get_session(session_id, user_id)
     elif operation == 'update_session':
-        return update_session(session_id, user_id, new_chat_entry)
+        return update_session(session_id, user_id, new_chat_entry, document_identifier)
     elif operation == 'list_sessions_by_user_id':
         return list_sessions_by_user_id(user_id)
     elif operation == 'list_all_sessions_by_user_id':

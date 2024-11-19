@@ -177,6 +177,7 @@ export class SessionsClient {
     userId: string,
     documentIdentifier: string,
   ) {
+    console.log("create session with document identifier: ", documentIdentifier);
       const auth = await Utils.authenticate();
       const response = await fetch(this.API + '/user-session', {
         method: 'POST',
@@ -185,9 +186,14 @@ export class SessionsClient {
           'Authorization': 'Bearer ' + auth,
         },
         body: JSON.stringify({
-          sessionId: sessionId,
-          userId: userId,
-          documentIdentifier: documentIdentifier,
+          operation: "add_session",
+          session_id: sessionId,
+          user_id: userId,
+          document_identifier: documentIdentifier,
+          new_chat_entry: {
+            type: 'system',
+            content: 'Session started',  // can modify later
+          }
         })
 
       })
