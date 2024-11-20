@@ -90,7 +90,7 @@ def get_session(session_id, user_id):
     return response_to_client
 
             
-def update_session(session_id, user_id, new_chat_entry, document_identifier):
+def update_session(session_id, user_id, new_chat_entry):
     try:
         # Fetch current session details
         session_response = get_session(session_id, user_id)
@@ -103,22 +103,22 @@ def update_session(session_id, user_id, new_chat_entry, document_identifier):
         current_chat_history = session_data.get('chat_history', [])
         
         # Append the new chat entry to the existing chat history
-        updated_chat_history = current_chat_history + [new_chat_entry]
+        updated_chat_history = current_chat_history + new_chat_entry
         
         # Update the item in DynamoDB with both chat_history and document_identifier
         response = table.update_item(
             Key={"session_id": session_id, "user_id": user_id},
-            UpdateExpression="set chat_history = :chat_history, document_identifier = :document_identifier",
+            UpdateExpression="set chat_history = :chat_history",
             ExpressionAttributeValues={
-                ":chat_history": updated_chat_history,
-                ":document_identifier": document_identifier
+                ":chat_history": updated_chat_history
+                
             },
             ReturnValues="UPDATED_NEW"
         )
         return {
             'statusCode': 200,
             'headers': {'Access-Control-Allow-Origin': '*' },
-            'body': response.get("Attributes", {})
+            'body': json.dumps(response.get("Attributes", {}))
         }
     except ClientError as error:
         print("Caught error: DynamoDB error - could not update session")
@@ -288,7 +288,7 @@ def lambda_handler(event, context):
     elif operation == 'get_session':
         return get_session(session_id, user_id)
     elif operation == 'update_session':
-        return update_session(session_id, user_id, new_chat_entry, document_identifier)
+        return update_session(session_id, user_id, new_chat_entry)
     elif operation == 'list_sessions_by_user_id':
         return list_sessions_by_user_id(user_id)
     elif operation == 'list_all_sessions_by_user_id':

@@ -51,7 +51,7 @@ export class LambdaFunctionStack extends cdk.Stack {
       effect: iam.Effect.ALLOW,
       actions: [
         'dynamodb:GetItem',
-        'dynamodb:PutItem',
+        'dynamodb:PutAItem',
         'dynamodb:UpdateItem',
         'dynamodb:DeleteItem',
         'dynamodb:Query',

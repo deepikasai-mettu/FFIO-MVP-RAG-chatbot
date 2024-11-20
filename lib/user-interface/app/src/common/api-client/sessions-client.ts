@@ -83,42 +83,50 @@ export class SessionsClient {
           'Authorization': 'Bearer ' + auth,
         },
         body: JSON.stringify({
-          "operation": "get_session", "session_id": sessionId,
+          "operation": "get_session", 
+          "session_id": sessionId,
           "user_id": userId
-        })
+        }),
       });
       /** Check for errors */
       if (response.status != 200) {
         validData = false;
-        errorMessage = await response.json()
+        errorMessage = await response.json();
         break;
       }
-      const reader = response.body.getReader();
-      let received = new Uint8Array(0);
-
-      /** Read the response stream */
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) {
-          break;
-        }
-        if (value) {
-          let temp = new Uint8Array(received.length + value.length);
-          temp.set(received);
-          temp.set(value, received.length);
-          received = temp;
-        }
-      }
-      // Decode the complete data
-      const decoder = new TextDecoder('utf-8');
-      const decoded = decoder.decode(received);
       try {
-        output = JSON.parse(decoded).chat_history! as any[];
+        output = (await response.json()).chat_history as any[];
         validData = true;
       } catch (e) {
         console.log(e);
       }
     }
+    //   const reader = response.body.getReader();
+    //   let received = new Uint8Array(0);
+
+    //   /** Read the response stream */
+    //   while (true) {
+    //     const { value, done } = await reader.read();
+    //     if (done) {
+    //       break;
+    //     }
+    //     if (value) {
+    //       let temp = new Uint8Array(received.length + value.length);
+    //       temp.set(received);
+    //       temp.set(value, received.length);
+    //       received = temp;
+    //     }
+    //   }
+    //   // Decode the complete data
+    //   const decoder = new TextDecoder('utf-8');
+    //   const decoded = decoder.decode(received);
+    //   try {
+    //     output = JSON.parse(decoded).chat_history! as any[];
+    //     validData = true;
+    //   } catch (e) {
+    //     console.log(e);
+    //   }
+    // }
     if (!validData) {
       throw new Error(errorMessage)
     }
@@ -133,18 +141,20 @@ export class SessionsClient {
       if (value.metadata) {
         metadata = { "Sources": JSON.parse(value.metadata) }
       }
-      history.push({
-        type: ChatBotMessageType.Human,
-        content: value.user,
-        metadata: {
-        },
-      },
-        {
+      if (value.type === 'assistant'){
+        history.push({
           type: ChatBotMessageType.AI,
-          content: value.chatbot,
+          content: value.content,
           metadata: metadata,
-        },)
-    })
+        });
+      } else if (value.type === 'user'){
+        history.push({
+          type: ChatBotMessageType.Human,
+          content: value.content,
+          metadata: {},
+        });
+      }
+    });
     return history;
   }
 
@@ -190,16 +200,17 @@ export class SessionsClient {
           session_id: sessionId,
           user_id: userId,
           document_identifier: documentIdentifier,
-          new_chat_entry: {
+          new_chat_entry: [{
             type: 'system',
-            content: 'Session started',  // can modify later
-          }
-        })
+            content: 'Hello! Welcome to grantwell. I see that you are working on ${documentIdentifier}. How can I help you today?',  // can modify later
+          },],
+        }),
 
-      })
+      });
       if (!response.ok) {
         throw new Error ('Error creating new session: ${response.statusText}');
       }
       return await response.json()
-  } 
+  }
+
 }
