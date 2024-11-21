@@ -30,69 +30,143 @@ export default function Welcome({ theme }) {
 
   // **Styles**
   // Styles for numbered steps
-  const numberedStepsContainerStyle = {
+  const numberedStepsContainerStyle: CSSProperties = {
     display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
-    marginBottom: '30px',
-    marginLeft: '50px',
-    marginRight: '50px',
+    padding: '0 20px', // Use padding for responsive spacing
+    flexWrap: 'wrap', // Allows steps to wrap on smaller screens
   };
 
-  const stepContainerStyle = {
+  const stepContainerStyle: CSSProperties = {
     display: 'flex',
     alignItems: 'flex-start',
-    marginBottom: '0px',
-    flex: '1 1 30%',
-    padding: '10px',
+    flex: '1 1 300px', // Flexible width with a minimum
+    padding: '10px'
   };
 
-  const numberBubbleStyle = {
+  const numberBubbleStyle: CSSProperties = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    flexShrink: '0',
+    flexShrink: 0,
     width: '70px',
     height: '70px',
     backgroundColor: '#0073e6',
     color: 'white',
     borderRadius: '50%',
-    fontSize: '50px',
-    marginRight: '20px',
+    fontSize: '50px'
   };
 
-  const stepContentStyle = {
+  const stepContentStyle: CSSProperties = {
     maxWidth: '800px',
     marginLeft: '20px',
     fontSize: '16px',
   };
 
-  const stepContentH2Style = {
+  const stepContentH2Style: CSSProperties = {
     marginTop: '0',
     fontSize: '24px',
-    marginBottom: '30px'
+    marginBottom: '30px',
   };
 
-  const stepContentUlStyle = {
+  const stepContentUlStyle: CSSProperties = {
     paddingLeft: '1px',
   };
 
-  const stepContentLiStyle = {
+  const stepContentLiStyle: CSSProperties = {
     marginBottom: '10px',
   };
 
   // Common panel style for "Select a NOFO" and "Recently Viewed NOFOs"
   const panelStyle: CSSProperties = {
-    flex: '1',
+    flex: '1 1 300px', // Allows flexibility with a minimum width
     padding: '15px',
     borderRadius: '8px',
     backgroundColor: '#f0f4f8',
     border: '1px solid #d1e3f0',
     display: 'flex',
     flexDirection: 'column',
-    minHeight: '500px',
-    maxHeight: '500px', // Fixed typo from '50f0px' to '500px'
+    height: 'auto',
+    maxHeight: 'none',
     overflowY: 'auto',
+  };
+
+  // Additional Resources Panel Style
+  const additionalResourcesStyle: CSSProperties = {
+    padding: '15px',
+    borderRadius: '8px',
+    backgroundColor: '#f0f4f8',
+    border: '1px solid #d1e3f0',
+    marginBottom: '40px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    width: '100%',
+    maxWidth: '800px', // Adjust as needed
+  };
+
+  // Feedback Panel Style
+  const feedbackPanelStyle: CSSProperties = {
+    padding: '15px',
+    borderRadius: '8px',
+    backgroundColor: '#f0f4f8',
+    border: '1px solid #d1e3f0',
+    marginBottom: '40px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    textAlign: 'center',
+    width: '100%',
+    maxWidth: '800px', // Adjust as needed
+  };
+
+  // Affiliations Section Style
+  const affiliationSectionStyle: CSSProperties = {
+    backgroundColor: '#161d26',
+    padding: '10px',
+    marginTop: '40px',
+    width: '100%',
+  };
+
+  const affiliationContentStyle: CSSProperties = {
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '0 20px', // Add padding for small screens
+  };
+
+  // **Admin Section Styles**
+  const adminContainerStyle: CSSProperties = {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    marginBottom: '50px',
+    marginLeft: '40px',
+    flexWrap: 'wrap', // Allows wrapping on smaller screens
+  };
+
+  const adminTextStyle: CSSProperties = {
+    fontSize: '16px',
+    fontStyle: 'italic',
+    color: '#555',
+    margin: '0 25px 10px 0', // Adjust margins for responsiveness
+    textAlign: 'left',
+    width: '100%',
+    maxWidth: '400px',
+  };
+
+  const adminButtonStyle: CSSProperties = {
+    minWidth: '150px',
+    width: '100%', // Make button full width on smaller screens
+    maxWidth: '200px', // Optional: set a max width
+  };
+
+  // **Yellow Background Panel for Numbered Steps**
+  const stepsBackgroundStyle: CSSProperties = {
+    backgroundColor: '#FFEC8E', // Bright yellow '#FBF585'
+    padding: '20px',
+    marginBottom: '60px',
+    width: '100%',
+    boxSizing: 'border-box', // Ensure padding doesn't exceed maxWidth
   };
 
   // **Effect Hooks**
@@ -235,7 +309,6 @@ export default function Welcome({ theme }) {
         ...panelStyle,
         minWidth: '315px',
         maxWidth: '315px',
-        marginRight: '50px',
       }}
     >
       <h2 style={{ fontSize: '24px', lineHeight: '1' }}>
@@ -294,6 +367,8 @@ export default function Welcome({ theme }) {
             display: 'flex',
             alignItems: 'center',
             marginBottom: '10px',
+            flexWrap: 'wrap', // Allow wrapping on small screens
+            justifyContent: 'center',
           }}
         >
           <img
@@ -305,7 +380,7 @@ export default function Welcome({ theme }) {
               marginRight: '10px',
             }}
           />
-          <h1 style={{ fontSize: '60px' }}>GrantWell</h1>
+          <h1 style={{ fontSize: '60px', textAlign: 'center' }}>GrantWell</h1>
         </div>
       </div>
 
@@ -336,65 +411,71 @@ export default function Welcome({ theme }) {
         There are three main pages to navigate:
       </p>
 
-      <hr style={{ border: 'none', borderTop: '1px solid #000' }} />
+      {/* <hr style={{ border: 'none', borderTop: '1px solid #000' }} /> */}
 
       {/* Numbered Steps */}
-      <div style={numberedStepsContainerStyle}>
-        {/* Step 1 */}
-        <div style={stepContainerStyle}>
-          <div style={numberBubbleStyle}>1</div>
-          <div style={stepContentStyle}>
-            <h2 style={stepContentH2Style}>Home</h2>
-            <ul style={stepContentUlStyle}>
-              <li style={stepContentLiStyle}>
-                <strong>Select a NOFO</strong> in the dropdown below to view it's key requirements.
-              </li>
-              <li style={stepContentLiStyle}>
-                <strong>Quickly access</strong> the summaries of recently viewed NOFOs.
-              </li>
-            </ul>
+      <div style={stepsBackgroundStyle}>
+        <div style={numberedStepsContainerStyle}>
+          {/* Step 1 */}
+          <div style={stepContainerStyle}>
+            <div style={numberBubbleStyle}>1</div>
+            <div style={stepContentStyle}>
+              <h2 style={stepContentH2Style}>Home</h2>
+              <ul style={stepContentUlStyle}>
+                <li style={stepContentLiStyle}>
+                  <strong>Select a NOFO</strong> in the dropdown below to view its key information.
+                </li>
+                <li style={stepContentLiStyle}>
+                  <strong>Quickly access</strong> the key info of recently viewed NOFOs.
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
 
-        {/* Step 2 */}
-        <div style={stepContainerStyle}>
-          <div style={numberBubbleStyle}>2</div>
-          <div style={stepContentStyle}>
-            <h2 style={stepContentH2Style}>View Key Information </h2>
-            <ul style={stepContentUlStyle}>
-              <li style={stepContentLiStyle}>
-                <strong>Review a summary</strong> of the NOFO you selected on this home page.
-              </li>
-              <li style={stepContentLiStyle}>
-                <strong>Ready to begin your narrative?</strong> Click "Start a
-                Proposal" in the side menu.
-              </li>
-            </ul>
+          {/* Step 2 */}
+          <div style={stepContainerStyle}>
+            <div style={numberBubbleStyle}>2</div>
+            <div style={stepContentStyle}>
+              <h2 style={stepContentH2Style}>View Key Information</h2>
+              <ul style={stepContentUlStyle}>
+                <li style={stepContentLiStyle}>
+                  <strong>Review important info</strong> of the NOFO you selected on this home page.
+                </li>
+                <li style={stepContentLiStyle}>
+                  <strong>Start your narrative</strong> by clicking "Start a Proposal" in the side menu.
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
 
-        {/* Step 3 */}
-        <div style={stepContainerStyle}>
-          <div style={numberBubbleStyle}>3</div>
-          <div style={stepContentStyle}>
-            <h2 style={stepContentH2Style}>Draft Your Narrative </h2>
-            <ul style={stepContentUlStyle}>
-              <li style={stepContentLiStyle}>
-                <strong>Utilize our AI chatbot</strong> to develop your narrative,
-                section by section.
-              </li>
-              <li style={stepContentLiStyle}>
-                <strong>Need a different grant?</strong> Return to the home page
-                and select a new NOFO.
-              </li>
-            </ul>
+          {/* Step 3 */}
+          <div style={stepContainerStyle}>
+            <div style={numberBubbleStyle}>3</div>
+            <div style={stepContentStyle}>
+              <h2 style={stepContentH2Style}>Draft Your Narrative</h2>
+              <ul style={stepContentUlStyle}>
+                <li style={stepContentLiStyle}>
+                  <strong>Utilize our AI chatbot</strong> to develop your narrative,
+                  section by section.
+                </li>
+                <li style={stepContentLiStyle}>
+                  <strong>Need a different grant?</strong> Return to the home page
+                  and select a new NOFO.
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
 
-      <hr
-        style={{ border: 'none', borderTop: '1px solid #000', marginTop: '0px', marginBottom: '40px' }}
-      />
+      {/* <hr
+        style={{
+          border: 'none',
+          borderTop: '1px solid #000',
+          marginTop: '0px',
+          marginBottom: '60px',
+        }}
+      /> */}
 
       {/* Main Content */}
       <SpaceBetween size="xl">
@@ -404,9 +485,11 @@ export default function Welcome({ theme }) {
             flexDirection: 'row',
             gap: '40px',
             marginBottom: '40px',
-            minWidth: '1370px',
-            maxWidth: '1370px',
-            marginLeft: '50px',
+            width: '100%',
+            padding: '0 50px', // Add 50px padding on left and right
+            boxSizing: 'border-box',
+            flexWrap: 'wrap', // Allows wrapping on smaller screens
+            justifyContent: 'center', // Centers items when wrapped
           }}
         >
           {/* "Select a NOFO" Tile */}
@@ -437,26 +520,8 @@ export default function Welcome({ theme }) {
             </ol>
 
             {isAdmin && (
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'flex-start',
-                  alignItems: 'flex-start',
-                  marginBottom: '50px',
-                  marginLeft: '40px',
-                }}
-              >
-                <p
-                  style={{
-                    fontSize: '16px',
-                    fontStyle: 'italic',
-                    color: '#555',
-                    margin: 0,
-                    textAlign: 'left',
-                    width: '400px',
-                    marginRight: '25px',
-                  }}
-                >
+              <div style={adminContainerStyle}>
+                <p style={adminTextStyle}>
                   ADMIN: Click "Upload New NOFO" to upload a document
                   <br />
                   to the dropdown that you can then select and review
@@ -465,6 +530,7 @@ export default function Welcome({ theme }) {
                   onClick={uploadNOFO}
                   variant="primary"
                   aria-label="Upload New NOFO"
+                  // style={adminButtonStyle} // was being problematic
                 >
                   Upload New NOFO
                 </Button>
@@ -476,11 +542,11 @@ export default function Welcome({ theme }) {
                 display: 'flex',
                 alignItems: 'flex-start',
                 width: '100%',
-                minWidth: '300px',
                 marginBottom: '20px',
+                flexWrap: 'wrap', // Allows buttons to stack on small screens
               }}
             >
-              <div style={{ width: '70%' }}>
+              <div style={{ width: '100%', maxWidth: '70%', marginRight: '30px' }}>
                 <Select
                   selectedOption={selectedDocument}
                   onChange={({ detail }) =>
@@ -492,7 +558,7 @@ export default function Welcome({ theme }) {
                   aria-label="Select a NOFO document"
                 />
               </div>
-              <div style={{ marginLeft: '10px' }}>
+              <div style={{ width: '100%', maxWidth: '250px' }}>
                 <Button
                   onClick={() =>
                     handleNOFOSelect(
@@ -516,7 +582,7 @@ export default function Welcome({ theme }) {
           <HistoryPanel />
         </div>
 
-        {/* "Additional Resources" Tile */}
+        {/* "Additional Resources" Panel */}
         <div
           style={{
             padding: '15px',
@@ -615,7 +681,7 @@ export default function Welcome({ theme }) {
             borderRadius: '8px',
             backgroundColor: '#f0f4f8',
             border: '1px solid #d1e3f0',
-            marginBottom: '40px',
+            marginBottom: '60px',
             marginLeft: '50px',
             marginRight: '50px',
             textAlign: 'center',
@@ -637,15 +703,14 @@ export default function Welcome({ theme }) {
             </Button>
           </div>
         </div>
+
       </SpaceBetween>
 
       {/* Affiliations Section */}
       <div
         style={{
           backgroundColor: '#161d26',
-          // color: '#fff', // Commented out as per your original code
           padding: '10px',
-          marginTop: '40px',
           marginBlockEnd: '-50px',
           width: '100vw',
           position: 'relative',
