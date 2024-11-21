@@ -63,7 +63,7 @@ export default function GlobalHeader() {
         utilities={[          
           {
             type: "button",
-            text: theme === Mode.Dark ? "Light Mode" : "Dark Mode",
+            // text: theme === Mode.Dark ? "Light Mode" : "Dark Mode",
             onClick: onChangeThemeClick,
           },
   

@@ -1,6 +1,6 @@
-import { useContext, useState, useEffect } from 'react';
-import { ApiClient } from '../../common/api-client/api-client';
-import { AppContext } from '../../common/app-context';
+import React, { useContext, useState, useEffect, CSSProperties } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Auth } from 'aws-amplify';
 import {
   Header,
   SpaceBetween,
@@ -10,38 +10,40 @@ import {
   Link,
   Button,
 } from '@cloudscape-design/components';
-import { useNavigate } from 'react-router-dom';
-import { Auth } from 'aws-amplify';
+import { ApiClient } from '../../common/api-client/api-client';
+import { AppContext } from '../../common/app-context';
 
 export default function Welcome({ theme }) {
   console.log('entering base page');
 
+  // **State Variables**
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false); // Track admin status
-  const appContext = useContext(AppContext);
-  const apiClient = new ApiClient(appContext);
   const [selectedDocument, setSelectedDocument] = useState(null);
   const [documents, setDocuments] = useState([]);
   const [recentlyViewedNOFOs, setRecentlyViewedNOFOs] = useState([]);
+
+  // **Context and Navigation**
+  const appContext = useContext(AppContext);
+  const apiClient = new ApiClient(appContext);
   const navigate = useNavigate();
 
-  // Define styles for the numbered steps
+  // **Styles**
+  // Styles for numbered steps
   const numberedStepsContainerStyle = {
     display: 'flex',
-    // flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     marginBottom: '30px',
-    // flexWrap: 'wrap',
+    marginLeft: '50px',
+    marginRight: '50px',
   };
 
   const stepContainerStyle = {
     display: 'flex',
-    // flexDirection: 'row',
     alignItems: 'flex-start',
     marginBottom: '0px',
     flex: '1 1 30%',
-    // boxSizing: 'border-box',
     padding: '10px',
   };
 
@@ -62,10 +64,13 @@ export default function Welcome({ theme }) {
   const stepContentStyle = {
     maxWidth: '800px',
     marginLeft: '20px',
+    fontSize: '16px',
   };
 
   const stepContentH2Style = {
     marginTop: '0',
+    fontSize: '24px',
+    marginBottom: '30px'
   };
 
   const stepContentUlStyle = {
@@ -76,6 +81,21 @@ export default function Welcome({ theme }) {
     marginBottom: '10px',
   };
 
+  // Common panel style for "Select a NOFO" and "Recently Viewed NOFOs"
+  const panelStyle: CSSProperties = {
+    flex: '1',
+    padding: '15px',
+    borderRadius: '8px',
+    backgroundColor: '#f0f4f8',
+    border: '1px solid #d1e3f0',
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '500px',
+    maxHeight: '500px', // Fixed typo from '50f0px' to '500px'
+    overflowY: 'auto',
+  };
+
+  // **Effect Hooks**
   // Check for admin status
   useEffect(() => {
     (async () => {
@@ -86,7 +106,8 @@ export default function Welcome({ theme }) {
           Auth.signOut();
           return;
         }
-        const adminRole = result?.signInUserSession?.idToken?.payload['custom:role'];
+        const adminRole =
+          result?.signInUserSession?.idToken?.payload['custom:role'];
         if (adminRole && adminRole.includes('Admin')) {
           setIsAdmin(true); // Set admin status to true if user has admin role
         }
@@ -96,11 +117,27 @@ export default function Welcome({ theme }) {
     })();
   }, []);
 
+  // Load recently viewed NOFOs from localStorage
   useEffect(() => {
-    const storedHistory = JSON.parse(localStorage.getItem('recentlyViewedNOFOs')) || [];
+    const storedHistory =
+      JSON.parse(localStorage.getItem('recentlyViewedNOFOs')) || [];
     setRecentlyViewedNOFOs(storedHistory);
   }, []);
 
+  // Fetch NOFO documents from S3
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        await getNOFOListFromS3();
+      } catch (error) {
+        console.error('Failed to fetch NOFO documents:', error);
+      }
+    };
+    fetchDocuments();
+  }, []);
+
+  // **Functions**
+  // Get NOFO list from S3
   const getNOFOListFromS3 = async () => {
     setLoading(true);
     try {
@@ -118,17 +155,7 @@ export default function Welcome({ theme }) {
     setLoading(false);
   };
 
-  useEffect(() => {
-    const fetchDocuments = async () => {
-      try {
-        await getNOFOListFromS3();
-      } catch (error) {
-        console.error('Failed to fetch NOFO documents:', error);
-      }
-    };
-    fetchDocuments();
-  }, []);
-
+  // Handle NOFO selection
   const handleNOFOSelect = (href, selectedNOFO) => {
     const now = new Date().toLocaleString();
     const updatedHistory = [
@@ -136,27 +163,30 @@ export default function Welcome({ theme }) {
         label: selectedNOFO.label,
         value: selectedNOFO.value,
         lastViewed: now,
-        viewCount:
-          (recentlyViewedNOFOs.find((nofo) => nofo.value === selectedNOFO.value)?.viewCount ||
-            0) + 1,
       },
-      ...recentlyViewedNOFOs.filter((nofo) => nofo.value !== selectedNOFO.value),
+      ...recentlyViewedNOFOs.filter(
+        (nofo) => nofo.value !== selectedNOFO.value
+      ),
     ].slice(0, 3);
 
     setRecentlyViewedNOFOs(updatedHistory);
-    localStorage.setItem('recentlyViewedNOFOs', JSON.stringify(updatedHistory));
+    localStorage.setItem(
+      'recentlyViewedNOFOs',
+      JSON.stringify(updatedHistory)
+    );
     navigate(href);
   };
 
+  // Upload a new NOFO (Admin functionality)
   const uploadNOFO = async () => {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
 
     fileInput.onchange = async (event) => {
       const file = fileInput.files[0];
-    
+
       if (!file) return;
-    
+
       try {
         const documentName = file.name.split('.').slice(0, -1).join('');
         let newFilePath;
@@ -167,13 +197,13 @@ export default function Welcome({ theme }) {
         } else {
           newFilePath = `${documentName}/NOFO-File`;
         }
-    
+
         const signedUrl = await apiClient.landingPage.getUploadURL(
           newFilePath,
           file.type
         );
         await apiClient.landingPage.uploadFileToS3(signedUrl, file);
-    
+
         alert('File uploaded successfully!');
         await getNOFOListFromS3();
       } catch (error) {
@@ -183,27 +213,34 @@ export default function Welcome({ theme }) {
     };
 
     fileInput.click();
-}; // Close the uploadNOFO function here
-    
+  };
 
+  // Navigate to checklists
   const goToChecklists = () => {
     if (selectedDocument) {
       const summaryFileKey = `${selectedDocument.value}`;
-      navigate(`/landing-page/basePage/checklists/${encodeURIComponent(summaryFileKey)}`);
+      navigate(
+        `/landing-page/basePage/checklists/${encodeURIComponent(
+          summaryFileKey
+        )}`
+      );
     }
   };
 
+  // **Components**
   // HistoryPanel component
   const HistoryPanel = () => (
     <div
       style={{
-        padding: '15px',
-        borderRadius: '8px',
-        backgroundColor: '#f0f4f8',
-        border: '1px solid #d1e3f0',
+        ...panelStyle,
+        minWidth: '315px',
+        maxWidth: '315px',
+        marginRight: '50px',
       }}
     >
-      <h2 style={{ fontSize: '24px', lineHeight: '1' }}>Recently Viewed NOFOs</h2>
+      <h2 style={{ fontSize: '24px', lineHeight: '1' }}>
+        Recently Viewed NOFOs
+      </h2>
       <SpaceBetween size="s">
         {recentlyViewedNOFOs.length > 0 ? (
           recentlyViewedNOFOs.map((nofo, index) => (
@@ -214,30 +251,33 @@ export default function Welcome({ theme }) {
               <Link
                 onFollow={() =>
                   handleNOFOSelect(
-                    `/landing-page/basePage/checklists/${encodeURIComponent(nofo.value)}`,
+                    `/landing-page/basePage/checklists/${encodeURIComponent(
+                      nofo.value
+                    )}`,
                     nofo
                   )
                 }
               >
-                <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{nofo.label}</span>
+                <span style={{ fontSize: '16px', fontWeight: 'bold' }}>
+                  {nofo.label}
+                </span>
               </Link>
               <div style={{ fontSize: '12px', color: '#6c757d' }}>
                 <span>Last viewed: {nofo.lastViewed}</span>
-                <br />
-                <span>View count: {nofo.viewCount}</span>
               </div>
             </div>
           ))
         ) : (
-          <p style={{ color: '#6c757d', fontSize: '14px' }}>
-            You haven’t viewed any NOFOs recently. Select or upload a document at the
-            top of this page to get started.
+          <p style={{ color: '#6c757d', fontSize: '16px' }}>
+            You haven’t viewed any NOFOs recently. Select or upload a document
+            at the panel to the left to get started.
           </p>
         )}
       </SpaceBetween>
     </div>
   );
 
+  // **Render**
   return (
     <Container>
       {/* Header with logo and title */}
@@ -271,28 +311,29 @@ export default function Welcome({ theme }) {
 
       <p
         style={{
-          fontSize: '20px',
+          fontSize: '24px',
           marginBottom: '10px',
           marginTop: '10px',
           columnCount: 1,
           columnGap: '10px',
-          textAlign: 'center'
+          textAlign: 'center',
         }}
       >
-        GrantWell is an AI tool that helps Massachusetts communities secure federal grants.       
+        GrantWell is an AI tool that helps Massachusetts communities secure
+        federal grants.
       </p>
 
       <p
         style={{
-          fontSize: '20px',
-          marginBottom: '55px',
+          fontSize: '24px',
+          marginBottom: '50px',
           marginTop: '10px',
           columnCount: 1,
           columnGap: '10px',
-          textAlign: 'center'
+          textAlign: 'center',
         }}
       >
-        There are three main pages to navigate: 
+        There are three main pages to navigate:
       </p>
 
       <hr style={{ border: 'none', borderTop: '1px solid #000' }} />
@@ -303,16 +344,13 @@ export default function Welcome({ theme }) {
         <div style={stepContainerStyle}>
           <div style={numberBubbleStyle}>1</div>
           <div style={stepContentStyle}>
-            <h2 style={stepContentH2Style}>Base </h2>
+            <h2 style={stepContentH2Style}>Home</h2>
             <ul style={stepContentUlStyle}>
               <li style={stepContentLiStyle}>
-                <strong>Select NOFO</strong> in the section below.
+                <strong>Select a NOFO</strong> in the dropdown below to view it's key requirements.
               </li>
               <li style={stepContentLiStyle}>
-                <strong>Access</strong> recently viewed NOFOs for quick navigation.
-              </li>
-              <li style={stepContentLiStyle}>
-                <strong>Find</strong> helpful resources and a feedback form.
+                <strong>Quickly access</strong> the summaries of recently viewed NOFOs.
               </li>
             </ul>
           </div>
@@ -322,13 +360,14 @@ export default function Welcome({ theme }) {
         <div style={stepContainerStyle}>
           <div style={numberBubbleStyle}>2</div>
           <div style={stepContentStyle}>
-            <h2 style={stepContentH2Style}>Requirements Gathering </h2>
+            <h2 style={stepContentH2Style}>View Key Information </h2>
             <ul style={stepContentUlStyle}>
               <li style={stepContentLiStyle}>
-                <strong>View Key Info:</strong> eligibility criteria, required documents, narrative components, and key deadlines.
+                <strong>Review a summary</strong> of the NOFO you selected on this home page.
               </li>
               <li style={stepContentLiStyle}>
-                <strong>Ready to begin your application?</strong> Click "Start a Proposal" in the side menu.
+                <strong>Ready to begin your narrative?</strong> Click "Start a
+                Proposal" in the side menu.
               </li>
             </ul>
           </div>
@@ -338,26 +377,24 @@ export default function Welcome({ theme }) {
         <div style={stepContainerStyle}>
           <div style={numberBubbleStyle}>3</div>
           <div style={stepContentStyle}>
-            <h2 style={stepContentH2Style}>Narrative Drafting </h2>
+            <h2 style={stepContentH2Style}>Draft Your Narrative </h2>
             <ul style={stepContentUlStyle}>
               <li style={stepContentLiStyle}>
-                <strong>Draft</strong> your narrative with our AI chatbot, section by section.
+                <strong>Utilize our AI chatbot</strong> to develop your narrative,
+                section by section.
               </li>
               <li style={stepContentLiStyle}>
-                <strong>Check out</strong> the Prompt Engineering Guide under "Resources."
-              </li>
-              <li style={stepContentLiStyle}>
-                <strong>Managing multiple applications?</strong> Switch between them in "Session History."
-              </li>
-              <li style={stepContentLiStyle}>
-                <strong>Need a different grant?</strong> Return to the Base Page and select a new NOFO.
+                <strong>Need a different grant?</strong> Return to the home page
+                and select a new NOFO.
               </li>
             </ul>
           </div>
         </div>
       </div>
 
-      <hr style={{ border: 'none', borderTop: '1px solid #000', marginBottom: '40px' }} />
+      <hr
+        style={{ border: 'none', borderTop: '1px solid #000', marginTop: '0px', marginBottom: '40px' }}
+      />
 
       {/* Main Content */}
       <SpaceBetween size="xl">
@@ -367,20 +404,13 @@ export default function Welcome({ theme }) {
             flexDirection: 'row',
             gap: '40px',
             marginBottom: '40px',
+            minWidth: '1370px',
+            maxWidth: '1370px',
+            marginLeft: '50px',
           }}
         >
           {/* "Select a NOFO" Tile */}
-          <div
-            style={{
-              flex: 1,
-              padding: '15px',
-              borderRadius: '8px',
-              backgroundColor: '#f0f4f8',
-              border: '1px solid #d1e3f0',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
+          <div style={panelStyle}>
             <h2
               style={{
                 fontSize: '24px',
@@ -401,8 +431,8 @@ export default function Welcome({ theme }) {
             >
               <li>Select a NOFO from the dropdown</li>
               <li>
-                Click 'View Key Requirements' to review primary information from the
-                NOFO
+                Click 'View Key Requirements' to review primary information from
+                the NOFO
               </li>
             </ol>
 
@@ -453,7 +483,9 @@ export default function Welcome({ theme }) {
               <div style={{ width: '70%' }}>
                 <Select
                   selectedOption={selectedDocument}
-                  onChange={({ detail }) => setSelectedDocument(detail.selectedOption)}
+                  onChange={({ detail }) =>
+                    setSelectedDocument(detail.selectedOption)
+                  }
                   options={documents}
                   placeholder="Select a document"
                   filteringType="auto"
@@ -492,15 +524,26 @@ export default function Welcome({ theme }) {
             backgroundColor: '#f0f4f8',
             border: '1px solid #d1e3f0',
             marginBottom: '40px',
+            marginLeft: '50px',
+            marginRight: '50px',
           }}
         >
-          <h2 style={{ fontSize: '24px' }}>Additional Resources</h2>
+          <h2 style={{ fontSize: '24px', marginBottom: '40px' }}>Additional Resources</h2>
           <Cards
             cardDefinition={{
               header: (item) => (
-                <Link href={item.href} external={item.external} fontSize="heading-m">
-                  {item.name}
-                </Link>
+                <div
+                  style={{
+                    height: '60px', // Fixed height for the header
+                    overflow: 'hidden', // Hide overflow if title exceeds height
+                    display: 'flex',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Link href={item.href} external fontSize="heading-m">
+                    {item.name}
+                  </Link>
+                </div>
               ),
               sections: [
                 {
@@ -511,7 +554,7 @@ export default function Welcome({ theme }) {
                         alt={item.altText}
                         style={{
                           width: '100%',
-                          height: '180px',
+                          height: '200px',
                           objectFit: 'cover',
                           borderRadius: '20px',
                         }}
@@ -520,7 +563,11 @@ export default function Welcome({ theme }) {
                   ),
                 },
                 {
-                  content: (item) => <div>{item.description}</div>,
+                  content: (item) => (
+                    <div style={{ fontSize: '16px', color: '#555' }}>
+                      {item.description}
+                    </div>
+                  ),
                 },
               ],
             }}
@@ -561,7 +608,7 @@ export default function Welcome({ theme }) {
           />
         </div>
 
-        {/* "We Value Your Feedback!" Tile */}
+        {/* Feedback Panel */}
         <div
           style={{
             padding: '15px',
@@ -569,26 +616,26 @@ export default function Welcome({ theme }) {
             backgroundColor: '#f0f4f8',
             border: '1px solid #d1e3f0',
             marginBottom: '40px',
+            marginLeft: '50px',
+            marginRight: '50px',
+            textAlign: 'center',
           }}
         >
           <h2 style={{ fontSize: '24px' }}>We Value Your Feedback!</h2>
+
           <p style={{ fontSize: '16px', color: '#555' }}>
-            Your insights are essential to helping us improve the GrantWell tool. If you
-            have any general feedback, suggestions on current features, or ideas for new
-            functionalities, please take a moment to fill out our{' '}
-            <Link href="https://forms.gle/M2PHgWTVVRrRubpc7" external>
-              Google Form
-            </Link>{' '}
-            to share your thoughts.
+            Help us make GrantWell better by sharing your thoughts and suggestions.
           </p>
-          <p style={{ fontSize: '16px', color: '#555' }}>
-            We’re committed to making GrantWell as effective and user-friendly as
-            possible, and we’ll do our best to incorporate your feedback into future
-            updates.
-          </p>
-          <p style={{ fontSize: '16px', color: '#555' }}>
-            Thank you for helping us make GrantWell better for everyone!
-          </p>
+
+          <div style={{ marginTop: '20px' }}>
+            <Button
+              onClick={() => window.open('https://forms.gle/M2PHgWTVVRrRubpc7', '_blank')}
+              variant="primary"
+              aria-label="Open Feedback Form"
+            >
+              Open Feedback Form
+            </Button>
+          </div>
         </div>
       </SpaceBetween>
 
@@ -596,9 +643,10 @@ export default function Welcome({ theme }) {
       <div
         style={{
           backgroundColor: '#161d26',
-          color: '#fff',
-          padding: '60px 20px',
+          // color: '#fff', // Commented out as per your original code
+          padding: '10px',
           marginTop: '40px',
+          marginBlockEnd: '-50px',
           width: '100vw',
           position: 'relative',
           left: '50%',
@@ -607,42 +655,17 @@ export default function Welcome({ theme }) {
           marginRight: '-50vw',
         }}
       >
-        <h2
-          style={{ fontSize: '24px', textAlign: 'center', marginBottom: '20px' }}
-        >
-          Our Affiliations
-        </h2>
-        <p
-          style={{
-            fontSize: '16px',
-            textAlign: 'center',
-            maxWidth: '800px',
-            margin: '0 auto 40px',
-          }}
-        >
-          GrantWell is proudly owned by the Burnes Center for Social Change. This
-          message can be changed as needed.
-        </p>
         <div
           style={{
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center',
-            gap: '40px',
-            flexWrap: 'wrap',
           }}
         >
           <img
-            src="/images/burnes_logo.png"
+            src="/images/burnesLogo.png"
             alt="Burnes Center Logo"
-            style={{ width: '250px', height: 'auto' }}
+            style={{ width: '300px' }}
           />
-          <img
-            src="/images/northeastern.png"
-            alt="Northeastern University Logo"
-            style={{ width: '250px', height: 'auto' }}
-          />
-          {/* Add more logos as needed */}
         </div>
       </div>
     </Container>
