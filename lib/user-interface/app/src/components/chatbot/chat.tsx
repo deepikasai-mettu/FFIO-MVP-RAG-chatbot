@@ -1,11 +1,16 @@
 import { useContext, useEffect, useState } from "react";
-import {  
+import {
   ChatBotHistoryItem,
-  ChatBotMessageType,  
-  FeedbackData
+  ChatBotMessageType,
+  FeedbackData,
 } from "./types";
 import { Auth } from "aws-amplify";
-import { SpaceBetween, StatusIndicator, Alert, Flashbar } from "@cloudscape-design/components";
+import {
+  SpaceBetween,
+  StatusIndicator,
+  Alert,
+  Modal,
+} from "@cloudscape-design/components";
 import { v4 as uuidv4 } from "uuid";
 import { AppContext } from "../../common/app-context";
 import { ApiClient } from "../../common/api-client/api-client";
@@ -15,22 +20,18 @@ import styles from "../../styles/chat.module.scss";
 import { CHATBOT_NAME } from "../../common/constants";
 import { useNotifications } from "../notif-manager";
 
-export default function Chat(props: { sessionId?: string; documentIdentifier?: string}) {
+export default function Chat(props: { sessionId?: string; documentIdentifier?: string }) {
   console.log("Chat props doc identifier: ", props.documentIdentifier);
   const appContext = useContext(AppContext);
   const [running, setRunning] = useState<boolean>(true);
-  const [session, setSession] = useState<{ id: string; loading: boolean; }>({
+  const [session, setSession] = useState<{ id: string; loading: boolean }>({
     id: props.sessionId ?? uuidv4(),
     loading: typeof props.sessionId !== "undefined",
-
-  });  
+  });
 
   const { notifications, addNotification } = useNotifications();
-
-  const [messageHistory, setMessageHistory] = useState<ChatBotHistoryItem[]>(
-    []
-  );
-  
+  const [messageHistory, setMessageHistory] = useState<ChatBotHistoryItem[]>([]);
+  const [showPopup, setShowPopup] = useState<boolean>(true); // State for popup visibility
 
   /** Loads session history */
   // chat.tsx
@@ -93,15 +94,22 @@ useEffect(() => {
 
 
   /** Adds some metadata to the user's feedback */
-  const handleFeedback = (feedbackType: 1 | 0, idx: number, message: ChatBotHistoryItem, feedbackTopic? : string, feedbackProblem? : string, feedbackMessage? : string) => {
+  const handleFeedback = (
+    feedbackType: 1 | 0,
+    idx: number,
+    message: ChatBotHistoryItem,
+    feedbackTopic?: string,
+    feedbackProblem?: string,
+    feedbackMessage?: string
+  ) => {
     if (props.sessionId) {
-      console.log("submitting feedback...")
-      
-      const prompt = messageHistory[idx - 1].content
+      console.log("submitting feedback...");
+
+      const prompt = messageHistory[idx - 1].content;
       const completion = message.content;
-      
+
       const feedbackData = {
-        sessionId: props.sessionId, 
+        sessionId: props.sessionId,
         feedback: feedbackType,
         prompt: prompt,
         completion: completion,
@@ -116,31 +124,64 @@ useEffect(() => {
   };
 
   /** Makes the API call via the ApiClient to submit the feedback */
-  const addUserFeedback = async (feedbackData : FeedbackData) => {
+  const addUserFeedback = async (feedbackData: FeedbackData) => {
     if (!appContext) return;
     const apiClient = new ApiClient(appContext);
     await apiClient.userFeedback.sendUserFeedback(feedbackData);
-  }
+  };
 
   return (
-    <div className={styles.chat_container}> 
-      <SpaceBetween direction="vertical" size="m">
-        
-      {messageHistory.length == 0 && !session?.loading && (
-       <Alert
-          statusIconAriaLabel="Info"
-          header=""
-       >
-        AI Models can make mistakes. Be mindful in validating important information.
-      </Alert> )}
+    <div className={styles.chat_container}>
+      {/* Popup Modal */}
+      {showPopup && (
+        <Modal
+          onDismiss={() => setShowPopup(false)}
+          visible={showPopup}
+          closeAriaLabel="Close popup"
+          header="Welcome to the Chatbot"
+        >
+          <p>
+            Welcome to the GrantWell chatbot interface! This chatbot will prompt you through the project narrative section of your grant. 
+          </p>
+          <p>
+          To make this thing work best, do x y z (upload past data, past proposals, info about your org, etc) to best help us craft a narrative that reflects you.
+          </p>
+          <li>
+            step 1: upload data (last years annual report, latest accomplishments, previous year's proposal if they have one, narrative template, etc) 
+          </li>
+          <li>
+            step 2: input any relevant websites to the chatbot (or say "no websites" 
+          </li>
+          <li>
+            Step 3: chatbot says to user: “do you want me to assess whether or not you are eligible to apply to this grant”
+          </li>
+          <li>
+            Step 4: tell the user to review the prompt engineering guide if they need assistance
+          </li>
+          <li>
+            Step 5: chatbot will begin to prompt you
+          </li>
+          <p>
+            Click the "i" icon in the upper right corner to access this information again.
+          </p>
+        </Modal>
+      )}
 
-      
+      <SpaceBetween direction="vertical" size="m">
+        {messageHistory.length == 0 && !session?.loading && (
+          <Alert statusIconAriaLabel="Info" header="">
+            AI Models can make mistakes. Be mindful in validating important information.
+          </Alert>
+        )}
+
         {messageHistory.map((message, idx) => (
           <ChatMessage
             key={idx}
-            message={message}            
-            onThumbsUp={() => handleFeedback(1,idx, message)}
-            onThumbsDown={(feedbackTopic : string, feedbackType : string, feedbackMessage: string) => handleFeedback(0,idx, message,feedbackTopic, feedbackType, feedbackMessage)}                        
+            message={message}
+            onThumbsUp={() => handleFeedback(1, idx, message)}
+            onThumbsDown={(feedbackTopic: string, feedbackType: string, feedbackMessage: string) =>
+              handleFeedback(0, idx, message, feedbackTopic, feedbackType, feedbackMessage)
+            }
           />
         ))}
       </SpaceBetween>
@@ -161,7 +202,7 @@ useEffect(() => {
           setRunning={setRunning}
           messageHistory={messageHistory}
           setMessageHistory={(history) => setMessageHistory(history)}
-          documentIdentifier = {props.documentIdentifier}          
+          documentIdentifier={props.documentIdentifier}
         />
       </div>
     </div>

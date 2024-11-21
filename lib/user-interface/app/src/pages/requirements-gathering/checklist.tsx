@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import { Box, Header, SpaceBetween, Button, Spinner } from '@cloudscape-design/components';
+import { Box, Header, SpaceBetween, Button, Tabs, Spinner } from '@cloudscape-design/components';
 import BaseAppLayout from '../../components/base-app-layout';
 import ReqNav from '../../components/req-nav';
 import ReactMarkdown from 'react-markdown';
 import { ApiClient } from "../../common/api-client/api-client";
 import { AppContext } from '../../common/app-context';
+import '../../styles/checklists.css';
 
 export interface SectionProps {
   title: string;
@@ -81,42 +82,83 @@ export default function Checklists() {
       navigation={<ReqNav documentIdentifier={documentIdentifier} />}
       content={
         <Box padding="m">
-          <SpaceBetween size="l">
-            {
-              isloading ? (
-                <Box textAlign='center'>
-                  <Spinner size='large' />
-                  <p>Loading...</p>
-                  {/* <p>If you've just uploaded a new NOFO for the first time, processing may take up to 5 minutes.</p> */}
-                </Box>
-              ) : (
-                <>
-                <Header variant="h1">Application Requirements for {llmData.grantName}</Header>
-                <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
-                  Review each section carefully to ensure compliance with NOFO guidelines.
-                </p>
-                  {/* Collapsible Sections */}
-                  <CollapsibleSection
-                    title="Project Narrative Components"
-                    content=
-                    {llmData.narrative}
-                  />
-                  <CollapsibleSection
-                    title="Eligibility Criteria"
-                    content={llmData.eligibility}
-                  />
-                  <CollapsibleSection
-                    title="Documents Required"
-                    content={llmData.documents}
-                  />
-                  <CollapsibleSection
-                    title="Key Deadlines"
-                    content={llmData.deadlines}
-                  />
-                </>
-              )
-            }
-          </SpaceBetween>
+          {isloading ? (
+            <Box textAlign="center">
+              <Spinner size="large" />
+              <p>Loading...</p>
+            </Box>
+          ) : (
+            <>
+            <Header variant="h1">
+              <span style={{ color: '#000000' }}>Application Requirements for </span>
+              <span style={{ color: '#006ce1' }}>{llmData.grantName}</span>
+            </Header>
+              <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px', maxWidth: '950px', }}>
+              We've extracted the Project Narrative Components, Eligibility Criteria, Documents Required, and Key Deadlines for this grant. 
+              </p>
+              <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+              Use the tabs below to navigate through each section. 
+              </p>
+              {/* Tabs for Navigation */}
+              <Tabs
+                tabs={[
+                  {
+                    label: "Project Narrative Components",
+                    id: "narrative",
+                    content: (
+                      <Box margin={{ top: 'm' }}>
+                      <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+                      The following sections must be included in the project narrative. Navigate to the chatbot through the toolbar for help crafting a narrative draft.
+                      </p>
+      
+                      <ReactMarkdown className="custom-markdown">{llmData.narrative}</ReactMarkdown>
+                      </Box>
+                    ),
+                  },
+                  {
+                    label: "Eligibility Criteria",
+                    id: "eligibility",
+                    content: (
+                      <Box margin={{ top: 'm' }}>
+                      <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+                      Ensure you adhere to the extracted eligibility criteria before continuing with your application.
+                      </p>
+                        <ReactMarkdown className="custom-markdown">{llmData.eligibility}</ReactMarkdown>
+                      </Box>
+                    ),
+                  },
+                  {
+                    label: "Documents Required",
+                    id: "documents",
+                    content: (
+                      <Box margin={{ top: 'm' }}>
+                      <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+                      Include the following documents in your proposal.
+                      </p>
+                        <ReactMarkdown className="custom-markdown">{llmData.documents}</ReactMarkdown>
+                      </Box>
+                    ),
+                  },
+                  {
+                    label: "Key Deadlines",
+                    id: "deadlines",
+                    content: (
+                      <Box margin={{ top: 'm' }}>
+                      <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+                      Note the following key deadlines for this grant.
+                      </p>
+                        <ReactMarkdown className="custom-markdown">{llmData.deadlines}</ReactMarkdown>
+                      </Box>
+                    ),
+                  },
+                ]}
+                variant="default"
+              />
+              <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+              When you're ready, use the side navigation bar to start drafting your project proposal.
+              </p>
+            </>
+          )}
         </Box>
       }
     />

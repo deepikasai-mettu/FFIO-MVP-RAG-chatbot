@@ -25,7 +25,7 @@ export default function ReqNav({ documentIdentifier }) {
         </Button>
         <div style={{ padding: '15px', borderRadius: '8px', backgroundColor: '#f0f4f8', border: '1px solid #d1e3f0', marginBottom: '0px' }}>
           <Link href={linkUrl}>
-          <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Click Here to Start a Proposal For This Grant</h2>
+          <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Click Here to Start a Narrative For This Grant</h2>
           </Link>
           <p style={{ fontSize: '16px', color: '#555' }}>
           The GrantWell chatbot allows you to upload data and converse with a chatbot to craft a comprehensive project narrative for your grant proposal.
