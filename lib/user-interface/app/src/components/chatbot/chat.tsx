@@ -138,29 +138,35 @@ useEffect(() => {
           onDismiss={() => setShowPopup(false)}
           visible={showPopup}
           closeAriaLabel="Close popup"
-          header="Welcome to the Chatbot"
+          header="Welcome to GrantWell!"
         >
           <p>
-            Welcome to the GrantWell chatbot interface! This chatbot will prompt you through the project narrative section of your grant. 
+          Welcome to the GrantWell chatbot interface! The purpose of this chatbot is to prompt you through the project narrative section of your grant.
           </p>
           <p>
-          To make this thing work best, do x y z (upload past data, past proposals, info about your org, etc) to best help us craft a narrative that reflects you.
+          The chatbot will begin by prompting you for some basic information.
           </p>
+          <p>
+          For GrantWell to work best, upload supplementary data through the "upload data' linkto best help us craft a narrative that reflects your organization.
+          </p>
+          <p>
+          Examples of data could include:
+          </p> 
           <li>
-            step 1: upload data (last years annual report, latest accomplishments, previous year's proposal if they have one, narrative template, etc) 
+            Last year's annual report 
           </li>
           <li>
-            step 2: input any relevant websites to the chatbot (or say "no websites" 
+            Latest accomplishments
           </li>
           <li>
-            Step 3: chatbot says to user: “do you want me to assess whether or not you are eligible to apply to this grant”
+            Previously submitted proposals for this grant
           </li>
           <li>
-            Step 4: tell the user to review the prompt engineering guide if they need assistance
+            Project narrative template
           </li>
-          <li>
-            Step 5: chatbot will begin to prompt you
-          </li>
+          <p>
+          You can also provide links to the chatbot directly to relevant sites or articles pertaining to your organization or project goals.
+          </p>
           <p>
             Click the "i" icon in the upper right corner to access this information again.
           </p>

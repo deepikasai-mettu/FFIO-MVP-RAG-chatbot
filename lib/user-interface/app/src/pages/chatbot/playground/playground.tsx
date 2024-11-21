@@ -15,44 +15,33 @@ export default function Playground() {
       info={
         <HelpPanel header={<Header variant="h3">Welcome to the GrantWell chatbot interface!</Header>}>
                     <p>
-            This chatbot will prompt you through the project narrative section of your grant. 
+          The purpose of this chatbot is to prompt you through the project narrative section of your grant. 
           </p>
           <p>
-          To make this thing work best, do x y z (upload past data, past proposals, info about your org, etc) to best help us craft a narrative that reflects you.
-          </p>
-          <li>
-            step 1: upload data (last years annual report, latest accomplishments, previous year's proposal if they have one, narrative template, etc) 
-          </li>
-          <li>
-            step 2: input any relevant websites to the chatbot (or say "no websites" 
-          </li>
-          <li>
-            Step 3: chatbot says to user: “do you want me to assess whether or not you are eligible to apply to this grant”
-          </li>
-          <li>
-            Step 4: tell the user to review the prompt engineering guide if they need assistance
-          </li>
-          <li>
-            Step 5: chatbot will begin to prompt you
-          </li>
-          <p>
-            Click the "i" icon in the upper right corner to access this information again.
+          For GrantWell to work best, upload supplementary data through the "upload data' linkto best help us craft a narrative that reflects your organization.
           </p>
           <p>
-            This is a customizable chatbot application capable of both answering general questions
-            as well as referencing custom documents in order to fit a specific business use-case.
-          </p>
-          <h3>Feedback</h3>
+          Examples of data could include:
+          </p> 
+          <li>
+            Last year's annual report 
+          </li>
+          <li>
+            Latest accomplishments
+          </li>
+          <li>
+            Previously submitted proposals for this grant
+          </li>
+          <li>
+            Project narrative template
+          </li>
           <p>
-            You can submit feedback on every response. Negative feedback will consist of a category (depends on the use-case of the chatbot),
-            a type of issue, and some written comments. Admin users can view all feedback on a dedicated
-            page. Sources (if part of the original response) will be included with the feedback submission.
+          You can also provide links to relevant sites or articles pertaining to your organization or project goals.
           </p>
           <h3>Sources</h3>
           <p>
-            If the chatbot references any files (uploaded by admin users), they will show up
-            underneath the relevant message. Admin users have access to a portal to add or delete
-            files. 
+            If the chatbot references any files you've uploaded, they will show up
+            underneath the relevant message. Add or delete files through the "upload data" button in the other toolbar.
           </p>
           <h3>Session history</h3>
           <p>
