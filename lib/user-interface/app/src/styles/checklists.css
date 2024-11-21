@@ -1,0 +1,18 @@
+.custom-markdown {
+    font-size: 14px; /* Adjust font size */
+    line-height: 1.3; /* Adjust line spacing */
+    margin-bottom: 10px; /* Adjust spacing between list items */
+    color: #333; /* Optional: Adjust text color */
+    max-width: 950px; /* Adjust the line length */
+    /* margin-left: auto; /* Center the content horizontally */
+    /* margin-right: auto; /* Center the content horizontally */
+  }
+  
+  .custom-markdown ul {
+    padding-left: 30px; /* Add indentation for lists */
+  }
+  
+  .custom-markdown li {
+    margin-bottom: 15px; /* Add spacing between list items */
+  }
+  
