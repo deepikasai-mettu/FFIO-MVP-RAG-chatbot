@@ -110,7 +110,7 @@ def update_session(session_id, user_id, new_chat_entry):
             Key={"session_id": session_id, "user_id": user_id},
             UpdateExpression="set chat_history = :chat_history",
             ExpressionAttributeValues={
-                ":chat_history": updated_chat_history
+                ":chat_history": updated_chat_history,
                 
             },
             ReturnValues="UPDATED_NEW"
@@ -118,7 +118,7 @@ def update_session(session_id, user_id, new_chat_entry):
         return {
             'statusCode': 200,
             'headers': {'Access-Control-Allow-Origin': '*' },
-            'body': json.dumps(response.get("Attributes", {}))
+            'body': response.get("Attributes", {})
         }
     except ClientError as error:
         print("Caught error: DynamoDB error - could not update session")
@@ -202,7 +202,7 @@ def list_sessions_by_user_id(user_id, limit = 15):
             response = table.query(
                 IndexName='TimeIndex',  # Specify the secondary index to perform the query
                 ProjectionExpression='session_id, title, time_stamp',  # Limit the fields returned in the results
-                KeyConditionExpression="user_id = :user_id",  # Define the key condition for the query
+                KeyConditionExpression="user_id = :user_id" ,  # Define the key condition for the query
                 ExpressionAttributeValues={":user_id": user_id},  # Bind the user_id value to the placeholder in KeyConditionExpression
                 ScanIndexForward=False,  # Sort the results in descending order by the sort key
                 Limit=limit - len(items),  # Dynamically adjust the query limit based on how many items we've already retrieved

@@ -19,7 +19,7 @@ interface LambdaFunctionStackProps {
   readonly ffioNofosBucket : s3.Bucket;
   readonly knowledgeBase : bedrock.CfnKnowledgeBase;
   readonly knowledgeBaseSource: bedrock.CfnDataSource;
-}
+} 
 
 export class LambdaFunctionStack extends cdk.Stack {  
   public readonly chatFunction : lambda.Function;
@@ -51,7 +51,7 @@ export class LambdaFunctionStack extends cdk.Stack {
       effect: iam.Effect.ALLOW,
       actions: [
         'dynamodb:GetItem',
-        'dynamodb:PutAItem',
+        'dynamodb:PutItem',
         'dynamodb:UpdateItem',
         'dynamodb:DeleteItem',
         'dynamodb:Query',

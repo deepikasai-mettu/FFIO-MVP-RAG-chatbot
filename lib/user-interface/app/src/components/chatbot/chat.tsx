@@ -44,29 +44,32 @@ useEffect(() => {
     if (!props.sessionId) {
       const newSessionId = uuidv4();
       setSession({ id: newSessionId, loading: false });
-      const username = await Auth.currentAuthenticatedUser().then(
-        (value) => value.username
-      );
-      const apiClient = new ApiClient(appContext);
-      try {
-        await apiClient.sessions.createSession(
-          newSessionId,
-          username,
-          props.documentIdentifier
-        );
-        // Load the session to get the initial chatbot message
-        const hist = await apiClient.sessions.getSession(
-          newSessionId,
-          username
-        );
-        setMessageHistory(hist);
-      } catch (error) {
-        console.error("Error creating new session:", error);
-      }
-      return;
+      // const username = await Auth.currentAuthenticatedUser().then(
+      //   (value) => value.username
+      // );
+      // const apiClient = new ApiClient(appContext);
+      // try {
+      //   await apiClient.sessions.createSession(
+      //     newSessionId,
+      //     username,
+      //     props.documentIdentifier
+      //   );
+      //   // Load the session to get the initial chatbot message
+      //   const hist = await apiClient.sessions.getSession(
+      //     newSessionId,
+      //     username
+      //   );
+      //   setMessageHistory(hist);
+      // } catch (error) {
+      //   console.error("Error creating new session:", error);
+      // }
+      // return;
     }
 
+    console.log("This is running");
+
     setSession({ id: props.sessionId, loading: true });
+    
     const apiClient = new ApiClient(appContext);
     try {
       const username = await Auth.currentAuthenticatedUser().then(
@@ -82,8 +85,18 @@ useEffect(() => {
           behavior: "instant",
         });
       }
+      else {
+        setMessageHistory([
+          {
+            type: ChatBotMessageType.AI,
+            content: "Hello! How can I assist you today?",
+            metadata: {},
+          },
+        ])
+      }
       setSession({ id: props.sessionId, loading: false });
       setRunning(false);
+      
     } catch (error) {
       console.log(error);
       addNotification("error", error.message);
