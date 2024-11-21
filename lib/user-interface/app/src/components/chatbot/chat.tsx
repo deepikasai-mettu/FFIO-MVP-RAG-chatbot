@@ -63,7 +63,7 @@ useEffect(() => {
       // } catch (error) {
       //   console.error("Error creating new session:", error);
       // }
-      // return;
+      return;
     }
 
     console.log("This is running");
@@ -77,22 +77,29 @@ useEffect(() => {
       );
       if (!username) return;
       const hist = await apiClient.sessions.getSession(props.sessionId, username);
+      console.log("hist: ", hist);
 
       if (hist) {
+        console.log("in if");
         setMessageHistory(hist);
         window.scrollTo({
           top: 0,
           behavior: "instant",
         });
       }
-      else {
+      if(hist.length === 0) {
+        //const docIdentifier = props.documentIdentifier?.replace(/\/+$/, '');
+        const summaryResult = await apiClient.landingPage.getNOFOSummary(props.documentIdentifier);
+        const grantName = summaryResult.data.GrantName;
+
+        console.log("in else");
         setMessageHistory([
           {
             type: ChatBotMessageType.AI,
-            content: "Hello! How can I assist you today?",
+            content: `Hello! I see that you are working on ${grantName}. Can you please let me know what agency/municipality we are going to build this narrative for?`,
             metadata: {},
           },
-        ])
+        ]);
       }
       setSession({ id: props.sessionId, loading: false });
       setRunning(false);
