@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, CSSProperties } from 'react';
+import React, { useContext, useState, useEffect, CSSProperties, useRef} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import {
@@ -84,7 +84,7 @@ export default function Welcome({ theme }) {
     flex: '1 1 300px', // Allows flexibility with a minimum width
     padding: '15px',
     borderRadius: '8px',
-    backgroundColor: '#f0f4f8',
+    backgroundColor: '#cfdfe8',
     border: '1px solid #d1e3f0',
     display: 'flex',
     flexDirection: 'column',
@@ -97,7 +97,7 @@ export default function Welcome({ theme }) {
   const additionalResourcesStyle: CSSProperties = {
     padding: '15px',
     borderRadius: '8px',
-    backgroundColor: '#f0f4f8',
+    backgroundColor: '#cfdfe8',
     border: '1px solid #d1e3f0',
     marginBottom: '40px',
     marginLeft: 'auto',
@@ -110,7 +110,7 @@ export default function Welcome({ theme }) {
   const feedbackPanelStyle: CSSProperties = {
     padding: '15px',
     borderRadius: '8px',
-    backgroundColor: '#f0f4f8',
+    backgroundColor: '#cfdfe8',
     border: '1px solid #d1e3f0',
     marginBottom: '40px',
     marginLeft: 'auto',
@@ -162,12 +162,14 @@ export default function Welcome({ theme }) {
 
   // **Yellow Background Panel for Numbered Steps**
   const stepsBackgroundStyle: CSSProperties = {
-    backgroundColor: '#FFEC8E', // Bright yellow '#FBF585'
+    backgroundColor: '#FFEDBF', // this is a light orange rn 
     padding: '20px',
     marginBottom: '60px',
     width: '100%',
     boxSizing: 'border-box', // Ensure padding doesn't exceed maxWidth
   };
+
+  const selectNOFORef = useRef(null);
 
   // **Effect Hooks**
   // Check for admin status
@@ -429,7 +431,21 @@ export default function Welcome({ theme }) {
                   <strong>Quickly access</strong> the key info of recently viewed NOFOs.
                 </li>
               </ul>
-            </div>
+                <div style={{ textAlign: 'left', marginTop: '20px' }}>
+                  <Button
+                    onClick={() => {
+                      const yOffset = -100; // Adjust this value as needed
+                      const y =
+                        selectNOFORef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                      window.scrollTo({ top: y, behavior: 'smooth' });
+                    }}
+                    variant="primary"
+                    aria-label="Get Started"
+                  >
+                    Get Started
+                  </Button>
+                </div>
+              </div>
           </div>
 
           {/* Step 2 */}
@@ -468,16 +484,10 @@ export default function Welcome({ theme }) {
         </div>
       </div>
 
-      {/* <hr
-        style={{
-          border: 'none',
-          borderTop: '1px solid #000',
-          marginTop: '0px',
-          marginBottom: '60px',
-        }}
-      /> */}
-
       {/* Main Content */}
+
+      {/* <div ref={selectNOFORef}></div> */}
+
       <SpaceBetween size="xl">
         <div
           style={{
@@ -493,7 +503,7 @@ export default function Welcome({ theme }) {
           }}
         >
           {/* "Select a NOFO" Tile */}
-          <div style={panelStyle}>
+          <div style={panelStyle} ref={selectNOFORef}>
             <h2
               style={{
                 fontSize: '24px',
@@ -587,7 +597,7 @@ export default function Welcome({ theme }) {
           style={{
             padding: '15px',
             borderRadius: '8px',
-            backgroundColor: '#f0f4f8',
+            backgroundColor: '#cfdfe8',
             border: '1px solid #d1e3f0',
             marginBottom: '40px',
             marginLeft: '50px',
@@ -679,7 +689,7 @@ export default function Welcome({ theme }) {
           style={{
             padding: '15px',
             borderRadius: '8px',
-            backgroundColor: '#f0f4f8',
+            backgroundColor: '#cfdfe8',
             border: '1px solid #d1e3f0',
             marginBottom: '60px',
             marginLeft: '50px',
