@@ -20,10 +20,12 @@ import { AppContext } from "../../common/app-context";
 import RouterButton from "../wrappers/router-button";
 import { DateTime } from "luxon";
 import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 // import { Session } from "../../API";
 
 export interface SessionsProps {
   readonly toolsOpen: boolean;
+  readonly documentIdentifier: string | null;
 }
 
 export default function Sessions(props: SessionsProps) {
@@ -35,6 +37,9 @@ export default function Sessions(props: SessionsProps) {
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [deleteAllSessions, setDeleteAllSessions] = useState(false);
   const navigate = useNavigate();
+
+  const [ searchParams ] = useSearchParams();
+  const documentIdentifier = searchParams.get("folder");
 
   const { items, collectionProps, paginationProps } = useCollection(sessions, {
     filtering: {
@@ -65,7 +70,7 @@ export default function Sessions(props: SessionsProps) {
     try {
       await Auth.currentAuthenticatedUser().then((value) => username = value.username);
       if (username) {
-        const result = await apiClient.sessions.getSessions(username,true);
+        const result = await apiClient.sessions.getSessions(username,documentIdentifier, true);
         setSessions(result);
       }
     } catch (e) {
@@ -82,7 +87,7 @@ export default function Sessions(props: SessionsProps) {
       await getSessions();
       setIsLoading(false);
     })();
-  }, [appContext, getSessions, props.toolsOpen]);
+  }, [appContext, getSessions, props.toolsOpen, documentIdentifier]);
 
   const deleteSelectedSessions = async () => {
     if (!appContext) return;
@@ -223,8 +228,9 @@ export default function Sessions(props: SessionsProps) {
                   <RouterButton
                     iconName="add-plus"
                     onClick={() => {
-                      const nofoId = "sample_nofo_id"; // Replace with actual NOFO_ID from the selected NOFO
-                      navigate(`/chatbot/playground/${uuidv4()}`, { state: { nofo_id: nofoId } });
+                      // const nofoId = "sample_nofo_id"; // Replace with actual NOFO_ID from the selected NOFO
+                      // navigate(`/chatbot/playground/${uuidv4()}`, { state: { nofo_id: nofoId } });
+                      navigate(`/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier || '')}`);
                     }}
                   >
                     New session

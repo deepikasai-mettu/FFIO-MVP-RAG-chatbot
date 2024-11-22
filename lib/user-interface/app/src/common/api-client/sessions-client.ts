@@ -32,9 +32,10 @@ export class SessionsClient {
     let errorMessage = "Could not load sessions"
     while (!validData && runs < limit) {
       runs += 1;
-      const body = all
-        ? { operation: "list_all_sessions_by_user_id", user_id: userId }
-        : { operation: "list_sessions_by_user_id", user_id: userId };
+      const body = {
+        operation: all ? "list_all_sessions_by_user_id" : "list_sessions_by_user_id",
+        user_id: userId,
+      };
       if (documentIdentifier){
         body['document_identifier'] = documentIdentifier;
       }
