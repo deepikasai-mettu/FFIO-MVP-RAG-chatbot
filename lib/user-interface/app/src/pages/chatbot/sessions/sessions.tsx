@@ -4,10 +4,13 @@ import Sessions from "../../../components/chatbot/sessions";
 import { BreadcrumbGroup } from "@cloudscape-design/components";
 import { CHATBOT_NAME } from "../../../common/constants";
 import useOnFollow from "../../../common/hooks/use-on-follow";
+import { useSearchParams } from "react-router-dom";
 
 export default function SessionPage() {
   const [toolsOpen, setToolsOpen] = useState(false);
   const onFollow = useOnFollow();
+  const [ searchParams ] = useSearchParams();
+  const documentIdentifier = searchParams.get("folder");
 
   return (
     <BaseAppLayout
@@ -29,7 +32,7 @@ export default function SessionPage() {
           ]}
         />
       }
-      content={<Sessions toolsOpen={true} />}
+      content={<Sessions toolsOpen={true} documentIdentifier={documentIdentifier} />}
     />
   );
 }

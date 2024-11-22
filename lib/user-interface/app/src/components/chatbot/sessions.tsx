@@ -38,8 +38,8 @@ export default function Sessions(props: SessionsProps) {
   const [deleteAllSessions, setDeleteAllSessions] = useState(false);
   const navigate = useNavigate();
 
-  const [ searchParams ] = useSearchParams();
-  const documentIdentifier = searchParams.get("folder");
+  //const [ searchParams ] = useSearchParams();
+  const { documentIdentifier } = props;
 
   const { items, collectionProps, paginationProps } = useCollection(sessions, {
     filtering: {
@@ -77,7 +77,7 @@ export default function Sessions(props: SessionsProps) {
       console.log(e);
       setSessions([]);
     }
-  }, [appContext]);
+  }, [appContext, documentIdentifier]);
 
   useEffect(() => {
     if (!appContext) return;
