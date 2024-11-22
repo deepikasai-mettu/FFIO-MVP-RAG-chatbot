@@ -43,7 +43,7 @@ export default function NavigationPanel({ documentIdentifier }) {
     try {
       await Auth.currentAuthenticatedUser().then((value) => username = value.username);
       if (username && needsRefresh) {
-        const fetchedSessions = await apiClient.sessions.getSessions(username);
+        const fetchedSessions = await apiClient.sessions.getSessions(username, documentIdentifier);
         await updateItems(fetchedSessions);
         if (!loaded) {
           setLoaded(true);

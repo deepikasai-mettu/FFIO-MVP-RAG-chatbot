@@ -21,6 +21,7 @@ export class SessionsClient {
   // Return format: [{"session_id" : "string", "user_id" : "string", "time_stamp" : "dd/mm/yy", "title" : "string"}...]
   async getSessions(
     userId: string,
+    documentIdentifier: string,
     all?: boolean
   ) {
     const auth = await Utils.authenticate();
@@ -31,6 +32,12 @@ export class SessionsClient {
     let errorMessage = "Could not load sessions"
     while (!validData && runs < limit) {
       runs += 1;
+      const body = all
+        ? { operation: "list_all_sessions_by_user_id", user_id: userId }
+        : { operation: "list_sessions_by_user_id", user_id: userId };
+      if (documentIdentifier){
+        body['document_identifier'] = documentIdentifier;
+      }
       const response = await fetch(this.API + '/user-session', {
         method: 'POST',
         headers: {
@@ -38,7 +45,7 @@ export class SessionsClient {
           'Authorization': 'Bearer ' + auth,
         },
         //body: JSON.stringify(all? { "operation": "list_all_sessions_by_user_id", "user_id": userId, "documentIdentifier": documentIdentifier } : { "operation": "list_sessions_by_user_id", "user_id": userId, "documentIdentifier": documentIdentifier })
-        body: JSON.stringify(all? { "operation": "list_all_sessions_by_user_id", "user_id": userId } : { "operation": "list_sessions_by_user_id", "user_id": userId })
+        body: JSON.stringify(body)
       });
       if (response.status != 200) {
         validData = false;

@@ -3,6 +3,7 @@ import boto3
 from botocore.exceptions import ClientError
 import json
 from datetime import datetime
+from boto3.dynamodb.conditions import Key, Attr
 
 # Retrieve DynamoDB table and secondary index names from environment variables
 DDB_TABLE_NAME = os.environ["DDB_TABLE_NAME"]
@@ -191,7 +192,7 @@ def delete_user_sessions(user_id):
         return [{"error": str(error)}]
         
         
-def list_sessions_by_user_id(user_id, limit = 15):
+def list_sessions_by_user_id(user_id, document_identifier=None, limit = 15):
     items = []  # Initialize an empty list to store the fetched session items
 
     try:
@@ -199,15 +200,32 @@ def list_sessions_by_user_id(user_id, limit = 15):
 
         # Keep fetching until we have 15 items or there are no more items to fetch
         while len(items) < limit:
-            response = table.query(
-                IndexName='TimeIndex',  # Specify the secondary index to perform the query
-                ProjectionExpression='session_id, title, time_stamp',  # Limit the fields returned in the results
-                KeyConditionExpression="user_id = :user_id" ,  # Define the key condition for the query
-                ExpressionAttributeValues={":user_id": user_id},  # Bind the user_id value to the placeholder in KeyConditionExpression
-                ScanIndexForward=False,  # Sort the results in descending order by the sort key
-                Limit=limit - len(items),  # Dynamically adjust the query limit based on how many items we've already retrieved
-            )
-            items.extend(response.get("Items", []))  # Extend the items list with the newly fetched items
+            # response = table.query(
+            #     IndexName='TimeIndex',  # Specify the secondary index to perform the query
+            #     ProjectionExpression='session_id, title, time_stamp, document_identifier',  # Limit the fields returned in the results
+            #     KeyConditionExpression="user_id = :user_id" ,  # Define the key condition for the query
+            #     ExpressionAttributeValues={":user_id": user_id},  # Bind the user_id value to the placeholder in KeyConditionExpression
+            #     ScanIndexForward=False,  # Sort the results in descending order by the sort key
+            #     Limit=limit - len(items),  # Dynamically adjust the query limit based on how many items we've already retrieved
+            # )
+            # items.extend(response.get("Items", []))  # Extend the items list with the newly fetched items
+            query_params = {
+                'IndexName': 'TimeIndex',
+                'ProjectionExpression': 'session_id, title, time_stamp, document_identifier',
+                'KeyConditionExpression': Key('user_id').eq(user_id),
+                'ScanIndexForward': False,
+                'Limit': limit - len(items),
+            }
+
+            if document_identifier:
+                query_params['FilterExpression'] = Attr('document_identifier').eq(document_identifier)
+
+            if last_evaluated_key:
+                query_params['ExclusiveStartKey'] = last_evaluated_key
+
+            response = table.query(**query_params)
+
+            items.extend(response.get("Items",[]))
 
             last_evaluated_key = response.get("LastEvaluatedKey")  # Update the pagination key
             if not last_evaluated_key:  # Break the loop if there are no more items to fetch
@@ -253,7 +271,7 @@ def list_sessions_by_user_id(user_id, limit = 15):
 
     # Sort the items by 'time_stamp' in descending order to ensure the latest sessions appear first
     sorted_items = sorted(items, key=lambda x: x['time_stamp'], reverse=True)
-    sorted_items = list(map(lambda x: {"time_stamp" : x["time_stamp"], "session_id" : x["session_id"], "title" : x["title"].strip()},sorted_items))
+    sorted_items = list(map(lambda x: {"time_stamp" : x["time_stamp"], "session_id" : x["session_id"], "title" : x["title"].strip(), "document_identifier": x.get("document_identifier","")},sorted_items))
 
     # Prepare the HTTP response object with a status code, headers, and body
     response = {
@@ -290,9 +308,9 @@ def lambda_handler(event, context):
     elif operation == 'update_session':
         return update_session(session_id, user_id, new_chat_entry)
     elif operation == 'list_sessions_by_user_id':
-        return list_sessions_by_user_id(user_id)
+        return list_sessions_by_user_id(user_id, document_identifier=document_identifier)
     elif operation == 'list_all_sessions_by_user_id':
-        return list_sessions_by_user_id(user_id,limit=100)
+        return list_sessions_by_user_id(user_id,document_identifier=document_identifier, limit=100)
     elif operation == 'delete_session':
         return delete_session(session_id, user_id)
     elif operation == 'delete_user_sessions':
