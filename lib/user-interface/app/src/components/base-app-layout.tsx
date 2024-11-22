@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { SessionRefreshContext } from "../common/session-refresh-context"
 import { NotificationProvider } from "./notif-manager";
 import NotificationBar from "./notif-flashbar"
+import { useSearchParams } from "react-router-dom";
 
 export default function BaseAppLayout(
   props: AppLayoutProps & { info?: ReactElement; documentIdentifier?: string }
@@ -13,8 +14,11 @@ export default function BaseAppLayout(
   const [navigationPanelState, setNavigationPanelState] =
     useNavigationPanelState();
   const [toolsOpen, setToolsOpen] = useState(false);  
+
   const [needsRefresh, setNeedsRefresh] = useState(true);
-  const { documentIdentifier } = useParams();
+  //const { documentIdentifier } = useParams();
+  const [searchParams] = useSearchParams();
+  const documentIdentifier = searchParams.get("folder");
   console.log("BASE APP IDENTIFIER: ", documentIdentifier)
   console.log("BASE APP IDENTIFIER (from props): ", props.documentIdentifier)
   //console.log("Is identifier in here", props)
