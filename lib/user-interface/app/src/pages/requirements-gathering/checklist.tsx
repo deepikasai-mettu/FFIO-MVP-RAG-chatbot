@@ -101,7 +101,7 @@ export default function Checklists() {
         // justifyContent="center"
         // alignItems="center"
         // gap="l"
-        width="100%"
+        //width="100%"
         margin={{ bottom: "xl" }}
       >
           {/* Left Button */}
