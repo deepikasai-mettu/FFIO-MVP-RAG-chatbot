@@ -96,7 +96,8 @@ useEffect(() => {
         setMessageHistory([
           {
             type: ChatBotMessageType.AI,
-            content: `Hello! I see that you are working on ${grantName}. Can you please let me know what agency/municipality we are going to build this narrative for?`,
+            //content: `Hello! I see that you are working on . Can you please let me know what agency/municipality we are going to build this narrative for?`,
+            content: `Hello! I see that you are working on the ${grantName} grant. Could you please tell me which agency, municipality, or tribe we are building this narrative for?`,
             metadata: {},
           },
         ]);
