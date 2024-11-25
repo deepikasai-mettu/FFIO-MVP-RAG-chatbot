@@ -28,18 +28,18 @@ import { ApiClient } from "../../common/api-client/api-client";
 import { AppContext } from "../../common/app-context";
 import styles from "../../styles/chat.module.scss";
 
-import {  
-  ChatBotHistoryItem,  
+import {
+  ChatBotHistoryItem,
   ChatBotMessageType,
-  ChatInputState,  
+  ChatInputState,
 } from "./types";
 
-import {  
+import {
   assembleHistory
 } from "./utils";
 
 import { Utils } from "../../common/utils";
-import {SessionRefreshContext} from "../../common/session-refresh-context"
+import { SessionRefreshContext } from "../../common/session-refresh-context"
 import { useNotifications } from "../notif-manager";
 
 export interface ChatInputPanelProps {
@@ -47,7 +47,7 @@ export interface ChatInputPanelProps {
   setRunning: Dispatch<SetStateAction<boolean>>;
   session: { id: string; loading: boolean };
   messageHistory: ChatBotHistoryItem[];
-  setMessageHistory: (history: ChatBotHistoryItem[]) => void;  
+  setMessageHistory: (history: ChatBotHistoryItem[]) => void;
   documentIdentifier: string;
 }
 
@@ -59,17 +59,17 @@ export abstract class ChatScrollState {
 
 export default function ChatInputPanel(props: ChatInputPanelProps) {
   const appContext = useContext(AppContext);
-  const {needsRefresh, setNeedsRefresh} = useContext(SessionRefreshContext);  
+  const { needsRefresh, setNeedsRefresh } = useContext(SessionRefreshContext);
   const { transcript, listening, browserSupportsSpeechRecognition } =
     useSpeechRecognition();
   const [state, setState] = useState<ChatInputState>({
     value: "",
-    
+
   });
   const { notifications, addNotification } = useNotifications();
   const [readyState, setReadyState] = useState<ReadyState>(
     ReadyState.OPEN
-  );  
+  );
   const messageHistoryRef = useRef<ChatBotHistoryItem[]>([]);
 
   const [
@@ -78,9 +78,9 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
   ] = useState({ label: "Bedrock Knowledge Base", value: "kb" } as SelectProps.ChangeDetail["selectedOption"]);
 
   useEffect(() => {
-    messageHistoryRef.current = props.messageHistory;    
+    messageHistoryRef.current = props.messageHistory;
   }, [props.messageHistory]);
-  
+
 
 
   /** Speech recognition */
@@ -137,29 +137,29 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
 
   /**Sends a message to the chat API */
   const handleSendMessage = async () => {
-    if (!props.documentIdentifier){
+    if (!props.documentIdentifier) {
       addNotification('error', 'No Document selected. Please select a document to proceed.');
       return;
-    }    
+    }
     if (props.running) return;
     if (readyState !== ReadyState.OPEN) return;
     ChatScrollState.userHasScrolled = false;
 
     let username;
     await Auth.currentAuthenticatedUser().then((value) => username = value.username);
-    if (!username) return;    
+    if (!username) return;
 
     const messageToSend = state.value.trim();
     if (messageToSend.length === 0) {
-      addNotification("error","Please do not submit blank text!");
-      return;          
+      addNotification("error", "Please do not submit blank text!");
+      return;
     }
-    setState({ value: "" });    
-    
+    setState({ value: "" });
+
     try {
       props.setRunning(true);
-      let receivedData = '';      
-      
+      let receivedData = '';
+
       /**Add the user's query to the message history and a blank dummy message
        * for the chatbot as the response loads
        */
@@ -169,11 +169,11 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
         {
           type: ChatBotMessageType.Human,
           content: messageToSend,
-          metadata: {            
-          },          
+          metadata: {
+          },
         },
         {
-          type: ChatBotMessageType.AI,          
+          type: ChatBotMessageType.AI,
           content: receivedData,
           metadata: {},
         },
@@ -187,46 +187,87 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
       // old non-auth url -> const wsUrl = 'wss://ngdpdxffy0.execute-api.us-east-1.amazonaws.com/test/'; 
       // old shared url with auth -> wss://caoyb4x42c.execute-api.us-east-1.amazonaws.com/test/     
       // first deployment URL 'wss://zrkw21d01g.execute-api.us-east-1.amazonaws.com/prod/';
-      const TEST_URL = appContext.wsEndpoint+"/"
+      const TEST_URL = appContext.wsEndpoint + "/"
 
       // Get a JWT token for the API to authenticate on      
       const TOKEN = await Utils.authenticate()
-                
-      const wsUrl = TEST_URL+'?Authorization='+TOKEN;
+
+      const wsUrl = TEST_URL + '?Authorization=' + TOKEN;
       const ws = new WebSocket(wsUrl);
 
       let incomingMetadata: boolean = false;
       let sources = {};
 
       /**If there is no response after a minute, time out the response to try again. */
-      setTimeout(() => {if (receivedData == '') {
-        ws.close()
-        messageHistoryRef.current.pop();
-        messageHistoryRef.current.push({
-          type: ChatBotMessageType.AI,          
-          content: 'Response timed out!',
-          metadata: {},
-        })
-      }},60000)
+      setTimeout(() => {
+        if (receivedData == '') {
+          ws.close()
+          messageHistoryRef.current.pop();
+          messageHistoryRef.current.push({
+            type: ChatBotMessageType.AI,
+            content: 'Response timed out!',
+            metadata: {},
+          })
+        }
+      }, 60000)
 
       // Event listener for when the connection is open
       ws.addEventListener('open', function open() {
-        console.log('Connected to the WebSocket server');        
+        console.log('Connected to the WebSocket server');
         const message = JSON.stringify({
           "action": "getChatbotResponse",
           "data": {
             userMessage: messageToSend,
             chatHistory: assembleHistory(messageHistoryRef.current.slice(0, -2)),
-            systemPrompt: `You are an AI assistant for the Federal Funds and Infrastructure Office (FFIO) in Massachusetts. Use the NOFO document and the gathered information from the summary in your knowledge base as context for your responses in this chatbot interface.
-             Initially when the user mentions which municipality/organization they would like to draft the narrative for, use that in your context when writing the application narrative and Once the user responds with the name of an organization/municipality/tribe they are applying for, prompt the user with "Before we officially get started with writing the narrative, are there any other documents or datasets, aside from the main NOFO, the gathered info from the previous page, and any relevant state-provided data, that you want me to use to help strengthen the narrative? If you can't think of any documents right now, feel free to upload later on, at any point during this writing process.". 
-             Your role is to work collaboratively with FFIO assistants to draft federal grant application narratives and provide clear answers to any queries for the grant they chose.
-             Once the user has had the opportunity to upload, begin working through the narrative document section-by-section. Say something like the following each time you are starting a new section of the narrative: "The next session to work on is ____{fill with section name}. This section is ____{fill with brief description of section}. Do you have initial ideas on what to include in this section? If not, I can provide you with a basic first draft." 
-             If the user doesnot provide any initial input, write a draft using relevant data you have and say: "Here is a first draft. { Include the draft} Can you think of ways to make it better?"
-             Iteratively work with the user to improve the section until they are satisfied. If they are not satisfied do not proceed to the next section.
-             Prioritize your Context in your responses. Prioritize sources specific to the State of Massachusetts. 
-             Ground your answer in factual data and cite from authoritative sources. If you encounter a question you cannot decisively answer, find the most accurate and up-to-date information on the internet and cite the source.
-             Engage with users in a conversational and approachable manner. Ask clarifying questions to better understand their needs, provide suggestions, and offer additional insights that could enhance their grant applications. 
-             Once each section has been completed to the user's satisfaction, return the whole generated narrative document in one go, so that the user can see the whole output at once.`,
+            systemPrompt: `
+You are an AI assistant working for the Federal Funds and Infrastructure Office (FFIO) in Massachusetts. Your primary role is to collaboratively help users craft narrative documents for grant applications, using the Notice of Funding Opportunity (NOFO) document and gathered information from the summary in your knowledge base as context.
+
+1. **Initiate the Conversation:**
+
+   - Start by greeting the user and acknowledging the grant they are working on. For example:
+     - "Hello! I see that you are working on the **{grantName}** grant. Could you please tell me which agency, municipality, or tribe we are building this narrative for?"
+
+2. **Incorporate User's Organization:**
+
+   - Once the user provides the name of their organization, use it as context in all subsequent interactions and when drafting the project narrative.
+
+3. **Offer Additional Resources:**
+
+   - Prompt the user to upload any additional documents or datasets that could strengthen the narrative:
+     - "Before we officially get started, are there any other documents or datasets—aside from the main NOFO, the gathered info from the previous page, and any relevant state-provided data—that you'd like me to use? If you can't think of any right now, feel free to upload them later at any point during this writing process."
+
+4. **Section-by-Section Collaboration:**
+
+   - Begin working through the narrative document one section at a time.
+   - For each section:
+     - Introduce the section:
+       - "The next section to work on is **[section name]**. This section is about **[brief description of the section]**."
+     - Ask for the user's initial ideas:
+       - "Do you have any initial ideas on what to include in this section? If not, I can provide you with a basic first draft."
+     - If the user provides input, incorporate it into the draft.
+     - If not, offer a first draft using relevant data:
+       - "Here is a first draft based on the information I have. How does this sound? Can you think of ways to make it better?"
+     - Iteratively refine the section with the user until they are satisfied.
+     - Do not proceed to the next section until the user confirms they are satisfied with the current one.
+
+5. **Finalizing the Document:**
+
+   - Once all sections are completed to the user's satisfaction, provide the entire narrative document at once for the user to review:
+     - "Here is the complete narrative document based on our work together. Please review it and let me know if there's anything you'd like to adjust."
+
+6. **Additional Guidelines:**
+
+   - **Prioritize Context:** Always use the NOFO document, gathered summaries, and any additional user-provided resources as primary references.
+   - **State-Specific Focus:** Prioritize sources and information specific to the State of Massachusetts.
+   - **Accuracy and Citations:**
+     - Ground your responses in factual data.
+     - Cite authoritative sources where appropriate.
+     - If uncertain about an answer, find the most accurate and up-to-date information, and cite the source.
+   - **Conversational Tone:**
+     - Engage with the user in a friendly and approachable manner.
+     - Ask clarifying questions to better understand their needs.
+     - Provide suggestions and offer insights that could enhance their grant application.
+    `,
             projectId: 'rsrs111111',
             user_id: username,
             session_id: props.session.id,
@@ -234,25 +275,25 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
             documentIdentifier: props.documentIdentifier,
           }
         });
-        
+
         ws.send(message);
-        
+
       });
       // Event listener for incoming messages
       ws.addEventListener('message', async function incoming(data) {
         /**This is a custom tag from the API that denotes that an error occured
-         * and the next chunk will be an error message. */              
+         * and the next chunk will be an error message. */
         if (data.data.includes("<!ERROR!>:")) {
-          addNotification("error",data.data);          
+          addNotification("error", data.data);
           ws.close();
           return;
         }
         /**This is a custom tag from the API that denotes when the model response
          * ends and when the sources are coming in
          */
-        if (data.data == '!<|EOF_STREAM|>!') {          
+        if (data.data == '!<|EOF_STREAM|>!') {
           incomingMetadata = true;
-          return;          
+          return;
         }
         if (!incomingMetadata) {
           receivedData += data.data;
@@ -260,12 +301,12 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
           let sourceData = JSON.parse(data.data);
           sourceData = sourceData.map((item) => {
             if (item.title == "") {
-              return {title: item.uri.slice((item.uri as string).lastIndexOf("/") + 1), uri: item.uri}
+              return { title: item.uri.slice((item.uri as string).lastIndexOf("/") + 1), uri: item.uri }
             } else {
               return item
             }
           })
-          sources = { "Sources": sourceData}
+          sources = { "Sources": sourceData }
           console.log(sources);
         }
 
@@ -277,16 +318,16 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
             type: ChatBotMessageType.Human,
             content: messageToSend,
             metadata: {
-              
-            },            
+
+            },
           },
           {
-            type: ChatBotMessageType.AI,            
+            type: ChatBotMessageType.AI,
             content: receivedData,
             metadata: sources,
           },
-        ];        
-        props.setMessageHistory(messageHistoryRef.current);        
+        ];
+        props.setMessageHistory(messageHistoryRef.current);
       });
       // Handle possible errors
       ws.addEventListener('error', function error(err) {
@@ -296,18 +337,18 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
       ws.addEventListener('close', async function close() {
         // if this is a new session, the backend will update the session list, so
         // we need to refresh        
-        if (firstTime) {             
+        if (firstTime) {
           Utils.delay(1500).then(() => setNeedsRefresh(true));
         }
-        props.setRunning(false);        
+        props.setRunning(false);
         console.log('Disconnected from the WebSocket server');
       });
 
-    } catch (error) {      
+    } catch (error) {
       console.error('Error sending message:', error);
       alert('Sorry, something has gone horribly wrong! Please try again or refresh the page.');
       props.setRunning(false);
-    }     
+    }
   };
 
   const connectionStatus = {
@@ -337,7 +378,7 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
             ) : (
               <Icon name="microphone-off" variant="disabled" />
             )}
-          </SpaceBetween>          
+          </SpaceBetween>
           <TextareaAutosize
             className={styles.input_textarea}
             maxRows={6}
@@ -356,10 +397,10 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
             value={state.value}
             placeholder={"Send a message"}
           />
-          <div style={{ marginLeft: "8px" }}>            
+          <div style={{ marginLeft: "8px" }}>
             <Button
               disabled={
-                readyState !== ReadyState.OPEN ||                
+                readyState !== ReadyState.OPEN ||
                 props.running ||
                 state.value.trim().length === 0 ||
                 props.session.loading
@@ -381,13 +422,13 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
           </div>
         </div>
       </Container>
-      <div className={styles.input_controls}>      
+      <div className={styles.input_controls}>
         <div>
-        </div>  
+        </div>
         <div className={styles.input_controls_right}>
           <SpaceBetween direction="horizontal" size="xxs" alignItems="center">
-            <div style={{ paddingTop: "1px" }}>              
-            </div>            
+            <div style={{ paddingTop: "1px" }}>
+            </div>
           </SpaceBetween>
         </div>
       </div>
