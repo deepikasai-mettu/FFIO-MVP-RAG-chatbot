@@ -316,6 +316,7 @@ const stepContentH2Style: CSSProperties = {
       <div
         style={{
           display: 'flex',
+          flexDirection: 'row',
           justifyContent: 'center',
           alignItems: 'center',
           marginBottom: '10px',
@@ -324,6 +325,7 @@ const stepContentH2Style: CSSProperties = {
         <div
           style={{
             display: 'flex',
+            flexDirection: 'row',
             alignItems: 'center',
             marginBottom: '10px',
             flexWrap: 'wrap', // Allow wrapping on small screens

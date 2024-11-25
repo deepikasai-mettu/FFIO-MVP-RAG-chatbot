@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
-import { Box, Header, SpaceBetween, Button, Tabs, Spinner } from '@cloudscape-design/components';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { Box, Header, SpaceBetween, Button, Tabs, Spinner, SegmentedControl } from '@cloudscape-design/components';
 import BaseAppLayout from '../../components/base-app-layout';
 import ReqNav from '../../components/req-nav';
 import ReactMarkdown from 'react-markdown';
 import { ApiClient } from "../../common/api-client/api-client";
 import { AppContext } from '../../common/app-context';
 import '../../styles/checklists.css';
+import BackArrowIcon from "../../../public/images/back-arrow.jsx";
+import { v4 as uuidv4 } from "uuid";
 
 export interface SectionProps {
   title: string;
@@ -16,7 +18,7 @@ export interface SectionProps {
 
 const CollapsibleSection: React.FC<SectionProps> = ({ title, content, isOpenDefault = true }) => {
   const [isOpen, setIsOpen] = useState(isOpenDefault);
-
+  const navigate = useNavigate()
   const toggleSection = () => setIsOpen((prev) => !prev);
 
   return (
@@ -40,6 +42,7 @@ const CollapsibleSection: React.FC<SectionProps> = ({ title, content, isOpenDefa
 };
 
 export default function Checklists() {
+  const navigate = useNavigate()
   const location = useLocation();
   const { documentIdentifier } = useParams();
   console.log("CHECKLIST IDENTIFIER: ", documentIdentifier)
@@ -53,6 +56,7 @@ export default function Checklists() {
     deadlines: '',
   });
   const [isloading, setLoading] = useState(true);
+  const [selectedSegment, setSelectedSegment] = useState("seg-2"); // SegmentedControl state
   const getNOFOSummary = async () => {
     try{
       console.log("document key: ", documentIdentifier);
@@ -77,12 +81,71 @@ export default function Checklists() {
     getNOFOSummary();
   }, [documentUrl]);
 
+  const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}`;
+
   return (
     <BaseAppLayout
-      navigation={<ReqNav documentIdentifier={documentIdentifier} />}
+      // navigation={<ReqNav documentIdentifier={documentIdentifier} />}
+      navigation={null}
+      navigationHide={true} // Completely hide the hamburger icon
+      navigationOpen={false}
+      onNavigationChange={() => {}} // Disable the hamburger toggle behavior
       content={
-        <Box padding="m">
-          {isloading ? (
+
+      <SpaceBetween direction="vertical" size="xl">
+      <Box padding="m">
+    
+      <Box
+        //display="flex"
+        // flexDirection="row"
+        // justifyContent="center"
+        // alignItems="center"
+        // gap="l"
+        width="100%"
+        margin={{ bottom: "xl" }}
+      >
+          {/* Left Button */}
+          <Button
+            onClick={() => navigate('/landing-page/basePage')}
+            variant="primary"
+            aria-label="Return to Home Page"
+            iconSvg={<BackArrowIcon />}
+          >
+            Back to Home
+          </Button>
+          
+          {/* Segmented Control */}
+          <SegmentedControl
+            selectedId={selectedSegment}
+            onChange={({ detail }) => {
+              setSelectedSegment(detail.selectedId);
+              if (detail.selectedId === "seg-1") {
+                navigate('/landing-page/basePage'); // Segment 1 takes you back to Home
+              } else if (detail.selectedId === "seg-3") {
+                navigate(linkUrl); // Segment 3 takes you to the Chatbot
+              }
+            }}
+            label="Choose segment"
+            options={[
+              { text: "(1) NOFO Select", id: "seg-1" },
+              { text: "(2) Key Information", id: "seg-2" }, // Highlighted by default on this page
+              { text: "(3) Draft Narrative", id: "seg-3" },
+            ]}
+          />
+
+          {/* Right Button */}
+          <Button
+            onClick={() => navigate(linkUrl)}
+            variant="primary"
+            aria-label="Open Settings"
+          >
+            Go to Chatbot
+          </Button>
+        </Box>
+
+          
+        {/* </SpaceBetween> */}
+        {isloading ? (
             <Box textAlign="center">
               <Spinner size="large" />
               <p>Loading...</p>
@@ -160,6 +223,7 @@ export default function Checklists() {
             </>
           )}
         </Box>
+        </SpaceBetween>
       }
     />
   );
