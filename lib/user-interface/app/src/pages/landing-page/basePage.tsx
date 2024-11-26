@@ -215,6 +215,7 @@ export default function Welcome({ theme }) {
 
     fileInput.click();
   };
+  
 
   // Navigate to checklists
   const goToChecklists = () => {
@@ -227,6 +228,7 @@ export default function Welcome({ theme }) {
       );
     }
   };
+
 
   // **Components**
   // HistoryPanel component
@@ -471,11 +473,8 @@ export default function Welcome({ theme }) {
           </Button>
 
           <Button
-            onClick={() =>
-              handleNOFOSelect(
-                linkUrl,
-                selectedDocument
-              )
+            onClick={() => 
+            navigate (`/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(selectedDocument.value)}`)
             }
             disabled={!selectedDocument}
             variant="primary"
