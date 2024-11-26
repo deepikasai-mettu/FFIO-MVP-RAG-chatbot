@@ -51,7 +51,7 @@ export default function GlobalHeader() {
 
   return (
     <div
-      style={{ zIndex: 1002, top: 0, left: 0, right: 0, position: "fixed" }}
+      style={{ zIndex: 1002, top: 0, left: 0, right: 0, position: "fixed", }}
       id="awsui-top-navigation"
     >
       <TopNavigation
