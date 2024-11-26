@@ -212,6 +212,8 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
       }, 60000)
 
       // Event listener for when the connection is open
+
+      // The system prompt here will be over written by the one in functions.ts. Make sure to change the prompt there.
       ws.addEventListener('open', function open() {
         console.log('Connected to the WebSocket server');
         const message = JSON.stringify({
