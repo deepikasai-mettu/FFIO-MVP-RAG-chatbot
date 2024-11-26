@@ -12,6 +12,7 @@ import {
 } from '@cloudscape-design/components';
 import { ApiClient } from '../../common/api-client/api-client';
 import { AppContext } from '../../common/app-context';
+import { v4 as uuidv4 } from "uuid";
 
 export default function Welcome({ theme }) {
   console.log('entering base page');
@@ -57,6 +58,8 @@ export default function Welcome({ theme }) {
 
   const mainTextColor = "#006499"
   const bodyTextColor = "#6c757d"
+
+  const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(selectedDocument)}`;
 
   // // Common panel style for "Select a NOFO" and "Recently Viewed NOFOs"
   // const panelStyle: CSSProperties = {
@@ -470,9 +473,7 @@ export default function Welcome({ theme }) {
           <Button
             onClick={() =>
               handleNOFOSelect(
-                `/landing-page/basePage/checklists/${encodeURIComponent(
-                  selectedDocument.value
-                )}`,
+                linkUrl,
                 selectedDocument
               )
             }

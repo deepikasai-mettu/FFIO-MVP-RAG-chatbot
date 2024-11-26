@@ -58,7 +58,7 @@ export default function Checklists() {
   const [isloading, setLoading] = useState(true);
   const [selectedSegment, setSelectedSegment] = useState("seg-2"); // SegmentedControl state
   const getNOFOSummary = async () => {
-    try{
+    try {
       console.log("document key: ", documentIdentifier);
       const result = await apiClient.landingPage.getNOFOSummary(documentIdentifier);
       console.log("result: ", result);
@@ -71,10 +71,10 @@ export default function Checklists() {
       });
     } catch (error) {
       console.error("Error loading NOFO summary: ", error);
-    }finally {
+    } finally {
       setLoading(false);
     }
-  } ;
+  };
 
   const { documentUrl } = useParams<{ documentUrl: string }>();
   useEffect(() => {
@@ -89,140 +89,153 @@ export default function Checklists() {
       navigation={null}
       navigationHide={true} // Completely hide the hamburger icon
       navigationOpen={false}
-      onNavigationChange={() => {}} // Disable the hamburger toggle behavior
+      onNavigationChange={() => { }} // Disable the hamburger toggle behavior
       content={
 
-      <SpaceBetween direction="vertical" size="xl">
-      <Box padding="m">
-    
-      <Box
-        //display="flex"
-        // flexDirection="row"
-        // justifyContent="center"
-        // alignItems="center"
-        // gap="l"
-        //width="100%"
-        margin={{ bottom: "xl" }}
-      >
-          {/* Left Button */}
-          <Button
-            onClick={() => navigate('/landing-page/basePage')}
-            variant="primary"
-            aria-label="Return to Home Page"
-            iconSvg={<BackArrowIcon />}
-          >
-            Back to Home
-          </Button>
-          
-          {/* Segmented Control */}
-          <SegmentedControl
-            selectedId={selectedSegment}
-            onChange={({ detail }) => {
-              setSelectedSegment(detail.selectedId);
-              if (detail.selectedId === "seg-1") {
-                navigate('/landing-page/basePage'); // Segment 1 takes you back to Home
-              } else if (detail.selectedId === "seg-3") {
-                navigate(linkUrl); // Segment 3 takes you to the Chatbot
-              }
-            }}
-            label="Choose segment"
-            options={[
-              { text: "(1) NOFO Select", id: "seg-1" },
-              { text: "(2) Key Information", id: "seg-2" }, // Highlighted by default on this page
-              { text: "(3) Draft Narrative", id: "seg-3" },
-            ]}
-          />
+        <SpaceBetween direction="vertical" size="xl">
+          <Box padding="m">
 
-          {/* Right Button */}
-          <Button
-            onClick={() => navigate(linkUrl)}
-            variant="primary"
-            aria-label="Open Settings"
-          >
-            Go to Chatbot
-          </Button>
-        </Box>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: "1rem", // Spacing between items
+                flexWrap: "wrap", // Ensure items wrap if the screen is too narrow
+                marginTop: "15px",
+                marginBottom: "30px", // Space below the toolbar
+              }}
+            >
+              {/* Left Button */}
+              <Button
+                onClick={() => navigate('/landing-page/basePage')}
+                variant="primary"
+                aria-label="Return to Home Page"
+                iconSvg={<BackArrowIcon />}
+              >
+                Back to Home
+              </Button>
 
-          
-        {/* </SpaceBetween> */}
-        {isloading ? (
-            <Box textAlign="center">
-              <Spinner size="large" />
-              <p>Loading...</p>
-            </Box>
-          ) : (
-            <>
-            <Header variant="h1">
-              <span style={{ color: '#000000' }}>Application Requirements for </span>
-              <span style={{ color: '#006ce1' }}>{llmData.grantName}</span>
-            </Header>
-              <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px', maxWidth: '950px', }}>
-              We've extracted the Project Narrative Components, Eligibility Criteria, Documents Required, and Key Deadlines for this grant. 
-              </p>
-              <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
-              Use the tabs below to navigate through each section. 
-              </p>
-              {/* Tabs for Navigation */}
-              <Tabs
-                tabs={[
-                  {
-                    label: "Project Narrative Components",
-                    id: "narrative",
-                    content: (
-                      <Box margin={{ top: 'm' }}>
-                      <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
-                      The following sections must be included in the project narrative. Navigate to the chatbot through the toolbar for help crafting a narrative draft.
-                      </p>
-      
-                      <ReactMarkdown className="custom-markdown">{llmData.narrative}</ReactMarkdown>
-                      </Box>
-                    ),
-                  },
-                  {
-                    label: "Eligibility Criteria",
-                    id: "eligibility",
-                    content: (
-                      <Box margin={{ top: 'm' }}>
-                      <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
-                      Ensure you adhere to the extracted eligibility criteria before continuing with your application.
-                      </p>
-                        <ReactMarkdown className="custom-markdown">{llmData.eligibility}</ReactMarkdown>
-                      </Box>
-                    ),
-                  },
-                  {
-                    label: "Documents Required",
-                    id: "documents",
-                    content: (
-                      <Box margin={{ top: 'm' }}>
-                      <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
-                      Include the following documents in your proposal.
-                      </p>
-                        <ReactMarkdown className="custom-markdown">{llmData.documents}</ReactMarkdown>
-                      </Box>
-                    ),
-                  },
-                  {
-                    label: "Key Deadlines",
-                    id: "deadlines",
-                    content: (
-                      <Box margin={{ top: 'm' }}>
-                      <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
-                      Note the following key deadlines for this grant.
-                      </p>
-                        <ReactMarkdown className="custom-markdown">{llmData.deadlines}</ReactMarkdown>
-                      </Box>
-                    ),
-                  },
+              {/* Segmented Control */}
+              <SegmentedControl
+                selectedId={selectedSegment}
+                onChange={({ detail }) => {
+                  setSelectedSegment(detail.selectedId);
+                  if (detail.selectedId === "seg-1") {
+                    navigate('/landing-page/basePage'); // Segment 1 takes you back to Home
+                  } else if (detail.selectedId === "seg-3") {
+                    navigate(linkUrl); // Segment 3 takes you to the Chatbot
+                  }
+                }}
+                label="Choose segment"
+                options={[
+                  { text: "(1) NOFO Select", id: "seg-1" },
+                  { text: "(2) Key Information", id: "seg-2" }, // Highlighted by default on this page
+                  { text: "(3) Draft Narrative", id: "seg-3" },
                 ]}
-                variant="default"
               />
-              <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
-              When you're ready, use the side navigation bar to start drafting your project proposal.
-              </p>
-            </>
-          )}
-        </Box>
+
+              {/* Right Button */}
+              <Button
+                onClick={() => navigate(linkUrl)}
+                variant="primary"
+                aria-label="Open Settings"
+              >
+                Go to Chatbot
+              </Button>
+            </div>
+
+
+            {/* </SpaceBetween> */}
+            {isloading ? (
+              <Box textAlign="center">
+                <Spinner size="large" />
+                <p>Loading...</p>
+              </Box>
+            ) : (
+              <>
+                <Header variant="h1">
+                  <span style={{ color: '#000000' }}>Application Requirements for </span>
+                  <span style={{ color: '#006499' }}>{llmData.grantName}</span>
+                </Header>
+                <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px', maxWidth: '950px', }}>
+                  We've extracted the Eligibility Criteria, Required Documents, Project Narrative Components, and Key Deadlines for this grant.
+                </p>
+                <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+                  Use the tabs below to navigate through each section.
+                </p>
+                {/* Tabs for Navigation */}
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center", // Horizontal centering
+                    marginTop: "15px",
+                    marginBottom: "10px",
+                    width: "100%", // Ensures the container spans full width
+                  }}
+                >
+                  <Tabs
+                    tabs={[
+                      {
+                        label: "Eligibility Criteria",
+                        id: "eligibility",
+                        content: (
+                          <Box margin={{ top: 'm' }}>
+                            <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+                              Ensure you adhere to the extracted eligibility criteria before continuing with your application.
+                            </p>
+                            <ReactMarkdown className="custom-markdown">{llmData.eligibility}</ReactMarkdown>
+                          </Box>
+                        ),
+                      },
+                      {
+                        label: "Required Documents",
+                        id: "documents",
+                        content: (
+                          <Box margin={{ top: 'm' }}>
+                            <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+                              Include the following documents in your proposal.
+                            </p>
+                            <ReactMarkdown className="custom-markdown">{llmData.documents}</ReactMarkdown>
+                          </Box>
+                        ),
+                      },
+                      {
+                        label: "Project Narrative Components",
+                        id: "narrative",
+                        content: (
+                          <Box margin={{ top: 'm' }}>
+                            <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+                              The following sections must be included in the project narrative. Navigate to the chatbot through the toolbar for help crafting a narrative draft.
+                            </p>
+
+                            <ReactMarkdown className="custom-markdown">{llmData.narrative}</ReactMarkdown>
+                          </Box>
+                        ),
+                      },
+                      {
+                        label: "Key Deadlines",
+                        id: "deadlines",
+                        content: (
+                          <Box margin={{ top: 'm' }}>
+                            <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+                              Note the following key deadlines for this grant.
+                            </p>
+                            <ReactMarkdown className="custom-markdown">{llmData.deadlines}</ReactMarkdown>
+                          </Box>
+                        ),
+                      },
+                    ]}
+                    variant="default"
+                  />
+                </div>
+                <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
+                  When you're ready, use navigation buttons above to start drafting your project proposal.
+                </p>
+              </>
+            )}
+          </Box>
         </SpaceBetween>
       }
     />
