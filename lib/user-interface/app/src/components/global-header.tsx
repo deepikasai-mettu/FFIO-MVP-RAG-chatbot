@@ -8,6 +8,16 @@ import { StorageHelper } from "../common/helpers/storage-helper";
 import { Auth } from "aws-amplify";
 import useOnFollow from "../common/hooks/use-on-follow";
 import { CHATBOT_NAME } from "../common/constants";
+// import "./global-header.css";
+import { Divider } from "@aws-amplify/ui-react";
+
+const styles = {
+  container: {
+    '--color-background-top-navigation': '#0f1b2a',  // Dark blue background
+    '--color-text-top-navigation': '#ffffff',        // White text
+    '--color-background-top-navigation-hover': '#1f3b5a'  // Slightly lighter blue for hover
+  }
+};
 
 export default function GlobalHeader() {
   const onFollow = useOnFollow();
@@ -32,27 +42,35 @@ export default function GlobalHeader() {
     })();
   }, []);
 
-  const onChangeThemeClick = () => {
-    if (theme === Mode.Dark) {
-      setTheme(StorageHelper.applyTheme(Mode.Light));
-    } else {
-      setTheme(StorageHelper.applyTheme(Mode.Dark));
-    }
-  };
-  const onUserProfileClick = ({
-    detail,
-  }: {
-    detail: ButtonDropdownProps.ItemClickDetails;
-  }) => {
-    if (detail.id === "signout") {
-      Auth.signOut();
-    }
-  };
+  // const onChangeThemeClick = () => {
+  //   if (theme === Mode.Dark) {
+  //     setTheme(StorageHelper.applyTheme(Mode.Light));
+  //   } else {
+  //     setTheme(StorageHelper.applyTheme(Mode.Dark));
+  //   }
+  // };
+  // const onUserProfileClick = ({
+  //   detail,
+  // }: {
+  //   detail: ButtonDropdownProps.ItemClickDetails;
+  // }) => {
+  //   if (detail.id === "signout") {
+  //     Auth.signOut();
+  //   }
+  // };
 
   return (
     <div
-      style={{ zIndex: 1002, top: 0, left: 0, right: 0, position: "fixed", }}
-      id="awsui-top-navigation"
+      style={{ 
+        ...styles.container,
+        zIndex: 1002, 
+        top: 0, 
+        left: 0, 
+        right: 0, 
+        position: "fixed",
+        backgroundColor: "#006499"
+      }}
+      // id="awsui-top-navigation"
     >
       <TopNavigation
         identity={{
@@ -60,23 +78,24 @@ export default function GlobalHeader() {
           title: "GrantWell",
           //logo: { src: "/images/stateseal-color.png", alt:  CHATBOT_NAME  + " Logo" },
         }}
+        i18nStrings={{ searchIconAriaLabel: "Global header" }}
         utilities={[          
           // {
           //   type: "button",
           //   text: theme === Mode.Dark ? "Light Mode" : "Dark Mode",
           //   onClick: onChangeThemeClick,
           // },
-          {
-            type: "button",
-            // text: theme === Mode.Dark ? "Light Mode" : "Dark Mode",
-            onClick: onChangeThemeClick,
-          },
+          // {
+          //   type: "button",
+          //   // text: theme === Mode.Dark ? "Light Mode" : "Dark Mode",
+          //   onClick: onChangeThemeClick,
+          // },
   
           {
             type: "menu-dropdown",
             description: userName ?? "",
             iconName: "user-profile",
-            onItemClick: onUserProfileClick,
+            // onItemClick: onUserProfileClick,
             items: [
               {
                 id: "signout",

@@ -12,6 +12,7 @@ import {
 } from '@cloudscape-design/components';
 import { ApiClient } from '../../common/api-client/api-client';
 import { AppContext } from '../../common/app-context';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Welcome({ theme }) {
   console.log('entering base page');
@@ -213,6 +214,7 @@ export default function Welcome({ theme }) {
     fileInput.click();
   };
 
+
   // Navigate to checklists
   const goToChecklists = () => {
     if (selectedDocument) {
@@ -224,6 +226,7 @@ export default function Welcome({ theme }) {
       );
     }
   };
+
 
   // **Components**
   // HistoryPanel component
@@ -294,12 +297,14 @@ export default function Welcome({ theme }) {
     backgroundColor = '#06293d',
     mainTextColor = '#ffffff',
     bodyTextColor = '#ffffff',
+    buttonColor = '#FF9B00',
+    titleFontSize = '24px',
   }) => (
     <div
       style={{
         backgroundColor: backgroundColor,
         padding: '20px',
-        marginBlockEnd: '-50px',
+        marginBlockEnd: '0',
         width: '100vw',
         height: "175px",
         position: 'relative',
@@ -331,11 +336,15 @@ export default function Welcome({ theme }) {
             flexDirection: 'column',
           }}
         >
-          <h1 style={{ fontSize: '30px', margin: 1, color: mainTextColor }}>{title}</h1>
+          <h1 style={{ fontSize: titleFontSize, margin: 1, color: mainTextColor }}>{title}</h1>
           <p style={{ fontSize: '13px', color: bodyTextColor }}>{description}</p>
         </div>
         {buttonText && buttonAction && (
-          <Button onClick={buttonAction} variant="primary" aria-label={buttonText}>
+          <Button 
+            onClick={buttonAction} 
+            variant="normal"
+            aria-label={buttonText}
+          >
             {buttonText}
           </Button>
         )}
@@ -379,13 +388,19 @@ export default function Welcome({ theme }) {
 
   // **Render**
   return (
-    <Container>
+    <Container
+      disableContentPaddings
+    >
       <div
         style={{
-          maxWidth: "950px", // Set a max width for the page
-          margin: "0 auto", // Center the content horizontally
-          padding: "0 40px", // Add padding to the sides (adjust as needed)
-          marginTop: "70px", // Add top margin to create space between the content and the top
+          maxWidth: "950px",
+          margin: "0 auto",
+          padding: "0 40px",
+          marginTop: "70px",
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          paddingBottom: "0",
         }}
       >
         {/* Header with logo and title */}
@@ -468,19 +483,14 @@ export default function Welcome({ theme }) {
           </Button>
 
           <Button
-            onClick={() =>
-              handleNOFOSelect(
-                `/landing-page/basePage/checklists/${encodeURIComponent(
-                  selectedDocument.value
-                )}`,
-                selectedDocument
-              )
-            }
+            onClick={() => 
+              navigate (`/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(selectedDocument.value)}`)
+              }
             disabled={!selectedDocument}
             variant="primary"
             aria-label="Start Chat"
           >
-            Start Chat
+            Start Narrative Draft
           </Button>
 
         </div>
@@ -523,9 +533,11 @@ export default function Welcome({ theme }) {
             backgroundColor="##f1f6f9"
             mainTextColor="#006499"
             bodyTextColor="#6c757d"
+            titleFontSize='24px'
           />
         )}
 
+        <div style={{ flex: 1 }} />
 
         {/* "Additional Resources" Panel */}
         <ContentBox>
@@ -620,6 +632,7 @@ export default function Welcome({ theme }) {
             window.open('https://forms.gle/M2PHgWTVVRrRubpc7', '_blank')
           }
           backgroundColor='#006499'
+          buttonColor="#FF9B00"
         />
 
         {/* Affiliations Section */}
