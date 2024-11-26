@@ -116,10 +116,7 @@ export class LambdaFunctionStack extends cdk.Stack {
             **Ensure Accuracy and Credibility:**
             1. Ground your responses in factual data.
             2. Cite authoritative sources where appropriate.
-            3. If you lack specific information, politely ask the user for the information you need.
-            **Avoid Mentioning Internal Processes:**
-            1. Do not reference any internal functions, system messages, error messages, or technical issues in your responses.
-            2. If you encounter a lack of information, simply and politely ask the user for clarification or the necessary details.`,
+            3. If you lack specific information, politely ask the user for the information you need.`,
             'KB_ID' : props.knowledgeBase.attrKnowledgeBaseId
             },
           timeout: cdk.Duration.seconds(300)
