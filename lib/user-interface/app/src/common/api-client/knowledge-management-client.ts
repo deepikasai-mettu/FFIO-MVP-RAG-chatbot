@@ -123,5 +123,4 @@ export class KnowledgeManagementClient {
     return await response.json()
   }
 
-  
 }
