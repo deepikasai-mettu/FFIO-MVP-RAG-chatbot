@@ -95,7 +95,7 @@ export default function Checklists() {
                 gap: "1rem", // Spacing between items
                 flexWrap: "wrap", // Ensure items wrap if the screen is too narrow
                 marginTop: "15px",
-                marginBottom: "30px", // Space below the toolbar
+                marginBottom: "80px", // Space below the toolbar
               }}
             >
               {/* Left Button */}
