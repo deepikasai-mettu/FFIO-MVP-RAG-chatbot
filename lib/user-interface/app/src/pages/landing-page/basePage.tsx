@@ -61,21 +61,6 @@ export default function Welcome({ theme }) {
 
   const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(selectedDocument)}`;
 
-  // // Common panel style for "Select a NOFO" and "Recently Viewed NOFOs"
-  // const panelStyle: CSSProperties = {
-  //   flex: '1 1 300px', // Allows flexibility with a minimum width
-  //   padding: '15px',
-  //   width: "100vw",
-  //   borderRadius: '8px',
-  //   backgroundColor: '#cfdfe8',
-  //   border: '1px solid #d1e3f0',
-  //   display: 'flex',
-  //   flexDirection: 'column',
-  //   height: 'auto',
-  //   maxHeight: 'none',
-  //   overflowY: 'auto',
-  // };
-
   // **Admin Section Styles**
   const adminContainerStyle: CSSProperties = {
     display: 'flex',
@@ -509,29 +494,10 @@ export default function Welcome({ theme }) {
           <HistoryPanel />
         </ContentBox>
 
-        {/* 
-          {isAdmin && (
-            <div style={adminContainerStyle}>
-              <p style={adminTextStyle}>
-                ADMIN: Click "Upload New NOFO" to upload a document
-                <br />
-                to the dropdown that you can then select and review
-              </p>
-              <Button
-                onClick={uploadNOFO}
-                variant="primary"
-                aria-label="Upload New NOFO"
-              // style={adminButtonStyle} // was being problematic
-              >
-                Upload New NOFO
-              </Button>
-            </div>
-          )} */}
-
         {isAdmin && (
           <InfoBanner
             title="Admin Panel"
-            description="Click 'Upload New NOFO' to upload a document. Once uploaded, it will be available in the dropdown for selection and review."
+            description="Upload a new NOFO to the dropdown above. It takes 5-7 minutes for the document to process and appear in the dropdown. Grab a coffee, and it'll be ready for your review!"
             buttonText="Upload New NOFO"
             buttonAction={uploadNOFO}
             backgroundColor="##f1f6f9"
