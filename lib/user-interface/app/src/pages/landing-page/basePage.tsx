@@ -13,6 +13,7 @@ import {
 import { ApiClient } from '../../common/api-client/api-client';
 import { AppContext } from '../../common/app-context';
 import { v4 as uuidv4 } from 'uuid';
+import '../styles/base-page.css'
 
 export default function Welcome({ theme }) {
   console.log('entering base page');
