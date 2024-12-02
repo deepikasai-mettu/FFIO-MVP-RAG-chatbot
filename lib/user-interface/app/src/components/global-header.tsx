@@ -8,7 +8,7 @@ import { StorageHelper } from "../common/helpers/storage-helper";
 import { Auth } from "aws-amplify";
 import useOnFollow from "../common/hooks/use-on-follow";
 import { CHATBOT_NAME } from "../common/constants";
-// import "./global-header.css";
+import "./styles/global-header.css";
 import { Divider } from "@aws-amplify/ui-react";
 
 const styles = {
@@ -70,7 +70,7 @@ export default function GlobalHeader() {
         position: "fixed",
         backgroundColor: "#006499"
       }}
-      // id="awsui-top-navigation"
+      className="awsui-context-top-navigation"
     >
       <TopNavigation
         identity={{

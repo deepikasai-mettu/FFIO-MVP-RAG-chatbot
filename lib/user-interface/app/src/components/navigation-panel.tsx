@@ -6,7 +6,11 @@ import {
   Link,
   Box,
   StatusIndicator,
-  SpaceBetween
+  SpaceBetween,
+  ContentLayout,
+  Container,
+  Tabs,
+  Alert
 } from "@cloudscape-design/components";
 import { useContext, useState, useEffect } from "react";
 import useOnFollow from "../common/hooks/use-on-follow";
@@ -22,6 +26,8 @@ import { SessionRefreshContext } from "../common/session-refresh-context";
 import { useNotifications } from "../components/notif-manager";
 import { Utils } from "../common/utils.js";
 import BackArrowIcon from "../../public/images/back-arrow.jsx";
+import DocumentsTab from "../pages/admin/documents-tab";
+import DataFileUpload from "../pages/admin/file-upload-tab";
 
 export default function NavigationPanel({ documentIdentifier }) {
   const appContext = useContext(AppContext);
@@ -35,6 +41,9 @@ export default function NavigationPanel({ documentIdentifier }) {
   const [loadingSessions, setLoadingSessions] = useState(false);
   const { addNotification, removeNotification } = useNotifications();
   const [activeHref, setActiveHref] = useState(window.location.pathname);
+  const [activeTab, setActiveTab] = useState("file");
+  const [lastSyncTime, setLastSyncTime] = useState("");
+  const [showUnsyncedAlert, setShowUnsyncedAlert] = useState(false);
   
   console.log("NAV PANEL: ", documentIdentifier);
 
@@ -93,32 +102,42 @@ export default function NavigationPanel({ documentIdentifier }) {
         type: "section",
         text: "Resources",
         items: [
-          { type: "link", text: "Upload Data", href: `/admin/data?folder=${encodeURIComponent(documentIdentifier)}` },
+          {
+            type: "link",
+            //text: "Current Files",
+            href: "#",
+            info: (
+              <DocumentsTab
+                tabChangeFunction={() => setActiveTab("add-data")}
+                documentType="file"
+                statusRefreshFunction={refreshSyncTime}
+                lastSyncTime={lastSyncTime}
+                setShowUnsyncedAlert={setShowUnsyncedAlert}
+              />
+            ),
+          },
+          {
+            type: "link",
+            text: "Add Files",
+            href: "#",
+            info: (
+              <DataFileUpload 
+                tabChangeFunction={() => setActiveTab("file")}
+              />
+            ),
+          },
           {
             type: "link",
             text: "Prompt Engineering Guide",
             href: "/images/Prompt Suggestions for Grantwell's Chatbot Users.pdf",
             external: true
           },
-          { type: "link", text: "Provide Feedback", href: "https://forms.gle/jNHk8usCSNBzhL998", external: true },
-      //   ],
-      // },
-      // {
-      //   type: "section",
-      //   text: "Additional Resources",
-      //   items: [
-          // {
-          //   type: "link",
-          //   text: "Federal Grant Application Resources",
-          //   href: "https://www.mass.gov/lists/federal-funds-grant-application-resources",
-          //   external: true
-          // },
-          // {
-          //   type: "link",
-          //   text: "Register for Federal Funds Partnership Meetings",
-          //   href: "https://us02web.zoom.us/meeting/register/tZUucuyhrzguHNJkkh-XlmZBlQQKxxG_Acjl",
-          //   external: true
-          // }
+          { 
+            type: "link", 
+            text: "Provide Feedback", 
+            href: "https://forms.gle/jNHk8usCSNBzhL998", 
+            external: true 
+          },
         ]
       }
     ];
@@ -139,8 +158,18 @@ export default function NavigationPanel({ documentIdentifier }) {
     });
   };
 
+  const refreshSyncTime = async () => {
+    try {
+      const lastSync = await apiClient.knowledgeManagement.lastKendraSync();    
+      setLastSyncTime(lastSync);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
-    <div>
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ flex: 1, minHeight: 0 }}>
       <Box margin="xs" padding={{ top: "l" }} textAlign="center">
       <SpaceBetween size="xl">
         <Button 
@@ -166,97 +195,26 @@ export default function NavigationPanel({ documentIdentifier }) {
         </RouterButton>
         </SpaceBetween>
       </Box>
-      {loaded ? (
-        <SideNavigation
-          activeHref={activeHref}
-          onFollow={event => {
-            if (!event.detail.external) {
-              event.preventDefault();
-              setActiveHref(event.detail.href);
-              onFollow(event);
-            }
-          }}
-          onChange={onChange}
-          items={items}
-        />
-      ) : (
-        <Box margin="xs" padding="xs" textAlign="center">
-          <StatusIndicator type="loading">Loading sessions...</StatusIndicator>
-        </Box>
-        
-      )}
+
+        {loaded ? (
+          <SideNavigation
+            activeHref={activeHref}
+            onFollow={event => {
+              if (!event.detail.external) {
+                event.preventDefault();
+                setActiveHref(event.detail.href);
+                onFollow(event);
+              }
+            }}
+            onChange={onChange}
+            items={items}
+          />
+        ) : (
+          <Box textAlign="center">
+            <StatusIndicator type="loading">Loading sessions...</StatusIndicator>
+          </Box>
+        )}
+      </div>
     </div>
   );
-}
-
-
-// Collapsible resource cards section (potentially consider circling back to this in future)
-// <Box margin="xs" padding="xs">
-// <Box
-//   display="flex"
-//   alignItems="center"
-//   justifyContent="space-between"
-//   style={{ cursor: "pointer" }}
-//   onClick={() => setIsResourcesCollapsed(!isResourcesCollapsed)}
-// >
-//   <Header variant="h3">Resources</Header>
-//   <Button
-//     iconName={isResourcesCollapsed ? "caret-down" : "caret-up"}
-//     variant="icon"
-//     ariaLabel="Toggle resources visibility"
-//     onClick={() => setIsResourcesCollapsed(!isResourcesCollapsed)}
-//   />
-// </Box>
-// {!isResourcesCollapsed && (
-//   <Cards
-//     cardDefinition={{
-//       header: (item) => (
-//         <Link href={item.href} external={item.external} fontSize="heading-s">
-//           {item.name}
-//         </Link>
-//       ),
-//       sections: [
-//         {
-//           content: (item) => (
-//             <div style={{ minHeight: '10px' }}>
-//             </div>
-//           ),
-//         },
-//         {
-//           content: (item) => <div>{item.description}</div>,
-//         },
-//       ],
-//     }}
-//     cardsPerRow={[{ cards: 1 }, { minWidth: 300, cards: 3 }]}
-//     items={[
-//       {
-//         name: "Prompt Suggestions for Effective Chatbot Use",
-//         external: false,
-//         href: "/images/Prompt Suggestions for Grantwell's Chatbot Users.pdf",
-//         img: "/images/Welcome/promptSuggestions.png",
-//         altText: "Illustration of a person interacting with a chatbot on a smartphone, with the chatbot displayed on a large screen and speech bubbles representing the conversation.",
-//         description: "Learn how to interact with our chatbot for application guidance.",
-//       },
-//       {
-//         name: "Federal Grant Application Resources",
-//         external: true,
-//         href: "https://www.mass.gov/lists/federal-funds-grant-application-resources",
-//         img: "/images/Welcome/resources.png",
-//         altText: "Skyline of downtown Boston at sunset, featuring historic and modern buildings",
-//         description: "Access categorized grant resources for streamlined applications.",
-//       },
-//       {
-//         name: "Register for Federal Funds Partnership Meetings",
-//         external: true,
-//         href: "https://us02web.zoom.us/meeting/register/tZUucuyhrzguHNJkkh-XlmZBlQQKxxG_Acjl",
-//         img: "/images/Welcome/massFlag.png",
-//         altText: "The Massachusetts state flag waving in the wind",
-//         description: "Stay updated on funding opportunities by joining our monthly sessions.",
-//       },
-//     ]}
-//   />
-// )}
-// </Box>
-// </div>
-// );
-// }
+} 
