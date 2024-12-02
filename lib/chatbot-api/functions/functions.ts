@@ -247,18 +247,60 @@ export class LambdaFunctionStack extends cdk.Stack {
       handler: 'index.handler',
       environment: {
         "BUCKET": props.ffioNofosBucket.bucketName,
+        "SYNC_KB_FUNCTION_NAME": this.syncKBFunction.functionName,
       },
       timeout: cdk.Duration.minutes(9)
     });
+    // processNOFOAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
+    //   effect: iam.Effect.ALLOW,
+    //   actions: [
+    //     's3:*',
+    //     'bedrock:*',
+    //     'textract:*'
+    //   ],
+    //   resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*",'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0']
+    // }));
+    // S3 permissions
     processNOFOAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
       actions: [
-        's3:*',
-        'bedrock:*',
-        'textract:*'
+        's3:GetObject',
+        's3:PutObject',
+        's3:ListBucket',
       ],
-      resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*",'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0']
+      resources: [
+        props.ffioNofosBucket.bucketArn,
+        `${props.ffioNofosBucket.bucketArn}/*`,
+      ],
     }));
+
+    // Textract permissions
+    processNOFOAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: [
+        'textract:StartDocumentTextDetection',
+        'textract:GetDocumentTextDetection',
+      ],
+      resources: ['*'],
+    }));
+
+    // Bedrock permissions
+    processNOFOAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: [
+        'bedrock:InvokeModel',
+      ],
+      resources: ['*'], 
+    }));
+
+    processNOFOAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['lambda:InvokeFunction'],
+      resources: [this.syncKBFunction.functionArn],
+    }));
+    
+
+    
     this.processAndSummarizeNOFO = processNOFOAPIHandlerFunction;
     processNOFOAPIHandlerFunction.addEventSource(new S3EventSource(props.ffioNofosBucket, {
       events: [s3.EventType.OBJECT_CREATED],
