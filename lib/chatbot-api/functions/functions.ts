@@ -181,6 +181,26 @@ export class LambdaFunctionStack extends cdk.Stack {
     }));
 
     this.feedbackFunction = feedbackAPIHandlerFunction;
+
+    const kbSyncAPIHandlerFunction = new lambda.Function(scope, 'SyncKBHandlerFunction', {
+      runtime: lambda.Runtime.PYTHON_3_12, // Choose any supported Node.js runtime
+      code: lambda.Code.fromAsset(path.join(__dirname, 'knowledge-management/kb-sync')), // Points to the lambda directory
+      handler: 'lambda_function.lambda_handler', // Points to the 'hello' file in the lambda directory
+      environment: {
+        "KB_ID" : props.knowledgeBase.attrKnowledgeBaseId,      
+        "SOURCE" : props.knowledgeBaseSource.attrDataSourceId  
+      },
+      timeout: cdk.Duration.seconds(30)
+    });
+
+    kbSyncAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: [
+        'bedrock:*'
+      ],
+      resources: [props.knowledgeBase.attrKnowledgeBaseArn]
+    }));
+    this.syncKBFunction = kbSyncAPIHandlerFunction;
     
     const deleteS3APIHandlerFunction = new lambda.Function(scope, 'DeleteS3FilesHandlerFunction', {
       runtime: lambda.Runtime.PYTHON_3_12, // Choose any supported Node.js runtime
@@ -329,25 +349,7 @@ export class LambdaFunctionStack extends cdk.Stack {
 
 
 
-    const kbSyncAPIHandlerFunction = new lambda.Function(scope, 'SyncKBHandlerFunction', {
-      runtime: lambda.Runtime.PYTHON_3_12, // Choose any supported Node.js runtime
-      code: lambda.Code.fromAsset(path.join(__dirname, 'knowledge-management/kb-sync')), // Points to the lambda directory
-      handler: 'lambda_function.lambda_handler', // Points to the 'hello' file in the lambda directory
-      environment: {
-        "KB_ID" : props.knowledgeBase.attrKnowledgeBaseId,      
-        "SOURCE" : props.knowledgeBaseSource.attrDataSourceId  
-      },
-      timeout: cdk.Duration.seconds(30)
-    });
 
-    kbSyncAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
-      effect: iam.Effect.ALLOW,
-      actions: [
-        'bedrock:*'
-      ],
-      resources: [props.knowledgeBase.attrKnowledgeBaseArn]
-    }));
-    this.syncKBFunction = kbSyncAPIHandlerFunction;
 
     // NOFO UPLOAD ATTEMPT
     const nofoUploadS3APIHandlerFunction = new lambda.Function(scope, 'nofoUploadS3FilesHandlerFunction', {
