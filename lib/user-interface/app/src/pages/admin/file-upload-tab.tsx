@@ -225,9 +225,12 @@ export default function DataFileUpload(props: FileUploadTabProps) {
                 showFileSize
                 showFileThumbnail
                 tokenLimit={3}
-                constraintText={`Text documents up to 100MB supported (${Array.from(
-                  fileExtensions.values()
-                ).join(", ")})`}
+                constraintText={
+                  <div>
+                    <div style={{ marginBottom: '8px' }}>Upload relevant files here, to better inform GrantWell.</div>
+                    <div>Text documents up to 100MB supported ({Array.from(fileExtensions.values()).join(", ")})</div>
+                  </div>
+                }
                 fileErrors={fileErrors}
                 errorText={uploadError}
               />

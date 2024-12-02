@@ -46,6 +46,7 @@ export default function NavigationPanel({ documentIdentifier }) {
   const [showUnsyncedAlert, setShowUnsyncedAlert] = useState(false);
   
   console.log("NAV PANEL: ", documentIdentifier);
+  const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}`
 
   const loadSessions = async () => {
     let username;
@@ -83,6 +84,24 @@ export default function NavigationPanel({ documentIdentifier }) {
     let newItems: SideNavigationProps.Item[] = [
       {
         type: "section",
+        text: "Resources",
+        items: [
+          {
+            type: "link",
+            text: "Prompt Engineering Guide",
+            href: "/images/Prompt Suggestions for Grantwell's Chatbot Users.pdf",
+            external: true
+          },
+          { 
+            type: "link", 
+            text: "Provide Feedback", 
+            href: "https://forms.gle/jNHk8usCSNBzhL998", 
+            external: true 
+          },
+        ]
+      },
+      {
+        type: "section",
         text: "Session History",
         items: sessions.map(session => ({
           type: "link",
@@ -97,48 +116,6 @@ export default function NavigationPanel({ documentIdentifier }) {
             </Box>
           ),
         }]),
-      },
-      {
-        type: "section",
-        text: "Resources",
-        items: [
-          {
-            type: "link",
-            //text: "Current Files",
-            href: "#",
-            info: (
-              <DocumentsTab
-                tabChangeFunction={() => setActiveTab("add-data")}
-                documentType="file"
-                statusRefreshFunction={refreshSyncTime}
-                lastSyncTime={lastSyncTime}
-                setShowUnsyncedAlert={setShowUnsyncedAlert}
-              />
-            ),
-          },
-          {
-            type: "link",
-            text: "Add Files",
-            href: "#",
-            info: (
-              <DataFileUpload 
-                tabChangeFunction={() => setActiveTab("file")}
-              />
-            ),
-          },
-          {
-            type: "link",
-            text: "Prompt Engineering Guide",
-            href: "/images/Prompt Suggestions for Grantwell's Chatbot Users.pdf",
-            external: true
-          },
-          { 
-            type: "link", 
-            text: "Provide Feedback", 
-            href: "https://forms.gle/jNHk8usCSNBzhL998", 
-            external: true 
-          },
-        ]
       }
     ];
     setItems(newItems);
@@ -169,46 +146,141 @@ export default function NavigationPanel({ documentIdentifier }) {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ flex: 1, minHeight: 0 }}>
       <Box margin="xs" padding={{ top: "l" }} textAlign="center">
-      <SpaceBetween size="xl">
-        <Button 
-          onClick={() => navigate(`/landing-page/basePage/checklists/${encodeURIComponent(documentIdentifier)}`)}
-          variant="primary"
-          aria-label="Return to Home Page"
-          iconSvg={<BackArrowIcon />}
-        >
-          Back to requirements
-        </Button>
-
-        <RouterButton
-          iconAlign="right"
-          iconSvg={<PencilSquareIcon />}
-          variant="primary"
-          //href={`/chatbot/playground/${uuidv4()}`}
-          href={`/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}`}
-          data-alignment="right"
-          className="new-chat-button"
-          style={{ textAlign: "right" }}
-        >
-          Start new session
-        </RouterButton>
+        <SpaceBetween size="xl">
+          <Box textAlign="right" margin={{ right: "l" }}>
+            <Link href={linkUrl}>
+              <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Chat</h2>
+            </Link>
+          </Box>
         </SpaceBetween>
       </Box>
-
-        {loaded ? (
-          <SideNavigation
-            activeHref={activeHref}
-            onFollow={event => {
-              if (!event.detail.external) {
-                event.preventDefault();
-                setActiveHref(event.detail.href);
-                onFollow(event);
-              }
-            }}
-            onChange={onChange}
-            items={items}
+      <div style={{ 
+        borderBottom: '1px solid #dedee2', 
+        padding: '8px 0',
+        margin: '0 30px'
+      }}>
+        <Box />
+      </div>
+      
+      <Box margin="xs" padding={{ top: "l" }} textAlign="center">
+        <SpaceBetween size="s">
+          <Box textAlign="right" margin={{ right: "l" }}>
+              <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Key Requirements</h2>
+          </Box>
+          <Box textAlign="right" margin={{ right: "l" }}>
+            <Link href={"PROJ NARRATIVE COMPS"}>
+              <span style={{ color: '#0073bb' }}>Project Narrative Components</span>
+            </Link>
+          </Box>
+          <Box textAlign="right" margin={{ right: "l" }}>
+            <Link href={"Eligibility Criteria"}>
+              <span style={{ color: '#0073bb' }}>Eligibility Criteria</span>
+            </Link>
+          </Box>
+          <Box textAlign="right" margin={{ right: "l" }}>
+            <Link href={"PROJ NARRATIVE COMPS"}>
+              <span style={{ color: '#0073bb' }}>Documents Required</span>
+            </Link>
+          </Box>
+          <Box textAlign="right" margin={{ right: "l" }}>
+            <Link href={"PROJ NARRATIVE COMPS"}>
+              <span style={{ color: '#0073bb' }}>Key Deadlines</span>
+            </Link>
+          </Box>
+        </SpaceBetween>
+      </Box>
+      <div style={{ 
+        borderBottom: '1px solid #dedee2', 
+        padding: '8px 0',
+        margin: '0 30px'
+      }}>
+        <Box />
+      </div>
+      
+      <Box margin="xs" padding={{ top: "l" }} textAlign="center">
+        <SpaceBetween size="xl">
+          <Box textAlign="right" margin={{ right: "l" }}>
+            <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>File Upload</h2>
+          </Box>
+        </SpaceBetween>
+      </Box>
+      <Box margin={{ horizontal: "l" }}>
+        <SpaceBetween size="l">
+          <DataFileUpload 
+            tabChangeFunction={() => setActiveTab("file")}
           />
+          <Button
+            variant="link"
+            iconName={activeTab === "backend-controls" ? "caret-down" : "caret-up"}
+            onClick={() => setActiveTab(activeTab === "backend-controls" ? "" : "backend-controls")}
+          >
+            Manage Backend Files
+          </Button>
+          {activeTab === "backend-controls" && (
+            <DocumentsTab
+              tabChangeFunction={() => setActiveTab("add-data")}
+              documentType="file"
+              statusRefreshFunction={refreshSyncTime}
+              lastSyncTime={lastSyncTime}
+              setShowUnsyncedAlert={setShowUnsyncedAlert}
+            />
+          )}
+        </SpaceBetween>
+      </Box>
+      <div style={{ 
+        borderBottom: '1px solid #dedee2', 
+        padding: '8px 0',
+        margin: '0 30px'
+      }}>
+        <Box />
+      </div>
+      
+      <Box margin="xs" padding={{ top: "l" }} textAlign="center">
+        <SpaceBetween size="xl">
+          <Box textAlign="right" margin={{ right: "l" }}>
+            <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Session History</h2>
+          </Box>
+        </SpaceBetween>
+      </Box>
+      <div style={{ flex: 1, minHeight: 0 }}>
+        {loaded ? (
+          <Box margin={{ horizontal: "l" }}>
+            <SpaceBetween size="m">
+              {items
+                .find((section): section is SideNavigationProps.Section => 
+                  'text' in section && section.text === "Session History")
+                ?.items
+                .filter((item): item is SideNavigationProps.Link => 
+                  item.type === "link" && 'text' in item)
+                .map(session => (
+                  <Box textAlign="right" margin={{ right: "l" }} key={session.href}>
+                    <Link href={session.href}>
+                      <span style={{ color: '#0073bb' }}>{session.text}</span>
+                    </Link>
+                  </Box>
+                ))}
+              <Box textAlign="right" margin={{ right: "l" }}>
+                <SpaceBetween size="xs" direction="horizontal">
+                  <RouterButton 
+                    href={`/chatbot/sessions?folder=${encodeURIComponent(documentIdentifier || '')}`} 
+                    loading={loadingSessions} 
+                    variant="link"
+                  >
+                    View All Sessions
+                  </RouterButton>
+                  <Button 
+                    onClick={onReloadClick} 
+                    iconName="refresh" 
+                    loading={loadingSessions} 
+                    variant="link"
+                  >
+                    Reload Sessions
+                  </Button>
+                </SpaceBetween>
+              </Box>
+            </SpaceBetween>
+          </Box>
         ) : (
           <Box textAlign="center">
             <StatusIndicator type="loading">Loading sessions...</StatusIndicator>

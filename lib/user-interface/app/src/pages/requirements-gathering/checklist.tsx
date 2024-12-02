@@ -2,12 +2,13 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { Box, Header, SpaceBetween, Button, Tabs, Spinner, SegmentedControl } from '@cloudscape-design/components';
 import BaseAppLayout from '../../components/base-app-layout';
-import ReqNav from '../../components/req-nav';
+// import ReqNav from '../../components/req-nav';
 import ReactMarkdown from 'react-markdown';
 import { ApiClient } from "../../common/api-client/api-client";
 import { AppContext } from '../../common/app-context';
 import '../../styles/checklists.css';
 import BackArrowIcon from "../../../public/images/back-arrow.jsx";
+import ForwardArrowIcon from "../../../public/images/forward-arrow.jsx";
 import { v4 as uuidv4 } from "uuid";
 
 export interface SectionProps {
@@ -78,10 +79,12 @@ export default function Checklists() {
   return (
     <BaseAppLayout
       // navigation={<ReqNav documentIdentifier={documentIdentifier} />}
-      navigation={null}
-      navigationHide={true} // Completely hide the hamburger icon
-      navigationOpen={false}
-      onNavigationChange={() => { }} // Disable the hamburger toggle behavior
+      // HIDE NAVIGATION BY UNCOMMENTING THE FOLLOWING LINES
+      // navigation={null}
+      // navigationHide={true} // Completely hide the hamburger icon
+      
+      // navigationOpen={true}
+      // onNavigationChange={() => { }} // Disable the hamburger toggle behavior
       content={
 
         <SpaceBetween direction="vertical" size="xl">
@@ -95,21 +98,21 @@ export default function Checklists() {
                 gap: "1rem", // Spacing between items
                 flexWrap: "wrap", // Ensure items wrap if the screen is too narrow
                 marginTop: "15px",
-                marginBottom: "80px", // Space below the toolbar
+                marginBottom: "0px", // Space below the toolbar
               }}
             >
               {/* Left Button */}
-              <Button
+              {/* <Button
                 onClick={() => navigate('/landing-page/basePage')}
                 variant="primary"
                 aria-label="Return to Home Page"
                 iconSvg={<BackArrowIcon />}
               >
                 Back to Home
-              </Button>
+              </Button> */}
 
               {/* Segmented Control */}
-              <SegmentedControl
+              {/* <SegmentedControl
                 selectedId={selectedSegment}
                 onChange={({ detail }) => {
                   setSelectedSegment(detail.selectedId);
@@ -125,10 +128,10 @@ export default function Checklists() {
                   { text: "(2) Key Information", id: "seg-2" }, // Highlighted by default on this page
                   { text: "(3) Draft Narrative", id: "seg-3" },
                 ]}
-              />
+              /> */}
 
               {/* Right Button */}
-              <Button
+              {/* <Button
                 onClick={() => navigate(linkUrl)}
                 variant="primary"
                 aria-label="Open Settings"
@@ -136,7 +139,7 @@ export default function Checklists() {
                 iconAlign="right"
               >
                 Go to Chatbot
-              </Button>
+              </Button> */}
             </div>
 
 

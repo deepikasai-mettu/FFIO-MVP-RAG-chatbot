@@ -286,8 +286,21 @@ export default function Welcome({ theme }) {
     backgroundColor = '#06293d',
     mainTextColor = '#ffffff',
     bodyTextColor = '#ffffff',
-    buttonColor = '#FF9B00',
+    // buttonColor = '#FF9B00',
     titleFontSize = '24px',
+    buttonVariant = "normal", // Default to "normal"
+  }: {
+    title: string;
+    description: string;
+    buttonText?: string;
+    buttonAction?: (() => void) | null;
+    imageSrc?: string | null;
+    imageAlt?: string;
+    backgroundColor?: string;
+    mainTextColor?: string;
+    bodyTextColor?: string;
+    titleFontSize?: string;
+    buttonVariant?: "primary" | "normal" | "link" | "icon";
   }) => (
     <div
       style={{
@@ -331,7 +344,7 @@ export default function Welcome({ theme }) {
         {buttonText && buttonAction && (
           <Button 
             onClick={buttonAction} 
-            variant="normal"
+            variant={buttonVariant}
             aria-label={buttonText}
           >
             {buttonText}
@@ -504,6 +517,7 @@ export default function Welcome({ theme }) {
             mainTextColor="#006499"
             bodyTextColor="#6c757d"
             titleFontSize='24px'
+            buttonVariant="primary"
           />
         )}
 
@@ -602,7 +616,7 @@ export default function Welcome({ theme }) {
             window.open('https://forms.gle/M2PHgWTVVRrRubpc7', '_blank')
           }
           backgroundColor='#006499'
-          buttonColor="#FF9B00"
+          // buttonColor="#FF9B00"
         />
 
         {/* Affiliations Section */}
