@@ -183,6 +183,7 @@ export class LambdaFunctionStack extends cdk.Stack {
     this.feedbackFunction = feedbackAPIHandlerFunction;
 
     const kbSyncAPIHandlerFunction = new lambda.Function(scope, 'SyncKBHandlerFunction', {
+      functionName: 'syncKBFunction',
       runtime: lambda.Runtime.PYTHON_3_12, // Choose any supported Node.js runtime
       code: lambda.Code.fromAsset(path.join(__dirname, 'knowledge-management/kb-sync')), // Points to the lambda directory
       handler: 'lambda_function.lambda_handler', // Points to the 'hello' file in the lambda directory
@@ -267,7 +268,7 @@ export class LambdaFunctionStack extends cdk.Stack {
       handler: 'index.handler',
       environment: {
         "BUCKET": props.ffioNofosBucket.bucketName,
-        "SYNC_KB_FUNCTION_NAME": this.syncKBFunction.functionName,
+        "SYNC_KB_FUNCTION_NAME": 'syncKBFunction',
       },
       timeout: cdk.Duration.minutes(9)
     });
