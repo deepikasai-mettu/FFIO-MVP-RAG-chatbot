@@ -683,7 +683,7 @@ export default function Welcome({ theme }) {
         {/* Feedback Section */}
         <InfoBanner
           title="We Value Your Feedback!"
-          height="100px"
+          height="150px"
           description="Help us make GrantWell better by sharing your thoughts and suggestions."
           buttonText="Open Feedback Form"
           buttonAction={() =>
@@ -697,10 +697,10 @@ export default function Welcome({ theme }) {
         <InfoBanner
           title="Our Affiliations"
           height= "125px"
-          description="Burnes Center for Social Change"
+          description=""
           imageSrc="/images/burnesLogo.png"
           imageAlt="Burnes Center Logo"
-          titleAlign="center"
+          titleAlign="left"
           imagePosition='right'
           imageWidth="200px"
         />
