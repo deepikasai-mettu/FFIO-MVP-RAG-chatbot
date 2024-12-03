@@ -284,12 +284,17 @@ export default function Welcome({ theme }) {
     buttonAction = null,
     imageSrc = null, // Default to null if not provided
     imageAlt = '',
+    height,
     backgroundColor = '#06293d',
     mainTextColor = '#ffffff',
     bodyTextColor = '#ffffff',
     // buttonColor = '#FF9B00',
     titleFontSize = '24px',
     buttonVariant = "normal", // Default to "normal"
+    linkUrl = null,
+    imagePosition = 'right',
+    titleAlign = 'left',
+    imageWidth = '150px',
   }: {
     title: string;
     description: string;
@@ -302,14 +307,66 @@ export default function Welcome({ theme }) {
     bodyTextColor?: string;
     titleFontSize?: string;
     buttonVariant?: "primary" | "normal" | "link" | "icon";
-  }) => (
+    linkUrl?: any;
+    height?: any;
+    imagePosition?: string;
+    titleAlign?: any;
+    imageWidth?: any;
+  }) => {
+    const content = (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          maxWidth: '900px',
+          alignItems: 'center',
+          margin: '0 auto',
+          flexDirection: 'row',
+          gap: '30px',
+          marginTop: '15px',
+        }}
+      >
+          {imagePosition === 'left' && imageSrc && (
+            <img src={imageSrc} alt={imageAlt} style={{width:imageWidth}}/>
+          )}
+          <div
+            style={{
+              display:'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              textAlign: titleAlign,
+            }}
+          >
+              { title && (
+                <h1 style={{ fontSize: titleFontSize, margin: 1, color:mainTextColor}}>
+                  {title}
+                </h1>
+              )}
+              <p style={{ fontSize: '13px', color: bodyTextColor}}>
+                {description}
+              </p>
+        </div>
+        {imagePosition === 'right' && imageSrc && (
+        <img src={imageSrc} alt={imageAlt} style={{ width: imageWidth }} />
+      )}
+        {buttonText && buttonAction && (
+          <Button
+            onClick={buttonAction}
+            variant={buttonVariant}
+            ariaLabel={buttonText}>
+              {buttonText}
+            </Button>
+        )}
+        </div>
+    );
+    return(
     <div
       style={{
         backgroundColor: backgroundColor,
         padding: '20px',
         marginBlockEnd: '0',
         width: '100vw',
-        height: "175px",
+        height: height,
         position: 'relative',
         left: '50%',
         right: '50%',
@@ -319,7 +376,22 @@ export default function Welcome({ theme }) {
         marginBottom: "0px",
       }}
     >
-      <div
+      {linkUrl ? (
+        <a
+          href={linkUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            {content}
+          </a>
+      ): (
+        content
+      )}
+      </div>
+    );
+  };
+      {/* <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -327,7 +399,7 @@ export default function Welcome({ theme }) {
           alignItems: 'center',
           margin: '0 auto',
           flexDirection: 'row',
-          height: '120px',
+          //height: '120px',
           gap: '30px',
           marginTop: '15px',
         }}
@@ -356,7 +428,7 @@ export default function Welcome({ theme }) {
         )}
       </div>
     </div>
-  );
+  ); */}
 
   const ContentBox = ({ children, backgroundColor = '#f1f6f9' }) => (
     <div
@@ -611,6 +683,7 @@ export default function Welcome({ theme }) {
         {/* Feedback Section */}
         <InfoBanner
           title="We Value Your Feedback!"
+          height="100px"
           description="Help us make GrantWell better by sharing your thoughts and suggestions."
           buttonText="Open Feedback Form"
           buttonAction={() =>
@@ -623,9 +696,25 @@ export default function Welcome({ theme }) {
         {/* Affiliations Section */}
         <InfoBanner
           title="Our Affiliations"
-          description="GrantWell is proudly owned by the Burnes Center for Social Change."
+          height= "125px"
+          description="Burnes Center for Social Change"
           imageSrc="/images/burnesLogo.png"
           imageAlt="Burnes Center Logo"
+          titleAlign="center"
+          imagePosition='right'
+          imageWidth="200px"
+        />
+        <InfoBanner
+          title=''
+          height= "100px"
+          imageSrc='/images/creativeCommons.png'
+          imageAlt='Creative Commons'
+          description="This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License"
+          linkUrl={'https://creativecommons.org/licenses/by-sa/4.0/'}
+          backgroundColor='#000000'
+          titleFontSize='16px'
+          imagePosition='left'
+          imageWidth="75px"
         />
       </div>
     </Container>
