@@ -27,7 +27,9 @@ import { useNotifications } from "../components/notif-manager";
 import { Utils } from "../common/utils.js";
 import BackArrowIcon from "../../public/images/back-arrow.jsx";
 import DocumentsTab from "../pages/admin/documents-tab";
+import { useParams } from "react-router-dom";
 import DataFileUpload from "../pages/admin/file-upload-tab";
+
 
 export default function NavigationPanel({ documentIdentifier }) {
   const appContext = useContext(AppContext);
@@ -44,16 +46,19 @@ export default function NavigationPanel({ documentIdentifier }) {
   const [activeTab, setActiveTab] = useState("file");
   const [lastSyncTime, setLastSyncTime] = useState("");
   const [showUnsyncedAlert, setShowUnsyncedAlert] = useState(false);
+  const searchParams  = useParams();
+  console.log("CHECKLIST IDENTIFIER with parms: ", searchParams.documentIdentifier);
+  const newDocIdentifier = searchParams.documentIdentifier
   
   console.log("NAV PANEL: ", documentIdentifier);
-  const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}`
+  const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(newDocIdentifier)}`
 
   const loadSessions = async () => {
     let username;
     try {
       await Auth.currentAuthenticatedUser().then((value) => username = value.username);
       if (username && needsRefresh) {
-        const fetchedSessions = await apiClient.sessions.getSessions(username, documentIdentifier);
+        const fetchedSessions = await apiClient.sessions.getSessions(username, newDocIdentifier);
         await updateItems(fetchedSessions);
         if (!loaded) {
           setLoaded(true);
@@ -111,7 +116,7 @@ export default function NavigationPanel({ documentIdentifier }) {
           type: "link",
           info: (
             <Box margin="xxs" textAlign="center">
-              <RouterButton href={`/chatbot/sessions?folder=${encodeURIComponent(documentIdentifier || '')}`} loading={loadingSessions} variant="link">View All Sessions</RouterButton>
+              <RouterButton href={`/chatbot/sessions?folder=${encodeURIComponent(newDocIdentifier || '')}`} loading={loadingSessions} variant="link">View All Sessions</RouterButton>
               <Button onClick={onReloadClick} iconName="refresh" loading={loadingSessions} variant="link">Reload Sessions</Button>
             </Box>
           ),
@@ -263,7 +268,7 @@ export default function NavigationPanel({ documentIdentifier }) {
               <Box textAlign="right" margin={{ right: "l" }}>
                 <SpaceBetween size="xs" direction="horizontal">
                   <RouterButton 
-                    href={`/chatbot/sessions?folder=${encodeURIComponent(documentIdentifier || '')}`} 
+                    href={`/chatbot/sessions?folder=${encodeURIComponent(newDocIdentifier || '')}`} 
                     loading={loadingSessions} 
                     variant="link"
                   >
