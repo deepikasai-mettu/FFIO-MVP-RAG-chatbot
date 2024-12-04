@@ -138,7 +138,7 @@
 */
 /* Style used for links in slots/components that are text heavy, to help links stand out among
 surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F73#description */
-.awsui_options-list_19gcf_tu90r_141:not(#\9) {
+.awsui_options-list_19gcf_wfhe9_141:not(#\9) {
   padding-block: 0;
   padding-inline: 0;
   margin-block: 0;
@@ -176,7 +176,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   line-height: var(--line-height-body-m-30ar75, 20px);
   color: var(--color-text-body-default-7v1jfn, #0f141a);
   font-weight: 400;
-  font-family: var(--font-family-base-eynpfp, Open Sans);
+  font-family: var(--font-family-base-sigkvs, Arial);
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
   white-space: inherit;
@@ -188,13 +188,13 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   border-end-start-radius: var(--border-radius-dropdown-0dhh79, 8px);
   border-end-end-radius: var(--border-radius-dropdown-0dhh79, 8px);
 }
-.awsui_options-list-embedded_19gcf_tu90r_190:not(#\9) {
+.awsui_options-list-embedded_19gcf_wfhe9_190:not(#\9) {
   border-start-start-radius: 0px;
   border-start-end-radius: 0px;
   border-end-start-radius: 0px;
   border-end-end-radius: 0px;
 }
 
-.awsui_decrease-block-margin_19gcf_tu90r_197:not(#\9) {
+.awsui_decrease-block-margin_19gcf_wfhe9_197:not(#\9) {
   margin-block: -1px;
 }

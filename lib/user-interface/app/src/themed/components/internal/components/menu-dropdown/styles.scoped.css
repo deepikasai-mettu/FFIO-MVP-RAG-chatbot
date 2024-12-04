@@ -138,7 +138,7 @@
 */
 /* Style used for links in slots/components that are text heavy, to help links stand out among
 surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F73#description */
-.awsui_button_m5h9f_1inmw_141:not(#\9) {
+.awsui_button_m5h9f_6rfli_141:not(#\9) {
   border-collapse: separate;
   border-spacing: 0;
   box-sizing: border-box;
@@ -169,12 +169,12 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   line-height: var(--line-height-body-m-30ar75, 20px);
   color: var(--color-text-body-default-7v1jfn, #0f141a);
   font-weight: 400;
-  font-family: var(--font-family-base-eynpfp, Open Sans);
+  font-family: var(--font-family-base-sigkvs, Arial);
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
   min-inline-size: 0;
   word-break: break-word;
-  font-weight: var(--font-weight-button-c91p4t, 700);
+  font-weight: var(--font-button-weight-hv56tz, 700);
   -webkit-font-smoothing: var(--font-smoothing-webkit-m8nc84, antialiased);
   -moz-osx-font-smoothing: var(--font-smoothing-moz-osx-foywby, grayscale);
   display: flex;
@@ -190,38 +190,38 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   background: transparent;
   color: var(--color-text-interactive-default-tkx8fe, #424650);
 }
-.awsui_button_m5h9f_1inmw_141:not(#\9):hover {
+.awsui_button_m5h9f_6rfli_141:not(#\9):hover {
   color: var(--color-text-interactive-hover-f9gqs8, #0f141a);
   text-decoration: none;
 }
-.awsui_button_m5h9f_1inmw_141:not(#\9):active, .awsui_button_m5h9f_1inmw_141.awsui_expanded_m5h9f_1inmw_196:not(#\9) {
+.awsui_button_m5h9f_6rfli_141:not(#\9):active, .awsui_button_m5h9f_6rfli_141.awsui_expanded_m5h9f_6rfli_196:not(#\9) {
   background: transparent;
   color: var(--color-text-interactive-active-j6vw94, #0f141a);
 }
-.awsui_button_m5h9f_1inmw_141.awsui_expanded_m5h9f_1inmw_196:not(#\9) {
+.awsui_button_m5h9f_6rfli_141.awsui_expanded_m5h9f_6rfli_196:not(#\9) {
   color: var(--color-text-accent-muxmv9, #FF4654);
 }
-.awsui_button_m5h9f_1inmw_141:not(#\9):focus {
+.awsui_button_m5h9f_6rfli_141:not(#\9):focus {
   outline: none;
   text-decoration: none;
 }
-.awsui_button_m5h9f_1inmw_141.awsui_offset-right-none_m5h9f_1inmw_207:not(#\9) {
+.awsui_button_m5h9f_6rfli_141.awsui_offset-right-none_m5h9f_6rfli_207:not(#\9) {
   margin-inline-end: 0;
 }
-.awsui_button_m5h9f_1inmw_141.awsui_offset-right-l_m5h9f_1inmw_210:not(#\9) {
+.awsui_button_m5h9f_6rfli_141.awsui_offset-right-l_m5h9f_6rfli_210:not(#\9) {
   margin-inline-end: var(--space-s-34lx8l, 12px);
 }
-.awsui_button_m5h9f_1inmw_141.awsui_offset-right-xxl_m5h9f_1inmw_213:not(#\9) {
+.awsui_button_m5h9f_6rfli_141.awsui_offset-right-xxl_m5h9f_6rfli_213:not(#\9) {
   margin-inline-end: var(--space-xl-lmui9r, 24px);
 }
-body[data-awsui-focus-visible=true] .awsui_button_m5h9f_1inmw_141:not(#\9):focus {
+body[data-awsui-focus-visible=true] .awsui_button_m5h9f_6rfli_141:not(#\9):focus {
   position: relative;
 }
-body[data-awsui-focus-visible=true] .awsui_button_m5h9f_1inmw_141:not(#\9):focus {
+body[data-awsui-focus-visible=true] .awsui_button_m5h9f_6rfli_141:not(#\9):focus {
   outline: 2px dotted transparent;
   outline-offset: calc(-1px - 1px);
 }
-body[data-awsui-focus-visible=true] .awsui_button_m5h9f_1inmw_141:not(#\9):focus::before {
+body[data-awsui-focus-visible=true] .awsui_button_m5h9f_6rfli_141:not(#\9):focus::before {
   content: " ";
   display: block;
   position: absolute;
@@ -236,10 +236,10 @@ body[data-awsui-focus-visible=true] .awsui_button_m5h9f_1inmw_141:not(#\9):focus
   box-shadow: 0 0 0 2px var(--color-border-item-focused-nv6mhz, #006ce0);
 }
 
-.awsui_text_m5h9f_1inmw_238:not(#\9) {
+.awsui_text_m5h9f_6rfli_238:not(#\9) {
   margin-inline-end: var(--space-xs-zb16t3, 8px);
 }
 
-.awsui_icon_m5h9f_1inmw_242 + .awsui_text_m5h9f_1inmw_238:not(#\9) {
+.awsui_icon_m5h9f_6rfli_242 + .awsui_text_m5h9f_6rfli_238:not(#\9) {
   margin-inline-start: var(--space-xs-zb16t3, 8px);
 }

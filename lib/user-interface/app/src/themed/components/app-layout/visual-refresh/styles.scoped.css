@@ -142,11 +142,11 @@
 */
 /* Style used for links in slots/components that are text heavy, to help links stand out among
 surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F73#description */
-div.awsui_background_hyvsj_wzdyn_145:not(#\9) {
+div.awsui_background_hyvsj_15l79_145:not(#\9) {
   display: contents;
 }
-div.awsui_background_hyvsj_wzdyn_145 > .awsui_scrolling-background_hyvsj_wzdyn_148:not(#\9) {
-  background-color: var(--color-background-layout-main-dwnvqs, #00FF00);
+div.awsui_background_hyvsj_15l79_145 > .awsui_scrolling-background_hyvsj_15l79_148:not(#\9) {
+  background-color: var(--color-background-layout-main-2jp88g, #00FF00);
   color: var(--color-text-body-default-7v1jfn, #0f141a);
   grid-column: 1/span 5;
   grid-row: 1/9;
@@ -156,8 +156,8 @@ div.awsui_background_hyvsj_wzdyn_145 > .awsui_scrolling-background_hyvsj_wzdyn_1
  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  SPDX-License-Identifier: Apache-2.0
 */
-.awsui_breadcrumbs_hyvsj_wzdyn_159:not(#\9) {
-  background-color: var(--color-background-layout-main-dwnvqs, #00FF00);
+.awsui_breadcrumbs_hyvsj_15l79_159:not(#\9) {
+  background-color: var(--color-background-layout-main-2jp88g, #00FF00);
   grid-area: breadcrumbs;
 }
 
@@ -169,7 +169,7 @@ div.awsui_background_hyvsj_wzdyn_145 > .awsui_scrolling-background_hyvsj_wzdyn_1
  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  SPDX-License-Identifier: Apache-2.0
 */
-.awsui_drawers-container_hyvsj_wzdyn_172:not(#\9) {
+.awsui_drawers-container_hyvsj_15l79_172:not(#\9) {
   background-color: transparent;
   display: flex;
   grid-column: 5;
@@ -180,16 +180,16 @@ div.awsui_background_hyvsj_wzdyn_145 > .awsui_scrolling-background_hyvsj_wzdyn_1
   inset-block-start: var(--awsui-offset-top-g964ok);
   z-index: 830;
 }
-.awsui_drawers-container_hyvsj_wzdyn_172.awsui_has-open-drawer_hyvsj_wzdyn_183:not(#\9) {
+.awsui_drawers-container_hyvsj_15l79_172.awsui_has-open-drawer_hyvsj_15l79_183:not(#\9) {
   background-color: var(--color-background-container-content-z79u4u, #ffffff);
 }
 @media (min-width: 689px) {
-  .awsui_drawers-container_hyvsj_wzdyn_172:not(#\9) {
+  .awsui_drawers-container_hyvsj_15l79_172:not(#\9) {
     max-inline-size: calc(var(--awsui-layout-width-g964ok) - var(--awsui-main-offset-left-g964ok) - var(--awsui-default-min-content-width-g964ok) - var(--awsui-content-gap-right-g964ok));
   }
 }
 @media (max-width: 688px) {
-  .awsui_drawers-container_hyvsj_wzdyn_172:not(#\9) {
+  .awsui_drawers-container_hyvsj_15l79_172:not(#\9) {
     position: fixed;
     inset-inline-end: 0;
     z-index: 1001;
@@ -201,12 +201,12 @@ div.awsui_background_hyvsj_wzdyn_145 > .awsui_scrolling-background_hyvsj_wzdyn_1
     relative to the body.
     */
   }
-  .awsui_drawers-container_hyvsj_wzdyn_172.awsui_disable-body-scroll_hyvsj_wzdyn_204:not(#\9) {
+  .awsui_drawers-container_hyvsj_15l79_172.awsui_disable-body-scroll_hyvsj_15l79_204:not(#\9) {
     inset-block-start: var(--awsui-header-height-g964ok);
   }
 }
 
-.awsui_drawers-desktop-triggers-container_hyvsj_wzdyn_209:not(#\9) {
+.awsui_drawers-desktop-triggers-container_hyvsj_15l79_209:not(#\9) {
   border-collapse: separate;
   border-spacing: 0;
   box-sizing: border-box;
@@ -237,7 +237,7 @@ div.awsui_background_hyvsj_wzdyn_145 > .awsui_scrolling-background_hyvsj_wzdyn_1
   line-height: var(--line-height-body-m-30ar75, 20px);
   color: var(--color-text-body-default-7v1jfn, #0f141a);
   font-weight: 400;
-  font-family: var(--font-family-base-eynpfp, Open Sans);
+  font-family: var(--font-family-base-sigkvs, Arial);
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
   background-color: transparent;
@@ -248,22 +248,22 @@ div.awsui_background_hyvsj_wzdyn_145 > .awsui_scrolling-background_hyvsj_wzdyn_1
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   overscroll-behavior-y: contain;
 }
-.awsui_drawers-desktop-triggers-container_hyvsj_wzdyn_209:not(#\9):not(.awsui_has-multiple-triggers_hyvsj_wzdyn_250).awsui_has-open-drawer_hyvsj_wzdyn_183 {
+.awsui_drawers-desktop-triggers-container_hyvsj_15l79_209:not(#\9):not(.awsui_has-multiple-triggers_hyvsj_15l79_250).awsui_has-open-drawer_hyvsj_15l79_183 {
   inline-size: 0;
 }
-.awsui_drawers-desktop-triggers-container_hyvsj_wzdyn_209.awsui_has-multiple-triggers_hyvsj_wzdyn_250.awsui_has-open-drawer_hyvsj_wzdyn_183:not(#\9) {
+.awsui_drawers-desktop-triggers-container_hyvsj_15l79_209.awsui_has-multiple-triggers_hyvsj_15l79_250.awsui_has-open-drawer_hyvsj_15l79_183:not(#\9) {
   background-color: var(--color-background-container-content-z79u4u, #ffffff);
 }
-.awsui_drawers-desktop-triggers-container_hyvsj_wzdyn_209:not(#\9):not(.awsui_has-multiple-triggers_hyvsj_wzdyn_250):not(.awsui_has-open-drawer_hyvsj_wzdyn_183) {
+.awsui_drawers-desktop-triggers-container_hyvsj_15l79_209:not(#\9):not(.awsui_has-multiple-triggers_hyvsj_15l79_250):not(.awsui_has-open-drawer_hyvsj_15l79_183) {
   inline-size: calc(var(--space-layout-toggle-padding-lcu6qi, 12px) * 2 + var(--space-layout-toggle-diameter-hb85rk, 36px));
 }
 
-.awsui_drawers-mobile-triggers-container_hyvsj_wzdyn_260:not(#\9) {
+.awsui_drawers-mobile-triggers-container_hyvsj_15l79_260:not(#\9) {
   display: flex;
   justify-content: flex-end;
 }
 
-.awsui_drawers-trigger-content_hyvsj_wzdyn_265:not(#\9) {
+.awsui_drawers-trigger-content_hyvsj_15l79_265:not(#\9) {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -271,13 +271,13 @@ div.awsui_background_hyvsj_wzdyn_145 > .awsui_scrolling-background_hyvsj_wzdyn_1
   padding-block-start: var(--space-scaled-s-aqzyko, 12px);
   inline-size: calc(var(--space-layout-toggle-padding-lcu6qi, 12px) * 2 + var(--space-layout-toggle-diameter-hb85rk, 36px));
 }
-.awsui_drawers-trigger-content_hyvsj_wzdyn_265:not(#\9):not(.awsui_has-multiple-triggers_hyvsj_wzdyn_250).awsui_has-open-drawer_hyvsj_wzdyn_183 {
+.awsui_drawers-trigger-content_hyvsj_15l79_265:not(#\9):not(.awsui_has-multiple-triggers_hyvsj_15l79_250).awsui_has-open-drawer_hyvsj_15l79_183 {
   opacity: 0;
 }
-.awsui_drawers-trigger-content_hyvsj_wzdyn_265:not(#\9):not(.awsui_has-multiple-triggers_hyvsj_wzdyn_250):not(.awsui_has-open-drawer_hyvsj_wzdyn_183) {
+.awsui_drawers-trigger-content_hyvsj_15l79_265:not(#\9):not(.awsui_has-multiple-triggers_hyvsj_15l79_250):not(.awsui_has-open-drawer_hyvsj_15l79_183) {
   opacity: 1;
 }
-.awsui_drawers-trigger-content_hyvsj_wzdyn_265 > .awsui_drawers-trigger-overflow_hyvsj_wzdyn_279:not(#\9) {
+.awsui_drawers-trigger-content_hyvsj_15l79_265 > .awsui_drawers-trigger-overflow_hyvsj_15l79_279:not(#\9) {
   padding-block: 0;
   padding-inline: 1px;
   display: flex;
@@ -286,14 +286,14 @@ div.awsui_background_hyvsj_wzdyn_145 > .awsui_scrolling-background_hyvsj_wzdyn_1
 }
 
 @media (max-width: 688px) {
-  .awsui_drawers-trigger_hyvsj_wzdyn_265:not(#\9) {
+  .awsui_drawers-trigger_hyvsj_15l79_265:not(#\9) {
     inline-size: 40px;
     display: flex;
     justify-content: center;
   }
 }
 
-.awsui_drawer_hyvsj_wzdyn_172:not(#\9) {
+.awsui_drawer_hyvsj_15l79_172:not(#\9) {
   --awsui-drawer-size-g964ok: 290px;
   background-color: var(--color-background-container-content-z79u4u, #ffffff);
   border-color: transparent;
@@ -308,7 +308,7 @@ div.awsui_background_hyvsj_wzdyn_145 > .awsui_scrolling-background_hyvsj_wzdyn_1
   pointer-events: auto;
   word-wrap: break-word;
 }
-.awsui_drawer_hyvsj_wzdyn_172 > .awsui_drawer-content-container_hyvsj_wzdyn_310:not(#\9) {
+.awsui_drawer_hyvsj_15l79_172 > .awsui_drawer-content-container_hyvsj_15l79_310:not(#\9) {
   grid-column: 1/span 2;
   grid-row: 1;
   inline-size: var(--awsui-drawer-size-g964ok);
@@ -317,42 +317,41 @@ div.awsui_background_hyvsj_wzdyn_145 > .awsui_scrolling-background_hyvsj_wzdyn_1
   grid-template-rows: var(--size-vertical-panel-icon-offset-wy8j08, 15px) auto 1fr;
   overflow-y: auto;
 }
-.awsui_drawer_hyvsj_wzdyn_172 > .awsui_drawer-content-container_hyvsj_wzdyn_310 > .awsui_drawer-close-button_hyvsj_wzdyn_319:not(#\9) {
+.awsui_drawer_hyvsj_15l79_172 > .awsui_drawer-content-container_hyvsj_15l79_310 > .awsui_drawer-close-button_hyvsj_15l79_319:not(#\9) {
   grid-column: 3;
   grid-row: 2;
   z-index: 1;
 }
-.awsui_drawer_hyvsj_wzdyn_172 > .awsui_drawer-content-container_hyvsj_wzdyn_310 > .awsui_drawer-content_hyvsj_wzdyn_310:not(#\9) {
+.awsui_drawer_hyvsj_15l79_172 > .awsui_drawer-content-container_hyvsj_15l79_310 > .awsui_drawer-content_hyvsj_15l79_310:not(#\9) {
   grid-column: 1/span 4;
-  block-size: var(--awsui-content-height-g964ok);
 }
-.awsui_drawer_hyvsj_wzdyn_172 > .awsui_drawer-content-container_hyvsj_wzdyn_310 > .awsui_drawer-content_hyvsj_wzdyn_310.awsui_drawer-content-hidden_hyvsj_wzdyn_328:not(#\9) {
+.awsui_drawer_hyvsj_15l79_172 > .awsui_drawer-content-container_hyvsj_15l79_310 > .awsui_drawer-content_hyvsj_15l79_310.awsui_drawer-content-hidden_hyvsj_15l79_327:not(#\9) {
   display: none;
 }
-.awsui_drawer_hyvsj_wzdyn_172 > .awsui_drawer-slider_hyvsj_wzdyn_331:not(#\9) {
+.awsui_drawer_hyvsj_15l79_172 > .awsui_drawer-slider_hyvsj_15l79_330:not(#\9) {
   grid-column: 1;
   grid-row: 1;
   block-size: 100%;
   display: flex;
   align-items: center;
 }
-.awsui_drawer_hyvsj_wzdyn_172:not(#\9):not(.awsui_is-drawer-open_hyvsj_wzdyn_338) {
+.awsui_drawer_hyvsj_15l79_172:not(#\9):not(.awsui_is-drawer-open_hyvsj_15l79_337) {
   opacity: 0;
   inline-size: 0;
 }
-.awsui_drawer_hyvsj_wzdyn_172.awsui_is-drawer-open_hyvsj_wzdyn_338:not(#\9) {
+.awsui_drawer_hyvsj_15l79_172.awsui_is-drawer-open_hyvsj_15l79_337:not(#\9) {
   border-inline-end: var(--border-divider-section-width-1061zr, 1px) solid var(--color-border-divider-default-cx07f2, #c6c6cd);
   border-inline-start: solid var(--border-divider-section-width-1061zr, 1px) var(--color-border-divider-default-cx07f2, #c6c6cd);
   opacity: 1;
   inline-size: var(--awsui-drawer-size-g964ok);
 }
 @media (min-width: 2541px) {
-  .awsui_drawer_hyvsj_wzdyn_172.awsui_is-drawer-open_hyvsj_wzdyn_338:not(#\9) {
+  .awsui_drawer_hyvsj_15l79_172.awsui_is-drawer-open_hyvsj_15l79_337:not(#\9) {
     --awsui-drawer-size-g964ok: 320px;
   }
 }
 @media (max-width: 688px) {
-  .awsui_drawer_hyvsj_wzdyn_172.awsui_is-drawer-open_hyvsj_wzdyn_338:not(#\9) {
+  .awsui_drawer_hyvsj_15l79_172.awsui_is-drawer-open_hyvsj_15l79_337:not(#\9) {
     --awsui-drawer-size-g964ok: 100vw;
     inline-size: 100vw;
   }
@@ -362,7 +361,7 @@ div.awsui_background_hyvsj_wzdyn_145 > .awsui_scrolling-background_hyvsj_wzdyn_1
  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  SPDX-License-Identifier: Apache-2.0
 */
-header.awsui_content_hyvsj_wzdyn_364:not(#\9) {
+header.awsui_content_hyvsj_15l79_363:not(#\9) {
   grid-area: header;
 }
 
@@ -387,7 +386,7 @@ The minimum content width property is set to zero and applied under all
 circumstances regardless of whether the minContentWidth property is
 explicitly set in script.
 */
-.awsui_layout_hyvsj_wzdyn_389:not(#\9) {
+.awsui_layout_hyvsj_15l79_388:not(#\9) {
   --awsui-breadcrumbs-gap-g964ok: 0px;
   --awsui-content-gap-left-g964ok: 0px;
   --awsui-content-gap-right-g964ok: 0px;
@@ -409,7 +408,7 @@ explicitly set in script.
   --awsui-overlap-height-g964ok: var(--space-dark-header-overlap-distance-lxpp0s, 36px);
   --awsui-toggles-left-width-g964ok: 0px;
   --awsui-toggles-right-width-g964ok: 0px;
-  background-color: var(--color-background-layout-main-dwnvqs, #00FF00);
+  background-color: var(--color-background-layout-main-2jp88g, #00FF00);
   color: var(--color-text-body-default-7v1jfn, #0f141a);
   display: grid;
   grid-template-areas: ". . mobileToolbar . ." ". . notifications . ." ". . breadcrumbsGap . ." ". . breadcrumbs . ." ". . headerGap . ." ". . header . ." ". . mainGap . ." ". . main . ." ". . main . .";
@@ -459,113 +458,113 @@ explicitly set in script.
   */
 }
 @media (min-width: 1401px) {
-  .awsui_layout_hyvsj_wzdyn_389:not(#\9):not(.awsui_has-max-content-width_hyvsj_wzdyn_461) {
+  .awsui_layout_hyvsj_15l79_388:not(#\9):not(.awsui_has-max-content-width_hyvsj_15l79_460) {
     --awsui-default-max-content-width-g964ok: 1280px;
   }
 }
 @media (min-width: 1921px) {
-  .awsui_layout_hyvsj_wzdyn_389:not(#\9):not(.awsui_has-max-content-width_hyvsj_wzdyn_461) {
+  .awsui_layout_hyvsj_15l79_388:not(#\9):not(.awsui_has-max-content-width_hyvsj_15l79_460) {
     --awsui-default-max-content-width-g964ok: 1440px;
   }
 }
 @media (min-width: 2541px) {
-  .awsui_layout_hyvsj_wzdyn_389:not(#\9):not(.awsui_has-max-content-width_hyvsj_wzdyn_461) {
+  .awsui_layout_hyvsj_15l79_388:not(#\9):not(.awsui_has-max-content-width_hyvsj_15l79_460) {
     --awsui-default-max-content-width-g964ok: 1620px;
   }
 }
 @media (min-width: 1401px) {
-  .awsui_layout_hyvsj_wzdyn_389:not(#\9):not(.awsui_has-max-content-width_hyvsj_wzdyn_461).awsui_content-type-dashboard_hyvsj_wzdyn_476 {
+  .awsui_layout_hyvsj_15l79_388:not(#\9):not(.awsui_has-max-content-width_hyvsj_15l79_460).awsui_content-type-dashboard_hyvsj_15l79_475 {
     --awsui-default-max-content-width-g964ok: 1280px;
   }
 }
 @media (min-width: 1921px) {
-  .awsui_layout_hyvsj_wzdyn_389:not(#\9):not(.awsui_has-max-content-width_hyvsj_wzdyn_461).awsui_content-type-dashboard_hyvsj_wzdyn_476 {
+  .awsui_layout_hyvsj_15l79_388:not(#\9):not(.awsui_has-max-content-width_hyvsj_15l79_460).awsui_content-type-dashboard_hyvsj_15l79_475 {
     --awsui-default-max-content-width-g964ok: 1620px;
   }
 }
 @media (min-width: 2541px) {
-  .awsui_layout_hyvsj_wzdyn_389:not(#\9):not(.awsui_has-max-content-width_hyvsj_wzdyn_461).awsui_content-type-dashboard_hyvsj_wzdyn_476 {
+  .awsui_layout_hyvsj_15l79_388:not(#\9):not(.awsui_has-max-content-width_hyvsj_15l79_460).awsui_content-type-dashboard_hyvsj_15l79_475 {
     --awsui-default-max-content-width-g964ok: 2160px;
   }
 }
-.awsui_layout_hyvsj_wzdyn_389:not(#\9):not(.awsui_has-max-content-width_hyvsj_wzdyn_461).awsui_content-type-table_hyvsj_wzdyn_490, .awsui_layout_hyvsj_wzdyn_389:not(#\9):not(.awsui_has-max-content-width_hyvsj_wzdyn_461).awsui_content-type-cards_hyvsj_wzdyn_490 {
+.awsui_layout_hyvsj_15l79_388:not(#\9):not(.awsui_has-max-content-width_hyvsj_15l79_460).awsui_content-type-table_hyvsj_15l79_489, .awsui_layout_hyvsj_15l79_388:not(#\9):not(.awsui_has-max-content-width_hyvsj_15l79_460).awsui_content-type-cards_hyvsj_15l79_489 {
   --awsui-default-max-content-width-g964ok: 100%;
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_has-max-content-width_hyvsj_wzdyn_461:not(#\9) {
+.awsui_layout_hyvsj_15l79_388.awsui_has-max-content-width_hyvsj_15l79_460:not(#\9) {
   --awsui-default-max-content-width-g964ok: var(--awsui-max-content-width-g964ok);
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_is-overlap-disabled_hyvsj_wzdyn_496:not(#\9) {
+.awsui_layout_hyvsj_15l79_388.awsui_is-overlap-disabled_hyvsj_15l79_495:not(#\9) {
   --awsui-overlap-height-g964ok: 0;
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_is-hide-mobile-toolbar_hyvsj_wzdyn_499:not(#\9) {
+.awsui_layout_hyvsj_15l79_388.awsui_is-hide-mobile-toolbar_hyvsj_15l79_498:not(#\9) {
   --awsui-mobile-bar-height-g964ok: 0px;
 }
 @media (min-width: 993px) {
-  .awsui_layout_hyvsj_wzdyn_389:not(#\9) {
+  .awsui_layout_hyvsj_15l79_388:not(#\9) {
     --awsui-default-min-content-width-g964ok: var(--awsui-min-content-width-g964ok, 280px);
   }
 }
 @media (max-width: 992px) {
-  .awsui_layout_hyvsj_wzdyn_389:not(#\9) {
+  .awsui_layout_hyvsj_15l79_388:not(#\9) {
     --awsui-default-min-content-width-g964ok: 0px;
   }
 }
 @media (min-width: 689px) {
-  .awsui_layout_hyvsj_wzdyn_389.awsui_has-content-gap-left_hyvsj_wzdyn_513:not(#\9) {
+  .awsui_layout_hyvsj_15l79_388.awsui_has-content-gap-left_hyvsj_15l79_512:not(#\9) {
     --awsui-content-gap-left-g964ok: var(--space-layout-content-horizontal-7l52k3, 24px);
   }
-  .awsui_layout_hyvsj_wzdyn_389.awsui_has-content-gap-right_hyvsj_wzdyn_516:not(#\9) {
+  .awsui_layout_hyvsj_15l79_388.awsui_has-content-gap-right_hyvsj_15l79_515:not(#\9) {
     --awsui-content-gap-right-g964ok: var(--space-layout-content-horizontal-7l52k3, 24px);
   }
 }
 @media (max-width: 688px) {
-  .awsui_layout_hyvsj_wzdyn_389:not(#\9) {
+  .awsui_layout_hyvsj_15l79_388:not(#\9) {
     --awsui-content-gap-left-g964ok: var(--space-l-t419sm, 20px);
     --awsui-content-gap-right-g964ok: var(--space-l-t419sm, 20px);
   }
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_has-breadcrumbs_hyvsj_wzdyn_526:not(#\9) {
+.awsui_layout_hyvsj_15l79_388.awsui_has-breadcrumbs_hyvsj_15l79_525:not(#\9) {
   --awsui-breadcrumbs-gap-g964ok: var(--space-scaled-m-mo5yse, 16px);
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_content-first-child-header_hyvsj_wzdyn_529:not(#\9), .awsui_layout_hyvsj_wzdyn_389.awsui_content-first-child-notifications_hyvsj_wzdyn_529:not(#\9):not(.awsui_has-breadcrumbs_hyvsj_wzdyn_526).awsui_has-header_hyvsj_wzdyn_529 {
+.awsui_layout_hyvsj_15l79_388.awsui_content-first-child-header_hyvsj_15l79_528:not(#\9), .awsui_layout_hyvsj_15l79_388.awsui_content-first-child-notifications_hyvsj_15l79_528:not(#\9):not(.awsui_has-breadcrumbs_hyvsj_15l79_525).awsui_has-header_hyvsj_15l79_528 {
   --awsui-header-gap-g964ok: var(--space-scaled-xs-26e2du, 8px);
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_has-breadcrumbs_hyvsj_wzdyn_526.awsui_has-header_hyvsj_wzdyn_529:not(#\9) {
+.awsui_layout_hyvsj_15l79_388.awsui_has-breadcrumbs_hyvsj_15l79_525.awsui_has-header_hyvsj_15l79_528:not(#\9) {
   --awsui-header-gap-g964ok: var(--space-scaled-xs-26e2du, 8px);
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_content-first-child-notifications_hyvsj_wzdyn_529:not(#\9):not(.awsui_has-breadcrumbs_hyvsj_wzdyn_526):not(.awsui_has-header_hyvsj_wzdyn_529) {
+.awsui_layout_hyvsj_15l79_388.awsui_content-first-child-notifications_hyvsj_15l79_528:not(#\9):not(.awsui_has-breadcrumbs_hyvsj_15l79_525):not(.awsui_has-header_hyvsj_15l79_528) {
   --awsui-main-gap-g964ok: var(--space-xs-zb16t3, 8px);
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_has-breadcrumbs_hyvsj_wzdyn_526:not(#\9):not(.awsui_has-header_hyvsj_wzdyn_529) {
+.awsui_layout_hyvsj_15l79_388.awsui_has-breadcrumbs_hyvsj_15l79_525:not(#\9):not(.awsui_has-header_hyvsj_15l79_528) {
   --awsui-main-gap-g964ok: var(--space-scaled-xxs-7597g1, 4px);
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_has-header_hyvsj_wzdyn_529:not(#\9) {
+.awsui_layout_hyvsj_15l79_388.awsui_has-header_hyvsj_15l79_528:not(#\9) {
   --awsui-main-gap-g964ok: var(--space-content-header-padding-bottom-y2enua, 16px);
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_content-first-child-main_hyvsj_wzdyn_544:not(#\9):not(.awsui_disable-content-paddings_hyvsj_wzdyn_544) {
+.awsui_layout_hyvsj_15l79_388.awsui_content-first-child-main_hyvsj_15l79_543:not(#\9):not(.awsui_disable-content-paddings_hyvsj_15l79_543) {
   --awsui-main-gap-g964ok: var(--space-scaled-s-aqzyko, 12px);
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_content-first-child-main_hyvsj_wzdyn_544.awsui_disable-content-paddings_hyvsj_wzdyn_544:not(#\9) {
+.awsui_layout_hyvsj_15l79_388.awsui_content-first-child-main_hyvsj_15l79_543.awsui_disable-content-paddings_hyvsj_15l79_543:not(#\9) {
   --awsui-main-gap-g964ok: 0px;
 }
 @media (max-width: 688px) {
-  .awsui_layout_hyvsj_wzdyn_389.awsui_content-first-child-header_hyvsj_wzdyn_529:not(#\9) {
+  .awsui_layout_hyvsj_15l79_388.awsui_content-first-child-header_hyvsj_15l79_528:not(#\9) {
     --awsui-header-gap-g964ok: var(--space-scaled-s-aqzyko, 12px);
   }
-  .awsui_layout_hyvsj_wzdyn_389.awsui_content-first-child-notifications_hyvsj_wzdyn_529:not(#\9):not(.awsui_has-breadcrumbs_hyvsj_wzdyn_526).awsui_has-header_hyvsj_wzdyn_529 {
+  .awsui_layout_hyvsj_15l79_388.awsui_content-first-child-notifications_hyvsj_15l79_528:not(#\9):not(.awsui_has-breadcrumbs_hyvsj_15l79_525).awsui_has-header_hyvsj_15l79_528 {
     --awsui-header-gap-g964ok: var(--space-scaled-s-aqzyko, 12px);
   }
-  .awsui_layout_hyvsj_wzdyn_389.awsui_content-first-child-notifications_hyvsj_wzdyn_529:not(#\9):not(.awsui_has-breadcrumbs_hyvsj_wzdyn_526):not(.awsui_has-header_hyvsj_wzdyn_529), .awsui_layout_hyvsj_wzdyn_389.awsui_content-first-child-main_hyvsj_wzdyn_544:not(#\9):not(.awsui_disable-content-paddings_hyvsj_wzdyn_544) {
+  .awsui_layout_hyvsj_15l79_388.awsui_content-first-child-notifications_hyvsj_15l79_528:not(#\9):not(.awsui_has-breadcrumbs_hyvsj_15l79_525):not(.awsui_has-header_hyvsj_15l79_528), .awsui_layout_hyvsj_15l79_388.awsui_content-first-child-main_hyvsj_15l79_543:not(#\9):not(.awsui_disable-content-paddings_hyvsj_15l79_543) {
     --awsui-main-gap-g964ok: var(--space-scaled-s-aqzyko, 12px);
   }
-  .awsui_layout_hyvsj_wzdyn_389.awsui_content-first-child-main_hyvsj_wzdyn_544.awsui_disable-content-paddings_hyvsj_wzdyn_544:not(#\9) {
+  .awsui_layout_hyvsj_15l79_388.awsui_content-first-child-main_hyvsj_15l79_543.awsui_disable-content-paddings_hyvsj_15l79_543:not(#\9) {
     --awsui-main-gap-g964ok: 0px;
   }
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_has-left-toggles-gutter_hyvsj_wzdyn_564:not(#\9) {
+.awsui_layout_hyvsj_15l79_388.awsui_has-left-toggles-gutter_hyvsj_15l79_563:not(#\9) {
   --awsui-toggles-left-width-g964ok: calc(var(--space-layout-toggle-padding-lcu6qi, 12px) + 36px);
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_has-right-toggles-gutter_hyvsj_wzdyn_567:not(#\9) {
+.awsui_layout_hyvsj_15l79_388.awsui_has-right-toggles-gutter_hyvsj_15l79_566:not(#\9) {
   --awsui-toggles-right-width-g964ok: calc(var(--space-layout-toggle-padding-lcu6qi, 12px) + 36px);
 }
 
@@ -579,13 +578,13 @@ not matter. The offset top value for AppLayout contentMain children with
 position: sticky will be the value of the notifications height in addition to the 
 notifications top margin and some additional vertical space for aesthetics.
 */
-.awsui_layout_hyvsj_wzdyn_389.awsui_disable-body-scroll_hyvsj_wzdyn_204:not(#\9) {
+.awsui_layout_hyvsj_15l79_388.awsui_disable-body-scroll_hyvsj_15l79_204:not(#\9) {
   --awsui-main-template-rows-g964ok: 1fr auto;
   --awsui-offset-top-g964ok: 0px;
   block-size: var(--awsui-content-height-g964ok);
   overflow-y: scroll;
 }
-.awsui_layout_hyvsj_wzdyn_389.awsui_disable-body-scroll_hyvsj_wzdyn_204.awsui_has-split-panel_hyvsj_wzdyn_587.awsui_split-panel-position-bottom_hyvsj_wzdyn_587:not(#\9) {
+.awsui_layout_hyvsj_15l79_388.awsui_disable-body-scroll_hyvsj_15l79_204.awsui_has-split-panel_hyvsj_15l79_586.awsui_split-panel-position-bottom_hyvsj_15l79_586:not(#\9) {
   --awsui-main-template-rows-g964ok: repeat(2, auto);
 }
 
@@ -593,13 +592,13 @@ notifications top margin and some additional vertical space for aesthetics.
 This CSS class is applied to the document body to prevent overflow scrolling
 when the navigation or tools drawers are open in responsive viewports.
 */
-.awsui_block-body-scroll_hyvsj_wzdyn_595:not(#\9) {
+.awsui_block-body-scroll_hyvsj_15l79_594:not(#\9) {
   overflow: hidden;
 }
 
 /* stylelint-disable selector-max-universal, selector-combinator-disallowed-list */
-.awsui_unfocusable_hyvsj_wzdyn_600:not(#\9),
-.awsui_unfocusable_hyvsj_wzdyn_600 *:not(#\9) {
+.awsui_unfocusable_hyvsj_15l79_599:not(#\9),
+.awsui_unfocusable_hyvsj_15l79_599 *:not(#\9) {
   visibility: hidden !important;
 }
 
@@ -608,7 +607,7 @@ when the navigation or tools drawers are open in responsive viewports.
  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  SPDX-License-Identifier: Apache-2.0
 */
-.awsui_container_hyvsj_wzdyn_610:not(#\9) {
+.awsui_container_hyvsj_15l79_609:not(#\9) {
   grid-area: main;
   padding-block-end: var(--space-layout-content-bottom-noqzmw, 40px);
   /*
@@ -625,19 +624,19 @@ when the navigation or tools drawers are open in responsive viewports.
   on the right, we decrement the column end by one.
   */
 }
-.awsui_container_hyvsj_wzdyn_610.awsui_has-split-panel_hyvsj_wzdyn_587.awsui_split-panel-position-bottom_hyvsj_wzdyn_587:not(#\9) {
+.awsui_container_hyvsj_15l79_609.awsui_has-split-panel_hyvsj_15l79_586.awsui_split-panel-position-bottom_hyvsj_15l79_586:not(#\9) {
   padding-block-end: calc(var(--awsui-split-panel-height-g964ok) + var(--space-layout-content-bottom-noqzmw, 40px));
 }
-.awsui_container_hyvsj_wzdyn_610.awsui_disable-content-paddings_hyvsj_wzdyn_544:not(#\9) {
+.awsui_container_hyvsj_15l79_609.awsui_disable-content-paddings_hyvsj_15l79_543:not(#\9) {
   grid-column: 1/6;
   padding-block: 0;
   padding-inline: 0;
 }
 @media (min-width: 689px) {
-  .awsui_container_hyvsj_wzdyn_610.awsui_disable-content-paddings_hyvsj_wzdyn_544.awsui_is-navigation-open_hyvsj_wzdyn_636:not(#\9) {
+  .awsui_container_hyvsj_15l79_609.awsui_disable-content-paddings_hyvsj_15l79_543.awsui_is-navigation-open_hyvsj_15l79_635:not(#\9) {
     grid-column-start: 2;
   }
-  .awsui_container_hyvsj_wzdyn_610.awsui_disable-content-paddings_hyvsj_wzdyn_544.awsui_is-tools-open_hyvsj_wzdyn_639:not(#\9), .awsui_container_hyvsj_wzdyn_610.awsui_disable-content-paddings_hyvsj_wzdyn_544.awsui_is-split-panel-open_hyvsj_wzdyn_639.awsui_split-panel-position-side_hyvsj_wzdyn_639:not(#\9), .awsui_container_hyvsj_wzdyn_610.awsui_disable-content-paddings_hyvsj_wzdyn_544.awsui_has-active-drawer_hyvsj_wzdyn_639:not(#\9) {
+  .awsui_container_hyvsj_15l79_609.awsui_disable-content-paddings_hyvsj_15l79_543.awsui_is-tools-open_hyvsj_15l79_638:not(#\9), .awsui_container_hyvsj_15l79_609.awsui_disable-content-paddings_hyvsj_15l79_543.awsui_is-split-panel-open_hyvsj_15l79_638.awsui_split-panel-position-side_hyvsj_15l79_638:not(#\9), .awsui_container_hyvsj_15l79_609.awsui_disable-content-paddings_hyvsj_15l79_543.awsui_has-active-drawer_hyvsj_15l79_638:not(#\9) {
     grid-column-end: 5;
   }
 }
@@ -650,9 +649,9 @@ when the navigation or tools drawers are open in responsive viewports.
  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  SPDX-License-Identifier: Apache-2.0
 */
-section.awsui_mobile-toolbar_hyvsj_wzdyn_652:not(#\9) {
+section.awsui_mobile-toolbar_hyvsj_15l79_651:not(#\9) {
   align-items: center;
-  background-color: var(--color-background-layout-main-dwnvqs, #00FF00);
+  background-color: var(--color-background-layout-main-2jp88g, #00FF00);
   border-block-end: 1px solid var(--color-border-divider-default-cx07f2, #c6c6cd);
   box-shadow: var(--shadow-sticky-blixp9, 0px 4px 8px 1px rgba(0, 7, 22, 0.1));
   box-sizing: border-box;
@@ -667,19 +666,19 @@ section.awsui_mobile-toolbar_hyvsj_wzdyn_652:not(#\9) {
   inset-block-start: var(--awsui-offset-top-g964ok);
   z-index: 1000;
 }
-section.awsui_mobile-toolbar_hyvsj_wzdyn_652:not(#\9):not(.awsui_remove-high-contrast-header_hyvsj_wzdyn_669) {
-  background-color: var(--color-background-layout-main-dwnvqs, #00FF00);
+section.awsui_mobile-toolbar_hyvsj_15l79_651:not(#\9):not(.awsui_remove-high-contrast-header_hyvsj_15l79_668) {
+  background-color: var(--color-background-layout-main-2jp88g, #00FF00);
   box-shadow: var(--shadow-panel-toggle-0l64f2, 0px 6px 12px 1px rgba(0, 7, 22, 0.12));
 }
-section.awsui_mobile-toolbar_hyvsj_wzdyn_652 > .awsui_mobile-toolbar-nav_hyvsj_wzdyn_673:not(#\9) {
+section.awsui_mobile-toolbar_hyvsj_15l79_651 > .awsui_mobile-toolbar-nav_hyvsj_15l79_672:not(#\9) {
   grid-column: 1;
   margin-inline-end: var(--space-m-udix3p, 16px);
 }
-section.awsui_mobile-toolbar_hyvsj_wzdyn_652 > .awsui_mobile-toolbar-breadcrumbs_hyvsj_wzdyn_677:not(#\9) {
+section.awsui_mobile-toolbar_hyvsj_15l79_651 > .awsui_mobile-toolbar-breadcrumbs_hyvsj_15l79_676:not(#\9) {
   grid-column: 2;
-  background-color: var(--color-background-layout-main-dwnvqs, #00FF00);
+  background-color: var(--color-background-layout-main-2jp88g, #00FF00);
 }
-section.awsui_mobile-toolbar_hyvsj_wzdyn_652 > .awsui_mobile-toolbar-tools_hyvsj_wzdyn_681:not(#\9) {
+section.awsui_mobile-toolbar_hyvsj_15l79_651 > .awsui_mobile-toolbar-tools_hyvsj_15l79_680:not(#\9) {
   grid-column: 3;
   margin-inline-start: var(--space-m-udix3p, 16px);
 }
@@ -688,7 +687,7 @@ section.awsui_mobile-toolbar_hyvsj_wzdyn_652 > .awsui_mobile-toolbar-tools_hyvsj
  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  SPDX-License-Identifier: Apache-2.0
 */
-.awsui_navigation-container_hyvsj_wzdyn_690:not(#\9) {
+.awsui_navigation-container_hyvsj_15l79_689:not(#\9) {
   display: flex;
   grid-column: 1;
   grid-row: 1/span 9;
@@ -709,7 +708,7 @@ section.awsui_mobile-toolbar_hyvsj_wzdyn_652 > .awsui_mobile-toolbar-tools_hyvsj
   pointer-events: none;
 }
 @media (max-width: 688px) {
-  .awsui_navigation-container_hyvsj_wzdyn_690:not(#\9) {
+  .awsui_navigation-container_hyvsj_15l79_689:not(#\9) {
     inset-inline-start: 0;
     position: fixed;
     z-index: 1001;
@@ -721,12 +720,12 @@ section.awsui_mobile-toolbar_hyvsj_wzdyn_652 > .awsui_mobile-toolbar-tools_hyvsj
     relative to the body.
     */
   }
-  .awsui_navigation-container_hyvsj_wzdyn_690.awsui_disable-body-scroll_hyvsj_wzdyn_204:not(#\9) {
+  .awsui_navigation-container_hyvsj_15l79_689.awsui_disable-body-scroll_hyvsj_15l79_204:not(#\9) {
     inset-block-start: var(--awsui-header-height-g964ok);
   }
 }
 
-nav.awsui_show-navigation_hyvsj_wzdyn_728:not(#\9) {
+nav.awsui_show-navigation_hyvsj_15l79_727:not(#\9) {
   padding-block: var(--space-scaled-s-aqzyko, 12px);
   padding-inline: var(--space-layout-toggle-padding-lcu6qi, 12px);
   /*
@@ -734,7 +733,7 @@ nav.awsui_show-navigation_hyvsj_wzdyn_728:not(#\9) {
   take control in responsive viewports.
   */
 }
-@keyframes awsui_showButtons_hyvsj_wzdyn_1 {
+@keyframes awsui_showButtons_hyvsj_15l79_1 {
   0% {
     opacity: 0;
   }
@@ -742,31 +741,31 @@ nav.awsui_show-navigation_hyvsj_wzdyn_728:not(#\9) {
     opacity: 1;
   }
 }
-nav.awsui_show-navigation_hyvsj_wzdyn_728.awsui_is-navigation-open_hyvsj_wzdyn_636:not(#\9) {
+nav.awsui_show-navigation_hyvsj_15l79_727.awsui_is-navigation-open_hyvsj_15l79_635:not(#\9) {
   display: none;
 }
 @media (min-width: 689px) {
-  nav.awsui_show-navigation_hyvsj_wzdyn_728:not(#\9):not(.awsui_is-navigation-open_hyvsj_wzdyn_636) {
+  nav.awsui_show-navigation_hyvsj_15l79_727:not(#\9):not(.awsui_is-navigation-open_hyvsj_15l79_635) {
     display: block;
   }
-  nav.awsui_show-navigation_hyvsj_wzdyn_728:not(#\9):not(.awsui_is-navigation-open_hyvsj_wzdyn_636).awsui_animating_hyvsj_wzdyn_751 {
-    animation: awsui_showButtons_hyvsj_wzdyn_1 var(--motion-duration-refresh-only-fast-4jn2d7, 115ms);
+  nav.awsui_show-navigation_hyvsj_15l79_727:not(#\9):not(.awsui_is-navigation-open_hyvsj_15l79_635).awsui_animating_hyvsj_15l79_750 {
+    animation: awsui_showButtons_hyvsj_15l79_1 var(--motion-duration-refresh-only-fast-4jn2d7, 115ms);
   }
 }
 @media (min-width: 689px) and (prefers-reduced-motion: reduce) {
-  nav.awsui_show-navigation_hyvsj_wzdyn_728:not(#\9):not(.awsui_is-navigation-open_hyvsj_wzdyn_636).awsui_animating_hyvsj_wzdyn_751 {
+  nav.awsui_show-navigation_hyvsj_15l79_727:not(#\9):not(.awsui_is-navigation-open_hyvsj_15l79_635).awsui_animating_hyvsj_15l79_750 {
     animation: none;
     transition: none;
   }
 }
 @media (min-width: 689px) {
-  .awsui-motion-disabled nav.awsui_show-navigation_hyvsj_wzdyn_728:not(#\9):not(.awsui_is-navigation-open_hyvsj_wzdyn_636).awsui_animating_hyvsj_wzdyn_751, .awsui-mode-entering nav.awsui_show-navigation_hyvsj_wzdyn_728:not(#\9):not(.awsui_is-navigation-open_hyvsj_wzdyn_636).awsui_animating_hyvsj_wzdyn_751 {
+  .awsui-motion-disabled nav.awsui_show-navigation_hyvsj_15l79_727:not(#\9):not(.awsui_is-navigation-open_hyvsj_15l79_635).awsui_animating_hyvsj_15l79_750, .awsui-mode-entering nav.awsui_show-navigation_hyvsj_15l79_727:not(#\9):not(.awsui_is-navigation-open_hyvsj_15l79_635).awsui_animating_hyvsj_15l79_750 {
     animation: none;
     transition: none;
   }
 }
 
-nav.awsui_navigation_hyvsj_wzdyn_690:not(#\9) {
+nav.awsui_navigation_hyvsj_15l79_689:not(#\9) {
   background-color: var(--color-background-container-content-z79u4u, #ffffff);
   inset-block-end: 0;
   block-size: 100%;
@@ -778,15 +777,13 @@ nav.awsui_navigation_hyvsj_wzdyn_690:not(#\9) {
   word-wrap: break-word;
   pointer-events: auto;
   border-inline-end: solid var(--border-divider-section-width-1061zr, 1px) var(--color-border-divider-default-cx07f2, #c6c6cd);
-  display: flex;
-  flex-direction: column;
   /*
   A non-semantic node is added with a fixed width equal to the final Navigation
   width. This will create the visual appearance of horizontal movement and
   prevent unwanted text wrapping.
   */
 }
-@keyframes awsui_openNavigation_hyvsj_wzdyn_1 {
+@keyframes awsui_openNavigation_hyvsj_15l79_1 {
   from {
     opacity: 0;
     inline-size: calc(var(--space-layout-toggle-padding-lcu6qi, 12px) * 2 + var(--space-layout-toggle-diameter-hb85rk, 36px));
@@ -796,36 +793,33 @@ nav.awsui_navigation_hyvsj_wzdyn_690:not(#\9) {
     inline-size: var(--awsui-navigation-width-g964ok);
   }
 }
-nav.awsui_navigation_hyvsj_wzdyn_690:not(#\9):not(.awsui_is-navigation-open_hyvsj_wzdyn_636) {
+nav.awsui_navigation_hyvsj_15l79_689:not(#\9):not(.awsui_is-navigation-open_hyvsj_15l79_635) {
   inline-size: 0;
   display: none;
 }
-nav.awsui_navigation_hyvsj_wzdyn_690.awsui_is-navigation-open_hyvsj_wzdyn_636.awsui_animating_hyvsj_wzdyn_751:not(#\9) {
-  animation: awsui_openNavigation_hyvsj_wzdyn_1 var(--motion-duration-refresh-only-fast-4jn2d7, 115ms);
+nav.awsui_navigation_hyvsj_15l79_689.awsui_is-navigation-open_hyvsj_15l79_635.awsui_animating_hyvsj_15l79_750:not(#\9) {
+  animation: awsui_openNavigation_hyvsj_15l79_1 var(--motion-duration-refresh-only-fast-4jn2d7, 115ms);
 }
 @media (prefers-reduced-motion: reduce) {
-  nav.awsui_navigation_hyvsj_wzdyn_690.awsui_is-navigation-open_hyvsj_wzdyn_636.awsui_animating_hyvsj_wzdyn_751:not(#\9) {
+  nav.awsui_navigation_hyvsj_15l79_689.awsui_is-navigation-open_hyvsj_15l79_635.awsui_animating_hyvsj_15l79_750:not(#\9) {
     animation: none;
     transition: none;
   }
 }
-.awsui-motion-disabled nav.awsui_navigation_hyvsj_wzdyn_690.awsui_is-navigation-open_hyvsj_wzdyn_636.awsui_animating_hyvsj_wzdyn_751:not(#\9), .awsui-mode-entering nav.awsui_navigation_hyvsj_wzdyn_690.awsui_is-navigation-open_hyvsj_wzdyn_636.awsui_animating_hyvsj_wzdyn_751:not(#\9) {
+.awsui-motion-disabled nav.awsui_navigation_hyvsj_15l79_689.awsui_is-navigation-open_hyvsj_15l79_635.awsui_animating_hyvsj_15l79_750:not(#\9), .awsui-mode-entering nav.awsui_navigation_hyvsj_15l79_689.awsui_is-navigation-open_hyvsj_15l79_635.awsui_animating_hyvsj_15l79_750:not(#\9) {
   animation: none;
   transition: none;
 }
-nav.awsui_navigation_hyvsj_wzdyn_690 > .awsui_animated-content_hyvsj_wzdyn_815:not(#\9) {
+nav.awsui_navigation_hyvsj_15l79_689 > .awsui_animated-content_hyvsj_15l79_812:not(#\9) {
   inline-size: var(--awsui-navigation-width-g964ok);
 }
-nav.awsui_navigation_hyvsj_wzdyn_690 > .awsui_content-container_hyvsj_wzdyn_818:not(#\9) {
-  flex-grow: 1;
-}
 @media (max-width: 688px) {
-  nav.awsui_navigation_hyvsj_wzdyn_690:not(#\9) {
+  nav.awsui_navigation_hyvsj_15l79_689:not(#\9) {
     --awsui-navigation-width-g964ok: 100vw;
   }
 }
 
-.awsui_hide-navigation_hyvsj_wzdyn_827:not(#\9) {
+.awsui_hide-navigation_hyvsj_15l79_821:not(#\9) {
   position: absolute;
   inset-inline-end: var(--space-m-udix3p, 16px);
   inset-block-start: var(--size-vertical-panel-icon-offset-wy8j08, 15px);
@@ -835,24 +829,24 @@ nav.awsui_navigation_hyvsj_wzdyn_690 > .awsui_content-container_hyvsj_wzdyn_818:
  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  SPDX-License-Identifier: Apache-2.0
 */
-.awsui_notifications_hyvsj_wzdyn_837:not(#\9) {
+.awsui_notifications_hyvsj_15l79_831:not(#\9) {
   color: var(--color-text-body-default-7v1jfn, #0f141a);
   grid-area: notifications;
   z-index: 850;
 }
-.awsui_notifications_hyvsj_wzdyn_837.awsui_has-notification-content_hyvsj_wzdyn_842:not(#\9) {
+.awsui_notifications_hyvsj_15l79_831.awsui_has-notification-content_hyvsj_15l79_836:not(#\9) {
   padding-block-start: var(--space-scaled-s-aqzyko, 12px);
 }
 @media (min-width: 689px) {
-  .awsui_notifications_hyvsj_wzdyn_837.awsui_sticky-notifications_hyvsj_wzdyn_846:not(#\9) {
+  .awsui_notifications_hyvsj_15l79_831.awsui_sticky-notifications_hyvsj_15l79_840:not(#\9) {
     --awsui-flashbar-sticky-bottom-margin-g964ok: var(--space-xxl-cu2m1r, 32px);
     position: sticky;
     inset-block-start: var(--awsui-offset-top-g964ok);
   }
-  .awsui_notifications_hyvsj_wzdyn_837.awsui_sticky-notifications_hyvsj_wzdyn_846:not(#\9):not(.awsui_high-contrast_hyvsj_wzdyn_851) {
-    background-color: var(--color-background-layout-main-dwnvqs, #00FF00);
+  .awsui_notifications_hyvsj_15l79_831.awsui_sticky-notifications_hyvsj_15l79_840:not(#\9):not(.awsui_high-contrast_hyvsj_15l79_845) {
+    background-color: var(--color-background-layout-main-2jp88g, #00FF00);
   }
-  .awsui_notifications_hyvsj_wzdyn_837.awsui_has-notification-content_hyvsj_wzdyn_842:not(#\9) {
+  .awsui_notifications_hyvsj_15l79_831.awsui_has-notification-content_hyvsj_15l79_836:not(#\9) {
     padding-block-start: var(--space-xs-zb16t3, 8px);
   }
 }
@@ -867,7 +861,7 @@ as the content area. This row is defined as 1 fractional unit which will
 consume the remaining vertical space in the grid after the notifications
 and breadcrumbs.
 */
-section.awsui_split-panel-bottom_hyvsj_wzdyn_869:not(#\9) {
+section.awsui_split-panel-bottom_hyvsj_15l79_863:not(#\9) {
   /*
   The align self property will position the split panel at the bottom of the grid row.
   This could be off the viewport if the content area has enough content to be scrollable.
@@ -903,7 +897,7 @@ section.awsui_split-panel-bottom_hyvsj_wzdyn_869:not(#\9) {
   apply the animation to the height property.
   */
 }
-@keyframes awsui_openSplitPanelBottom_hyvsj_wzdyn_1 {
+@keyframes awsui_openSplitPanelBottom_hyvsj_15l79_1 {
   from {
     block-size: var(--awsui-split-panel-reported-header-size-g964ok, 0);
   }
@@ -911,39 +905,39 @@ section.awsui_split-panel-bottom_hyvsj_wzdyn_869:not(#\9) {
     block-size: var(--awsui-split-panel-reported-size-g964ok);
   }
 }
-section.awsui_split-panel-bottom_hyvsj_wzdyn_869.awsui_disable-body-scroll_hyvsj_wzdyn_204:not(#\9) {
+section.awsui_split-panel-bottom_hyvsj_15l79_863.awsui_disable-body-scroll_hyvsj_15l79_204:not(#\9) {
   inset-block-end: 0;
 }
-section.awsui_split-panel-bottom_hyvsj_wzdyn_869.awsui_is-navigation-open_hyvsj_wzdyn_636.awsui_position-bottom_hyvsj_wzdyn_916:not(#\9) {
+section.awsui_split-panel-bottom_hyvsj_15l79_863.awsui_is-navigation-open_hyvsj_15l79_635.awsui_position-bottom_hyvsj_15l79_910:not(#\9) {
   grid-column-start: 2;
 }
-section.awsui_split-panel-bottom_hyvsj_wzdyn_869.awsui_has-open-drawer_hyvsj_wzdyn_183.awsui_position-bottom_hyvsj_wzdyn_916:not(#\9) {
+section.awsui_split-panel-bottom_hyvsj_15l79_863.awsui_has-open-drawer_hyvsj_15l79_183.awsui_position-bottom_hyvsj_15l79_910:not(#\9) {
   grid-column-end: 5;
 }
-section.awsui_split-panel-bottom_hyvsj_wzdyn_869.awsui_position-bottom_hyvsj_wzdyn_916:not(#\9) {
+section.awsui_split-panel-bottom_hyvsj_15l79_863.awsui_position-bottom_hyvsj_15l79_910:not(#\9) {
   display: block;
 }
-section.awsui_split-panel-bottom_hyvsj_wzdyn_869:not(#\9):not(.awsui_is-split-panel-open_hyvsj_wzdyn_639).awsui_position-bottom_hyvsj_wzdyn_916 {
+section.awsui_split-panel-bottom_hyvsj_15l79_863:not(#\9):not(.awsui_is-split-panel-open_hyvsj_15l79_638).awsui_position-bottom_hyvsj_15l79_910 {
   box-shadow: rgba(0, 7, 22, 0.1) 0px -32px 32px -24px;
 }
-section.awsui_split-panel-bottom_hyvsj_wzdyn_869.awsui_is-split-panel-open_hyvsj_wzdyn_639.awsui_position-bottom_hyvsj_wzdyn_916:not(#\9) {
+section.awsui_split-panel-bottom_hyvsj_15l79_863.awsui_is-split-panel-open_hyvsj_15l79_638.awsui_position-bottom_hyvsj_15l79_910:not(#\9) {
   box-shadow: var(--shadow-split-bottom-5e389u, 0px -36px 36px -36px rgba(0, 7, 22, 0.1));
 }
-section.awsui_split-panel-bottom_hyvsj_wzdyn_869.awsui_is-split-panel-open_hyvsj_wzdyn_639.awsui_position-bottom_hyvsj_wzdyn_916.awsui_animating_hyvsj_wzdyn_751:not(#\9) {
-  animation: awsui_openSplitPanelBottom_hyvsj_wzdyn_1 var(--motion-duration-refresh-only-fast-4jn2d7, 115ms);
+section.awsui_split-panel-bottom_hyvsj_15l79_863.awsui_is-split-panel-open_hyvsj_15l79_638.awsui_position-bottom_hyvsj_15l79_910.awsui_animating_hyvsj_15l79_750:not(#\9) {
+  animation: awsui_openSplitPanelBottom_hyvsj_15l79_1 var(--motion-duration-refresh-only-fast-4jn2d7, 115ms);
 }
 @media (prefers-reduced-motion: reduce) {
-  section.awsui_split-panel-bottom_hyvsj_wzdyn_869.awsui_is-split-panel-open_hyvsj_wzdyn_639.awsui_position-bottom_hyvsj_wzdyn_916.awsui_animating_hyvsj_wzdyn_751:not(#\9) {
+  section.awsui_split-panel-bottom_hyvsj_15l79_863.awsui_is-split-panel-open_hyvsj_15l79_638.awsui_position-bottom_hyvsj_15l79_910.awsui_animating_hyvsj_15l79_750:not(#\9) {
     animation: none;
     transition: none;
   }
 }
-.awsui-motion-disabled section.awsui_split-panel-bottom_hyvsj_wzdyn_869.awsui_is-split-panel-open_hyvsj_wzdyn_639.awsui_position-bottom_hyvsj_wzdyn_916.awsui_animating_hyvsj_wzdyn_751:not(#\9), .awsui-mode-entering section.awsui_split-panel-bottom_hyvsj_wzdyn_869.awsui_is-split-panel-open_hyvsj_wzdyn_639.awsui_position-bottom_hyvsj_wzdyn_916.awsui_animating_hyvsj_wzdyn_751:not(#\9) {
+.awsui-motion-disabled section.awsui_split-panel-bottom_hyvsj_15l79_863.awsui_is-split-panel-open_hyvsj_15l79_638.awsui_position-bottom_hyvsj_15l79_910.awsui_animating_hyvsj_15l79_750:not(#\9), .awsui-mode-entering section.awsui_split-panel-bottom_hyvsj_15l79_863.awsui_is-split-panel-open_hyvsj_15l79_638.awsui_position-bottom_hyvsj_15l79_910.awsui_animating_hyvsj_15l79_750:not(#\9) {
   animation: none;
   transition: none;
 }
 
-section.awsui_split-panel-side_hyvsj_wzdyn_945:not(#\9) {
+section.awsui_split-panel-side_hyvsj_15l79_939:not(#\9) {
   block-size: 100%;
   overflow-x: hidden;
   pointer-events: auto;
@@ -953,15 +947,15 @@ section.awsui_split-panel-side_hyvsj_wzdyn_945:not(#\9) {
   be persistent in the DOM when closed.
   */
 }
-section.awsui_split-panel-side_hyvsj_wzdyn_945:not(#\9):not(.awsui_is-split-panel-open_hyvsj_wzdyn_639), section.awsui_split-panel-side_hyvsj_wzdyn_945.awsui_position-bottom_hyvsj_wzdyn_916:not(#\9) {
+section.awsui_split-panel-side_hyvsj_15l79_939:not(#\9):not(.awsui_is-split-panel-open_hyvsj_15l79_638), section.awsui_split-panel-side_hyvsj_15l79_939.awsui_position-bottom_hyvsj_15l79_910:not(#\9) {
   inline-size: 0;
 }
-section.awsui_split-panel-side_hyvsj_wzdyn_945.awsui_is-split-panel-open_hyvsj_wzdyn_639.awsui_position-side_hyvsj_wzdyn_958:not(#\9) {
+section.awsui_split-panel-side_hyvsj_15l79_939.awsui_is-split-panel-open_hyvsj_15l79_638.awsui_position-side_hyvsj_15l79_952:not(#\9) {
   max-inline-size: var(--awsui-split-panel-max-width-g964ok, 280px);
   min-inline-size: var(--awsui-split-panel-min-width-g964ok, 280px);
   border-inline-start: solid var(--border-divider-section-width-1061zr, 1px) var(--color-border-divider-default-cx07f2, #c6c6cd);
 }
-section.awsui_split-panel-side_hyvsj_wzdyn_945.awsui_is-split-panel-open_hyvsj_wzdyn_639.awsui_position-side_hyvsj_wzdyn_958:not(#\9):not(.awsui_has-open-drawer_hyvsj_wzdyn_183) {
+section.awsui_split-panel-side_hyvsj_15l79_939.awsui_is-split-panel-open_hyvsj_15l79_638.awsui_position-side_hyvsj_15l79_952:not(#\9):not(.awsui_has-open-drawer_hyvsj_15l79_183) {
   border-inline-end: var(--border-divider-section-width-1061zr, 1px) solid var(--color-border-divider-panel-side-j1ubnj, #c6c6cd);
 }
 
@@ -978,7 +972,7 @@ content width has a default value that can be set directly with the minContentWi
 property. The content gap right is computed in the Layout styles based on the
 viewport size and state of the Tools drawer.
 */
-.awsui_tools-container_hyvsj_wzdyn_980:not(#\9) {
+.awsui_tools-container_hyvsj_15l79_974:not(#\9) {
   --awsui-tools-max-width-g964ok: calc(var(--awsui-layout-width-g964ok) - var(--awsui-main-offset-left-g964ok) - var(--awsui-default-min-content-width-g964ok) - var(--awsui-content-gap-right-g964ok));
   display: flex;
   grid-column: 5;
@@ -991,7 +985,7 @@ viewport size and state of the Tools drawer.
   pointer-events: none;
 }
 @media (max-width: 688px) {
-  .awsui_tools-container_hyvsj_wzdyn_980:not(#\9) {
+  .awsui_tools-container_hyvsj_15l79_974:not(#\9) {
     --awsui-tools-max-width-g964ok: none;
     --awsui-tools-width-g964ok: auto;
     position: fixed;
@@ -1005,12 +999,12 @@ viewport size and state of the Tools drawer.
     relative to the body.
     */
   }
-  .awsui_tools-container_hyvsj_wzdyn_980.awsui_disable-body-scroll_hyvsj_wzdyn_204:not(#\9) {
+  .awsui_tools-container_hyvsj_15l79_974.awsui_disable-body-scroll_hyvsj_15l79_204:not(#\9) {
     inset-block-start: var(--awsui-header-height-g964ok);
   }
 }
 
-.awsui_tools_hyvsj_wzdyn_980:not(#\9) {
+.awsui_tools_hyvsj_15l79_974:not(#\9) {
   background-color: var(--color-background-container-content-z79u4u, #ffffff);
   flex-shrink: 0;
   block-size: 100%;
@@ -1033,7 +1027,7 @@ viewport size and state of the Tools drawer.
   in the side position.
   */
 }
-@keyframes awsui_openTools_hyvsj_wzdyn_1 {
+@keyframes awsui_openTools_hyvsj_15l79_1 {
   from {
     opacity: var(--awsui-tools-animation-starting-opacity-g964ok, 0);
     inline-size: calc(var(--space-layout-toggle-padding-lcu6qi, 12px) * 2 + var(--space-layout-toggle-diameter-hb85rk, 36px));
@@ -1043,41 +1037,41 @@ viewport size and state of the Tools drawer.
     inline-size: var(--awsui-tools-width-g964ok);
   }
 }
-.awsui_tools_hyvsj_wzdyn_980:not(#\9):not(.awsui_is-tools-open_hyvsj_wzdyn_639) {
+.awsui_tools_hyvsj_15l79_974:not(#\9):not(.awsui_is-tools-open_hyvsj_15l79_638) {
   inline-size: 0;
   display: none;
 }
-.awsui_tools_hyvsj_wzdyn_980.awsui_is-tools-open_hyvsj_wzdyn_639:not(#\9) {
+.awsui_tools_hyvsj_15l79_974.awsui_is-tools-open_hyvsj_15l79_638:not(#\9) {
   border-inline-start: solid var(--border-divider-section-width-1061zr, 1px) var(--color-border-divider-default-cx07f2, #c6c6cd);
 }
-.awsui_tools_hyvsj_wzdyn_980.awsui_is-tools-open_hyvsj_wzdyn_639.awsui_animating_hyvsj_wzdyn_751:not(#\9) {
-  animation: awsui_openTools_hyvsj_wzdyn_1 var(--motion-duration-refresh-only-fast-4jn2d7, 115ms);
+.awsui_tools_hyvsj_15l79_974.awsui_is-tools-open_hyvsj_15l79_638.awsui_animating_hyvsj_15l79_750:not(#\9) {
+  animation: awsui_openTools_hyvsj_15l79_1 var(--motion-duration-refresh-only-fast-4jn2d7, 115ms);
 }
 @media (prefers-reduced-motion: reduce) {
-  .awsui_tools_hyvsj_wzdyn_980.awsui_is-tools-open_hyvsj_wzdyn_639.awsui_animating_hyvsj_wzdyn_751:not(#\9) {
+  .awsui_tools_hyvsj_15l79_974.awsui_is-tools-open_hyvsj_15l79_638.awsui_animating_hyvsj_15l79_750:not(#\9) {
     animation: none;
     transition: none;
   }
 }
-.awsui-motion-disabled .awsui_tools_hyvsj_wzdyn_980.awsui_is-tools-open_hyvsj_wzdyn_639.awsui_animating_hyvsj_wzdyn_751:not(#\9), .awsui-mode-entering .awsui_tools_hyvsj_wzdyn_980.awsui_is-tools-open_hyvsj_wzdyn_639.awsui_animating_hyvsj_wzdyn_751:not(#\9) {
+.awsui-motion-disabled .awsui_tools_hyvsj_15l79_974.awsui_is-tools-open_hyvsj_15l79_638.awsui_animating_hyvsj_15l79_750:not(#\9), .awsui-mode-entering .awsui_tools_hyvsj_15l79_974.awsui_is-tools-open_hyvsj_15l79_638.awsui_animating_hyvsj_15l79_750:not(#\9) {
   animation: none;
   transition: none;
 }
-.awsui_tools_hyvsj_wzdyn_980 > .awsui_animated-content_hyvsj_wzdyn_815:not(#\9) {
+.awsui_tools_hyvsj_15l79_974 > .awsui_animated-content_hyvsj_15l79_812:not(#\9) {
   inline-size: var(--awsui-tools-width-g964ok);
 }
 @media (min-width: 689px) {
-  .awsui_tools_hyvsj_wzdyn_980.awsui_is-tools-open_hyvsj_wzdyn_639.awsui_has-tools-form-persistence_hyvsj_wzdyn_1069:not(#\9) {
+  .awsui_tools_hyvsj_15l79_974.awsui_is-tools-open_hyvsj_15l79_638.awsui_has-tools-form-persistence_hyvsj_15l79_1063:not(#\9) {
     border-inline-end: var(--border-divider-section-width-1061zr, 1px) solid var(--color-border-divider-default-cx07f2, #c6c6cd);
   }
 }
 @media (max-width: 688px) {
-  .awsui_tools_hyvsj_wzdyn_980:not(#\9) {
+  .awsui_tools_hyvsj_15l79_974:not(#\9) {
     --awsui-tools-width-g964ok: 100vw;
   }
 }
 
-.awsui_hide-tools_hyvsj_wzdyn_1079:not(#\9) {
+.awsui_hide-tools_hyvsj_15l79_1073:not(#\9) {
   position: absolute;
   inset-inline-end: var(--space-m-udix3p, 16px);
   inset-block-start: var(--size-vertical-panel-icon-offset-wy8j08, 15px);
@@ -1089,7 +1083,7 @@ Warning! If these design tokens for padding change it will adversely impact
 the calculation used to determine the Split Panel maximum width in the
 handleSplitPanelMaxWidth function in the context.
 */
-.awsui_show-tools_hyvsj_wzdyn_1091:not(#\9) {
+.awsui_show-tools_hyvsj_15l79_1085:not(#\9) {
   border-collapse: separate;
   border-spacing: 0;
   box-sizing: border-box;
@@ -1120,7 +1114,7 @@ handleSplitPanelMaxWidth function in the context.
   line-height: var(--line-height-body-m-30ar75, 20px);
   color: var(--color-text-body-default-7v1jfn, #0f141a);
   font-weight: 400;
-  font-family: var(--font-family-base-eynpfp, Open Sans);
+  font-family: var(--font-family-base-sigkvs, Arial);
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
   box-sizing: border-box;
@@ -1131,7 +1125,7 @@ handleSplitPanelMaxWidth function in the context.
   take control in responsive viewports.
   */
 }
-@keyframes awsui_showButtons_hyvsj_wzdyn_1 {
+@keyframes awsui_showButtons_hyvsj_15l79_1 {
   0% {
     opacity: 0;
   }
@@ -1139,31 +1133,31 @@ handleSplitPanelMaxWidth function in the context.
     opacity: 1;
   }
 }
-.awsui_show-tools_hyvsj_wzdyn_1091:not(#\9):not(.awsui_has-tools-form_hyvsj_wzdyn_1069) {
+.awsui_show-tools_hyvsj_15l79_1085:not(#\9):not(.awsui_has-tools-form_hyvsj_15l79_1063) {
   display: none;
 }
 @media (min-width: 689px) {
-  .awsui_show-tools_hyvsj_wzdyn_1091.awsui_has-tools-form_hyvsj_wzdyn_1069:not(#\9) {
+  .awsui_show-tools_hyvsj_15l79_1085.awsui_has-tools-form_hyvsj_15l79_1063:not(#\9) {
     display: flex;
     flex-direction: column;
     gap: var(--space-xs-zb16t3, 8px);
   }
-  .awsui_show-tools_hyvsj_wzdyn_1091.awsui_has-tools-form_hyvsj_wzdyn_1069.awsui_animating_hyvsj_wzdyn_751:not(#\9) {
-    animation: awsui_showButtons_hyvsj_wzdyn_1 var(--motion-duration-refresh-only-fast-4jn2d7, 115ms);
+  .awsui_show-tools_hyvsj_15l79_1085.awsui_has-tools-form_hyvsj_15l79_1063.awsui_animating_hyvsj_15l79_750:not(#\9) {
+    animation: awsui_showButtons_hyvsj_15l79_1 var(--motion-duration-refresh-only-fast-4jn2d7, 115ms);
   }
 }
 @media (min-width: 689px) and (prefers-reduced-motion: reduce) {
-  .awsui_show-tools_hyvsj_wzdyn_1091.awsui_has-tools-form_hyvsj_wzdyn_1069.awsui_animating_hyvsj_wzdyn_751:not(#\9) {
+  .awsui_show-tools_hyvsj_15l79_1085.awsui_has-tools-form_hyvsj_15l79_1063.awsui_animating_hyvsj_15l79_750:not(#\9) {
     animation: none;
     transition: none;
   }
 }
 @media (min-width: 689px) {
-  .awsui-motion-disabled .awsui_show-tools_hyvsj_wzdyn_1091.awsui_has-tools-form_hyvsj_wzdyn_1069.awsui_animating_hyvsj_wzdyn_751:not(#\9), .awsui-mode-entering .awsui_show-tools_hyvsj_wzdyn_1091.awsui_has-tools-form_hyvsj_wzdyn_1069.awsui_animating_hyvsj_wzdyn_751:not(#\9) {
+  .awsui-motion-disabled .awsui_show-tools_hyvsj_15l79_1085.awsui_has-tools-form_hyvsj_15l79_1063.awsui_animating_hyvsj_15l79_750:not(#\9), .awsui-mode-entering .awsui_show-tools_hyvsj_15l79_1085.awsui_has-tools-form_hyvsj_15l79_1063.awsui_animating_hyvsj_15l79_750:not(#\9) {
     animation: none;
     transition: none;
   }
-  .awsui_show-tools_hyvsj_wzdyn_1091.awsui_has-tools-form-persistence_hyvsj_wzdyn_1069:not(#\9) {
+  .awsui_show-tools_hyvsj_15l79_1085.awsui_has-tools-form-persistence_hyvsj_15l79_1063:not(#\9) {
     background-color: var(--color-background-container-content-z79u4u, #ffffff);
     z-index: 1;
   }
@@ -1173,7 +1167,7 @@ handleSplitPanelMaxWidth function in the context.
  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  SPDX-License-Identifier: Apache-2.0
 */
-.awsui_trigger-button-styles_hyvsj_wzdyn_1174:not(#\9) {
+.awsui_trigger-button-styles_hyvsj_15l79_1168:not(#\9) {
   background: var(--color-background-layout-toggle-default-kci9ri, #424650);
   border-start-start-radius: 50%;
   border-start-end-radius: 50%;
@@ -1182,14 +1176,14 @@ handleSplitPanelMaxWidth function in the context.
   block-size: var(--space-layout-toggle-diameter-hb85rk, 36px);
   inline-size: var(--space-layout-toggle-diameter-hb85rk, 36px);
 }
-.awsui_trigger-button-styles_hyvsj_wzdyn_1174:not(#\9):hover {
+.awsui_trigger-button-styles_hyvsj_15l79_1168:not(#\9):hover {
   background: var(--color-background-layout-toggle-hover-72w0bh, #656871);
 }
-.awsui_trigger-button-styles_hyvsj_wzdyn_1174:not(#\9):active {
+.awsui_trigger-button-styles_hyvsj_15l79_1168:not(#\9):active {
   background: var(--color-background-layout-toggle-active-5x3zwa, #424650);
 }
 
-.awsui_trigger-badge-wrapper_hyvsj_wzdyn_1190:not(#\9) {
+.awsui_trigger-badge-wrapper_hyvsj_15l79_1184:not(#\9) {
   position: absolute;
   inset-block-start: 0;
   inset-inline-start: 0;
@@ -1199,7 +1193,7 @@ handleSplitPanelMaxWidth function in the context.
   clip-path: path("M34.2193 10.1845C33.3961 10.579 32.4739 10.8 31.5 10.8C28.0206 10.8 25.2 7.97939 25.2 4.5C25.2 3.52614 25.421 2.6039 25.8155 1.78066C23.4518 0.639587 20.8006 0 18 0C8.05887 0 0 8.05887 0 18C0 27.9411 8.05887 36 18 36C27.9411 36 36 27.9411 36 18C36 15.1994 35.3604 12.5482 34.2193 10.1845Z");
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 }
-.awsui_trigger-badge-wrapper_hyvsj_wzdyn_1190:not(#\9):dir(rtl) {
+.awsui_trigger-badge-wrapper_hyvsj_15l79_1184:not(#\9):dir(rtl) {
   clip-path: path("M1.78066 10.1845C2.6039 10.579 3.52615 10.8 4.5 10.8C7.97939 10.8 10.8 7.97939 10.8 4.5C10.8 3.52614 10.579 2.6039 10.1845 1.78066C12.5482 0.639587 15.1994 0 18 0C27.9411 0 36 8.05887 36 18C36 27.9411 27.9411 36 18 36C8.05887 36 0 27.9411 0 18C0 15.1994 0.639587 12.5482 1.78066 10.1845Z");
 }
 
@@ -1208,7 +1202,7 @@ Warning! If these design tokens for width change it will adversely impact
 the calculation used to determine the Split Panel maximum width in the
 handleSplitPanelMaxWidth function in the context.
 */
-.awsui_trigger_hyvsj_wzdyn_1174:not(#\9) {
+.awsui_trigger_hyvsj_15l79_1168:not(#\9) {
   border-block: none;
   border-inline: none;
   padding-inline: 0;
@@ -1217,14 +1211,14 @@ handleSplitPanelMaxWidth function in the context.
   pointer-events: auto;
   position: relative;
 }
-body[data-awsui-focus-visible=true] .awsui_trigger_hyvsj_wzdyn_1174:not(#\9):focus {
+body[data-awsui-focus-visible=true] .awsui_trigger_hyvsj_15l79_1168:not(#\9):focus {
   position: relative;
 }
-body[data-awsui-focus-visible=true] .awsui_trigger_hyvsj_wzdyn_1174:not(#\9):focus {
+body[data-awsui-focus-visible=true] .awsui_trigger_hyvsj_15l79_1168:not(#\9):focus {
   outline: 2px dotted transparent;
   outline-offset: calc(3px - 1px);
 }
-body[data-awsui-focus-visible=true] .awsui_trigger_hyvsj_wzdyn_1174:not(#\9):focus::before {
+body[data-awsui-focus-visible=true] .awsui_trigger_hyvsj_15l79_1168:not(#\9):focus::before {
   content: " ";
   display: block;
   position: absolute;
@@ -1238,49 +1232,49 @@ body[data-awsui-focus-visible=true] .awsui_trigger_hyvsj_wzdyn_1174:not(#\9):foc
   border-end-end-radius: var(--border-radius-control-default-focus-ring-u8zbsz, 4px);
   box-shadow: 0 0 0 2px var(--color-border-item-focused-nv6mhz, #006ce0);
 }
-.awsui_trigger_hyvsj_wzdyn_1174:not(#\9):focus {
+.awsui_trigger_hyvsj_15l79_1168:not(#\9):focus {
   outline: none;
 }
-.awsui_trigger_hyvsj_wzdyn_1174.awsui_selected_hyvsj_wzdyn_1242:not(#\9) {
+.awsui_trigger_hyvsj_15l79_1168.awsui_selected_hyvsj_15l79_1236:not(#\9) {
   background: var(--color-background-layout-toggle-selected-default-27rnk6, #006ce0);
   color: var(--color-text-layout-toggle-selected-kb3p9r, #ffffff);
 }
-.awsui_trigger_hyvsj_wzdyn_1174.awsui_selected_hyvsj_wzdyn_1242:not(#\9):hover {
+.awsui_trigger_hyvsj_15l79_1168.awsui_selected_hyvsj_15l79_1236:not(#\9):hover {
   background: var(--color-background-layout-toggle-selected-hover-eh8bga, #004a9e);
 }
-.awsui_trigger_hyvsj_wzdyn_1174.awsui_selected_hyvsj_wzdyn_1242:not(#\9):active {
+.awsui_trigger_hyvsj_15l79_1168.awsui_selected_hyvsj_15l79_1236:not(#\9):active {
   background: var(--color-background-layout-toggle-selected-active-tv8i8b, #006ce0);
 }
-.awsui_trigger_hyvsj_wzdyn_1174.awsui_selected_hyvsj_wzdyn_1242 > .awsui_trigger-badge-wrapper_hyvsj_wzdyn_1190:not(#\9) {
+.awsui_trigger_hyvsj_15l79_1168.awsui_selected_hyvsj_15l79_1236 > .awsui_trigger-badge-wrapper_hyvsj_15l79_1184:not(#\9) {
   background: var(--color-background-layout-toggle-selected-default-27rnk6, #006ce0);
   color: var(--color-text-layout-toggle-selected-kb3p9r, #ffffff);
 }
-.awsui_trigger_hyvsj_wzdyn_1174.awsui_selected_hyvsj_wzdyn_1242 > .awsui_trigger-badge-wrapper_hyvsj_wzdyn_1190:not(#\9):hover {
+.awsui_trigger_hyvsj_15l79_1168.awsui_selected_hyvsj_15l79_1236 > .awsui_trigger-badge-wrapper_hyvsj_15l79_1184:not(#\9):hover {
   background: var(--color-background-layout-toggle-selected-hover-eh8bga, #004a9e);
 }
-.awsui_trigger_hyvsj_wzdyn_1174.awsui_selected_hyvsj_wzdyn_1242 > .awsui_trigger-badge-wrapper_hyvsj_wzdyn_1190:not(#\9):active {
+.awsui_trigger_hyvsj_15l79_1168.awsui_selected_hyvsj_15l79_1236 > .awsui_trigger-badge-wrapper_hyvsj_15l79_1184:not(#\9):active {
   background: var(--color-background-layout-toggle-selected-active-tv8i8b, #006ce0);
 }
-.awsui_trigger_hyvsj_wzdyn_1174.awsui_badge_hyvsj_wzdyn_1262:not(#\9), .awsui_trigger_hyvsj_wzdyn_1174.awsui_badge_hyvsj_wzdyn_1262:not(#\9):hover, .awsui_trigger_hyvsj_wzdyn_1174.awsui_badge_hyvsj_wzdyn_1262:not(#\9):active {
+.awsui_trigger_hyvsj_15l79_1168.awsui_badge_hyvsj_15l79_1256:not(#\9), .awsui_trigger_hyvsj_15l79_1168.awsui_badge_hyvsj_15l79_1256:not(#\9):hover, .awsui_trigger_hyvsj_15l79_1168.awsui_badge_hyvsj_15l79_1256:not(#\9):active {
   background: transparent;
 }
 
-.awsui_trigger-wrapper_hyvsj_wzdyn_1266:not(#\9) {
+.awsui_trigger-wrapper_hyvsj_15l79_1260:not(#\9) {
   position: relative;
   border-start-start-radius: 50%;
   border-start-end-radius: 50%;
   border-end-start-radius: 50%;
   border-end-end-radius: 50%;
 }
-.awsui_trigger-wrapper_hyvsj_wzdyn_1266:not(#\9):not(.awsui_remove-high-contrast-header_hyvsj_wzdyn_669) {
+.awsui_trigger-wrapper_hyvsj_15l79_1260:not(#\9):not(.awsui_remove-high-contrast-header_hyvsj_15l79_668) {
   box-shadow: var(--shadow-panel-toggle-0l64f2, 0px 6px 12px 1px rgba(0, 7, 22, 0.12));
 }
 
-.awsui_trigger-wrapper-tooltip-visible_hyvsj_wzdyn_1277:not(#\9) {
+.awsui_trigger-wrapper-tooltip-visible_hyvsj_15l79_1271:not(#\9) {
   /* used in test-utils*/
 }
 
-.awsui_dot_hyvsj_wzdyn_1281:not(#\9) {
+.awsui_dot_hyvsj_15l79_1275:not(#\9) {
   position: absolute;
   inline-size: 9px;
   block-size: 9px;
@@ -1293,6 +1287,6 @@ body[data-awsui-focus-visible=true] .awsui_trigger_hyvsj_wzdyn_1174:not(#\9):foc
   inset-inline-end: 0;
 }
 
-.awsui_trigger-tooltip_hyvsj_wzdyn_1294:not(#\9) {
+.awsui_trigger-tooltip_hyvsj_15l79_1288:not(#\9) {
   /* used in test-utils */
 }

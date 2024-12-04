@@ -138,7 +138,7 @@
 */
 /* Style used for links in slots/components that are text heavy, to help links stand out among
 surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F73#description */
-.awsui_badge_1yjyg_1qckb_141:not(#\9) {
+.awsui_badge_1yjyg_13rgk_141:not(#\9) {
   border-collapse: separate;
   border-spacing: 0;
   box-sizing: border-box;
@@ -169,7 +169,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   line-height: var(--line-height-body-m-30ar75, 20px);
   color: var(--color-text-body-default-7v1jfn, #0f141a);
   font-weight: 400;
-  font-family: var(--font-family-base-eynpfp, Open Sans);
+  font-family: var(--font-family-base-sigkvs, Arial);
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
   font-size: var(--font-size-body-s-asqx2i, 12px);
@@ -185,35 +185,35 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   padding-inline: var(--space-xs-zb16t3, 8px);
   color: var(--color-text-notification-default-0l2rzu, #f9f9fa);
 }
-.awsui_badge_1yjyg_1qckb_141.awsui_badge-color-grey_1yjyg_1qckb_187:not(#\9) {
+.awsui_badge_1yjyg_13rgk_141.awsui_badge-color-grey_1yjyg_13rgk_187:not(#\9) {
   background-color: var(--color-background-notification-grey-jyn3j2, #424650);
 }
-.awsui_badge_1yjyg_1qckb_141.awsui_badge-color-green_1yjyg_1qckb_190:not(#\9) {
+.awsui_badge_1yjyg_13rgk_141.awsui_badge-color-green_1yjyg_13rgk_190:not(#\9) {
   background-color: var(--color-background-notification-green-7zevmb, #00802f);
 }
-.awsui_badge_1yjyg_1qckb_141.awsui_badge-color-blue_1yjyg_1qckb_193:not(#\9) {
+.awsui_badge_1yjyg_13rgk_141.awsui_badge-color-blue_1yjyg_13rgk_193:not(#\9) {
   background-color: var(--color-background-notification-blue-g87klk, #006ce0);
 }
-.awsui_badge_1yjyg_1qckb_141.awsui_badge-color-red_1yjyg_1qckb_196:not(#\9) {
+.awsui_badge_1yjyg_13rgk_141.awsui_badge-color-red_1yjyg_13rgk_196:not(#\9) {
   background-color: var(--color-background-notification-red-f0cy22, #db0000);
 }
-.awsui_badge_1yjyg_1qckb_141.awsui_badge-color-severity-critical_1yjyg_1qckb_199:not(#\9) {
-  background-color: var(--color-background-notification-severity-critical-m6z340, #870303);
-  color: var(--color-text-notification-severity-critical-cmj0dk, #f9f9fa);
+.awsui_badge_1yjyg_13rgk_141.awsui_badge-color-severity-critical_1yjyg_13rgk_199:not(#\9) {
+  background-color: var(--color-background-severity-critical-idosdq, #7d2105);
+  color: var(--color-text-severity-critical-gtjw4w, #f9f9fa);
 }
-.awsui_badge_1yjyg_1qckb_141.awsui_badge-color-severity-high_1yjyg_1qckb_203:not(#\9) {
-  background-color: var(--color-background-notification-severity-high-zn7yde, #ce3311);
-  color: var(--color-text-notification-severity-high-rgh0m2, #f9f9fa);
+.awsui_badge_1yjyg_13rgk_141.awsui_badge-color-severity-high_1yjyg_13rgk_203:not(#\9) {
+  background-color: var(--color-background-severity-high-434xpy, #ba2e0f);
+  color: var(--color-text-severity-high-wt51jx, #f9f9fa);
 }
-.awsui_badge_1yjyg_1qckb_141.awsui_badge-color-severity-medium_1yjyg_1qckb_207:not(#\9) {
-  background-color: var(--color-background-notification-severity-medium-empymi, #f89256);
-  color: var(--color-text-notification-severity-medium-9rk0hm, #0f141a);
+.awsui_badge_1yjyg_13rgk_141.awsui_badge-color-severity-medium_1yjyg_13rgk_207:not(#\9) {
+  background-color: var(--color-background-severity-medium-n5069n, #cc5f21);
+  color: var(--color-text-severity-medium-tezhp2, #0f141a);
 }
-.awsui_badge_1yjyg_1qckb_141.awsui_badge-color-severity-low_1yjyg_1qckb_211:not(#\9) {
-  background-color: var(--color-background-notification-severity-low-jkxbp4, #f2cd54);
-  color: var(--color-text-notification-severity-low-so8wqb, #0f141a);
+.awsui_badge_1yjyg_13rgk_141.awsui_badge-color-severity-low_1yjyg_13rgk_211:not(#\9) {
+  background-color: var(--color-background-severity-low-5ab62f, #b2911c);
+  color: var(--color-text-severity-low-f87ni8, #0f141a);
 }
-.awsui_badge_1yjyg_1qckb_141.awsui_badge-color-severity-neutral_1yjyg_1qckb_215:not(#\9) {
-  background-color: var(--color-background-notification-severity-neutral-wtuxqz, #656871);
-  color: var(--color-text-notification-severity-neutral-h04hdx, #f9f9fa);
+.awsui_badge_1yjyg_13rgk_141.awsui_badge-color-severity-neutral_1yjyg_13rgk_215:not(#\9) {
+  background-color: var(--color-background-severity-neutral-e76h14, #424650);
+  color: var(--color-text-severity-neutral-x89dxu, #f9f9fa);
 }

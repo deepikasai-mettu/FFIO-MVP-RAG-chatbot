@@ -138,7 +138,7 @@
 */
 /* Style used for links in slots/components that are text heavy, to help links stand out among
 surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F73#description */
-.awsui_root_1sdq3_1bq8z_141:not(#\9) {
+.awsui_root_1sdq3_1wsbh_141:not(#\9) {
   border-collapse: separate;
   border-spacing: 0;
   box-sizing: border-box;
@@ -169,7 +169,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   line-height: var(--line-height-body-m-30ar75, 20px);
   color: var(--color-text-body-default-7v1jfn, #0f141a);
   font-weight: 400;
-  font-family: var(--font-family-base-eynpfp, Open Sans);
+  font-family: var(--font-family-base-sigkvs, Arial);
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
   display: flex;
@@ -177,11 +177,11 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   max-inline-size: calc(688px - 2 * var(--space-l-t419sm, 20px));
 }
 
-.awsui_input_1sdq3_1bq8z_179:not(#\9) {
+.awsui_input_1sdq3_1wsbh_179:not(#\9) {
   flex: 1;
 }
 
-.awsui_results_1sdq3_1bq8z_183:not(#\9) {
+.awsui_results_1sdq3_1wsbh_183:not(#\9) {
   color: var(--color-text-form-label-5nbxa6, #0f141a);
   display: inline-block;
   box-sizing: border-box;
