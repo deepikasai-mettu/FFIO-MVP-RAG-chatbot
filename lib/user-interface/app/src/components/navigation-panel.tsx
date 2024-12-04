@@ -47,18 +47,21 @@ export default function NavigationPanel({ documentIdentifier }) {
   const [lastSyncTime, setLastSyncTime] = useState("");
   const [showUnsyncedAlert, setShowUnsyncedAlert] = useState(false);
   const searchParams  = useParams();
-  console.log("CHECKLIST IDENTIFIER with parms: ", searchParams.documentIdentifier);
-  const newDocIdentifier = searchParams.documentIdentifier
   
+  const docIdentifierParams = searchParams.documentIdentifier
+  console.log("docIdentifierParams: ", docIdentifierParams);
   console.log("NAV PANEL: ", documentIdentifier);
-  const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(newDocIdentifier)}`
+
+  const docIdentifier = documentIdentifier || docIdentifierParams;
+  console.log("docIdentifier: ", docIdentifier);
+  const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(docIdentifier)}`
 
   const loadSessions = async () => {
     let username;
     try {
       await Auth.currentAuthenticatedUser().then((value) => username = value.username);
       if (username && needsRefresh) {
-        const fetchedSessions = await apiClient.sessions.getSessions(username, newDocIdentifier);
+        const fetchedSessions = await apiClient.sessions.getSessions(username, docIdentifier);
         await updateItems(fetchedSessions);
         if (!loaded) {
           setLoaded(true);
@@ -116,7 +119,7 @@ export default function NavigationPanel({ documentIdentifier }) {
           type: "link",
           info: (
             <Box margin="xxs" textAlign="center">
-              <RouterButton href={`/chatbot/sessions?folder=${encodeURIComponent(newDocIdentifier || '')}`} loading={loadingSessions} variant="link">View All Sessions</RouterButton>
+              <RouterButton href={`/chatbot/sessions?folder=${encodeURIComponent(docIdentifier || '')}`} loading={loadingSessions} variant="link">View All Sessions</RouterButton>
               <Button onClick={onReloadClick} iconName="refresh" loading={loadingSessions} variant="link">Reload Sessions</Button>
             </Box>
           ),
@@ -268,7 +271,7 @@ export default function NavigationPanel({ documentIdentifier }) {
               <Box textAlign="right" margin={{ right: "l" }}>
                 <SpaceBetween size="xs" direction="horizontal">
                   <RouterButton 
-                    href={`/chatbot/sessions?folder=${encodeURIComponent(newDocIdentifier || '')}`} 
+                    href={`/chatbot/sessions?folder=${encodeURIComponent(docIdentifier || '')}`} 
                     loading={loadingSessions} 
                     variant="link"
                   >
