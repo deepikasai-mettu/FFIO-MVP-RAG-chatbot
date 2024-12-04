@@ -84,7 +84,7 @@ export default function Welcome({ theme }) {
   };
 
   // **Effect Hooks**
-  // Check for admin status
+  // Check for admin privilege
   useEffect(() => {
     (async () => {
       try {
