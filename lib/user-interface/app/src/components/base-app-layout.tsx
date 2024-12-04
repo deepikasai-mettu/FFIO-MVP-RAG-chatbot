@@ -22,6 +22,9 @@ export default function BaseAppLayout({ content, info, documentIdentifier, conte
   const [searchParams] = useSearchParams();
   const folderParam = searchParams.get("folder");
 
+  console.log("BaseAppLayout - documentIdentifier:", documentIdentifier);
+  console.log("BaseAppLayout - folderParam:", folderParam);
+
   return (
     <SessionRefreshContext.Provider value={{ needsRefresh, setNeedsRefresh }}>
       <NotificationProvider>
@@ -51,7 +54,7 @@ export default function BaseAppLayout({ content, info, documentIdentifier, conte
               toolsOpen={toolsOpen}
               onToolsChange={({ detail }) => setToolsOpen(detail.open)}
               contentType={contentType}
-              navigationHide={true}  // Hide the left navigation of AppLayout
+              navigationHide={true}
               toolsWidth={toolsWidth}
             />
           </div>

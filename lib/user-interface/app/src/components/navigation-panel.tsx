@@ -2,7 +2,7 @@ import {
   SideNavigation,
   SideNavigationProps,
   Header,
-  Button,
+  // Button,
   Link,
   Box,
   StatusIndicator,
@@ -12,6 +12,9 @@ import {
   Tabs,
   Alert
 } from "@cloudscape-design/components";
+import {
+  Button,
+} from '../themed/components';
 import { useContext, useState, useEffect } from "react";
 import useOnFollow from "../common/hooks/use-on-follow";
 import { useNavigationPanelState } from "../common/hooks/use-navigation-panel-state";
@@ -28,8 +31,17 @@ import { Utils } from "../common/utils.js";
 import BackArrowIcon from "../../public/images/back-arrow.jsx";
 import DocumentsTab from "../pages/admin/documents-tab";
 import DataFileUpload from "../pages/admin/file-upload-tab";
+import { useSearchParams } from "react-router-dom";
 
 export default function NavigationPanel({ documentIdentifier }) {
+  const [searchParams] = useSearchParams();
+  const folderParam = searchParams.get("folder");
+  const identifier = documentIdentifier || folderParam;
+
+  console.log("NavigationPanel - documentIdentifier:", documentIdentifier);
+  console.log("NavigationPanel - folderParam:", folderParam);
+  console.log("NavigationPanel - identifier:", identifier);
+
   const appContext = useContext(AppContext);
   const apiClient = new ApiClient(appContext);
   const onFollow = useOnFollow();
@@ -46,7 +58,7 @@ export default function NavigationPanel({ documentIdentifier }) {
   const [showUnsyncedAlert, setShowUnsyncedAlert] = useState(false);
   
   console.log("NAV PANEL: ", documentIdentifier);
-  const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}`
+  const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(identifier)}`
 
   const loadSessions = async () => {
     let username;
@@ -112,7 +124,9 @@ export default function NavigationPanel({ documentIdentifier }) {
           info: (
             <Box margin="xxs" textAlign="center">
               <RouterButton href={`/chatbot/sessions?folder=${encodeURIComponent(documentIdentifier || '')}`} loading={loadingSessions} variant="link">View All Sessions</RouterButton>
-              <Button onClick={onReloadClick} iconName="refresh" loading={loadingSessions} variant="link">Reload Sessions</Button>
+                  <Button onClick={onReloadClick} iconName="refresh" loading={loadingSessions} variant="link">
+                    Reload Sessions
+                  </Button>
             </Box>
           ),
         }]),
@@ -147,13 +161,32 @@ export default function NavigationPanel({ documentIdentifier }) {
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       <Box margin="xs" padding={{ top: "l" }} textAlign="center">
-        <SpaceBetween size="xl">
-          <Box textAlign="right" margin={{ right: "l" }}>
-            <Link href={linkUrl}>
-              <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Chat</h2>
-            </Link>
-          </Box>
-        </SpaceBetween>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center',
+        }}>
+          <Button
+            iconAlign="left"
+            iconSvg={<PencilSquareIcon />}
+            variant="primary"
+            onClick={() => navigate(`/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(identifier)}`)}
+            className="new-chat-button"
+            // style={{ 
+            //   textAlign: "center",
+            //   justifyContent: "center",
+            //   display: "inline-flex",
+            //   alignItems: "center",
+            //   width: "250px"
+            // }}
+          >
+            New Chatbot Session
+          </Button>
+        </div>
+        <div style={{ 
+          marginTop: '20px',
+          margin: "0 10px",
+          color: "#666871",
+          fontSize: "13px" }}>Navigate to the GrantWell chatbot, which will help you craft your project narrative.</div>
       </Box>
       <div style={{ 
         borderBottom: '1px solid #dedee2', 
@@ -166,28 +199,28 @@ export default function NavigationPanel({ documentIdentifier }) {
       <Box margin="xs" padding={{ top: "l" }} textAlign="center">
         <SpaceBetween size="s">
           <Box textAlign="right" margin={{ right: "l" }}>
-              <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Key Requirements</h2>
+              <h2 style={{ fontSize: '24px', display: 'inline', color: '#006499' }}>Key Requirements</h2>
           </Box>
           <Box textAlign="right" margin={{ right: "l" }}>
-            <Link href={"PROJ NARRATIVE COMPS"}>
-              <span style={{ color: '#0073bb' }}>Project Narrative Components</span>
-            </Link>
-          </Box>
-          <Box textAlign="right" margin={{ right: "l" }}>
-            <Link href={"Eligibility Criteria"}>
-              <span style={{ color: '#0073bb' }}>Eligibility Criteria</span>
-            </Link>
-          </Box>
-          <Box textAlign="right" margin={{ right: "l" }}>
-            <Link href={"PROJ NARRATIVE COMPS"}>
-              <span style={{ color: '#0073bb' }}>Documents Required</span>
-            </Link>
-          </Box>
-          <Box textAlign="right" margin={{ right: "l" }}>
-            <Link href={"PROJ NARRATIVE COMPS"}>
-              <span style={{ color: '#0073bb' }}>Key Deadlines</span>
-            </Link>
-          </Box>
+    <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#eligibility`}>
+      <span style={{ color: '#006499' }}>Eligibility Criteria</span>
+    </Link>
+  </Box>
+  <Box textAlign="right" margin={{ right: "l" }}>
+    <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#narrative`}>
+      <span style={{ color: '#006499' }}>Project Narrative Components</span>
+    </Link>
+  </Box>
+  <Box textAlign="right" margin={{ right: "l" }}>
+    <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#documents`}>
+      <span style={{ color: '#006499' }}>Documents Required</span>
+    </Link>
+  </Box>
+  <Box textAlign="right" margin={{ right: "l" }}>
+    <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#deadlines`}>
+      <span style={{ color: '#006499' }}>Key Deadlines</span>
+    </Link>
+  </Box>
         </SpaceBetween>
       </Box>
       <div style={{ 
@@ -262,21 +295,23 @@ export default function NavigationPanel({ documentIdentifier }) {
                 ))}
               <Box textAlign="right" margin={{ right: "l" }}>
                 <SpaceBetween size="xs" direction="horizontal">
-                  <RouterButton 
-                    href={`/chatbot/sessions?folder=${encodeURIComponent(documentIdentifier || '')}`} 
+                  <Button 
+                    onClick={() => navigate(`/chatbot/sessions?folder=${encodeURIComponent(documentIdentifier || '')}`)}
                     loading={loadingSessions} 
                     variant="link"
                   >
                     View All Sessions
-                  </RouterButton>
-                  <Button 
-                    onClick={onReloadClick} 
-                    iconName="refresh" 
-                    loading={loadingSessions} 
-                    variant="link"
-                  >
-                    Reload Sessions
                   </Button>
+                  <Box margin={{ bottom: "s" }}>
+                    <Button 
+                      onClick={onReloadClick} 
+                      iconName="refresh" 
+                      loading={loadingSessions} 
+                      variant="link"
+                    >
+                      Reload Sessions
+                    </Button>
+                  </Box>
                 </SpaceBetween>
               </Box>
             </SpaceBetween>

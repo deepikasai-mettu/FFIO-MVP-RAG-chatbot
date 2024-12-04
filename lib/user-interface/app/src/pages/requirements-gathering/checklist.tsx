@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Box, Header, SpaceBetween, Button, Tabs, Spinner, SegmentedControl } from '@cloudscape-design/components';
 import BaseAppLayout from '../../components/base-app-layout';
 // import ReqNav from '../../components/req-nav';
@@ -37,7 +37,12 @@ export default function Checklists() {
     const navigate = useNavigate();
     const location = useLocation();
     const { documentIdentifier } = useParams();
-    console.log("CHECKLIST IDENTIFIER: ", documentIdentifier);
+    const [searchParams] = useSearchParams();
+    const folderParam = searchParams.get("folder") || documentIdentifier;
+    
+    console.log("Checklist - documentIdentifier:", documentIdentifier);
+    console.log("Checklist - folderParam:", folderParam);
+
     const appContext = useContext(AppContext);
     const apiClient = new ApiClient(appContext);
     const [llmData, setLlmData] = useState({
@@ -49,6 +54,16 @@ export default function Checklists() {
     });
     const [isloading, setLoading] = useState(true);
     const [selectedSegment, setSelectedSegment] = useState("seg-2");
+    const [activeTabId, setActiveTabId] = useState("eligibility");
+
+    useEffect(() => {
+        // Get the hash from the URL (removing the # symbol)
+        const hash = window.location.hash.replace('#', '');
+        // If there's a valid hash that matches one of our tab IDs, set it as active
+        if (["eligibility", "narrative", "documents", "deadlines"].includes(hash)) {
+            setActiveTabId(hash);
+        }
+    }, [location]); // React to location changes
 
     const getNOFOSummary = async () => {
         try {
@@ -78,13 +93,7 @@ export default function Checklists() {
 
   return (
     <BaseAppLayout
-      // navigation={<ReqNav documentIdentifier={documentIdentifier} />}
-      // HIDE NAVIGATION BY UNCOMMENTING THE FOLLOWING LINES
-      // navigation={null}
-      // navigationHide={true} // Completely hide the hamburger icon
-      
-      // navigationOpen={true}
-      // onNavigationChange={() => { }} // Disable the hamburger toggle behavior
+      documentIdentifier={folderParam}
       content={
 
         <SpaceBetween direction="vertical" size="xl">
@@ -173,6 +182,8 @@ export default function Checklists() {
                   }}
                 >
                   <Tabs
+                    activeTabId={activeTabId}
+                    onChange={({ detail }) => setActiveTabId(detail.activeTabId)}
                     tabs={[
                       {
                         label: "Eligibility Criteria",
