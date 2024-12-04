@@ -962,8 +962,8 @@
     },
     "color-background-button-primary-default": {
       "$value": {
-        "light": "#FF4654",
-        "dark": "#D73A45"
+        "light": "#006499",
+        "dark": "#006499"
       }
     },
     "color-background-button-primary-disabled": {
@@ -1412,8 +1412,8 @@
     },
     "color-text-accent": {
       "$value": {
-        "light": "#FF4654",
-        "dark": "#D73A45"
+        "light": "#006499",
+        "dark": "#006499"
       }
     },
     "color-text-body-default": {
@@ -3036,7 +3036,7 @@
         },
         "color-background-button-primary-default": {
           "$value": {
-            "light": "#FF4654",
+            "light": "#006499",
             "dark": "#D73A45"
           }
         },
@@ -3486,7 +3486,7 @@
         },
         "color-text-accent": {
           "$value": {
-            "light": "#FF4654",
+            "light": "#006499",
             "dark": "#D73A45"
           }
         },

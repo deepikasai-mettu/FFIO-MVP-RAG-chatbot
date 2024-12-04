@@ -243,7 +243,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   color: var(--color-text-top-navigation-title-v9cb3m, #0f141a);
 }
 .awsui_identity_k5dlb_1kghj_235 > .awsui_identity-link_k5dlb_1kghj_238:not(#\9):hover {
-  color: var(--color-text-accent-muxmv9, #FF4654);
+  color: var(--color-text-accent-muxmv9, #006499);
 }
 body[data-awsui-focus-visible=true] .awsui_identity_k5dlb_1kghj_235 > .awsui_identity-link_k5dlb_1kghj_238:not(#\9):focus {
   outline: thin dotted;
@@ -508,7 +508,7 @@ body[data-awsui-focus-visible=true] .awsui_identity_k5dlb_1kghj_235 > .awsui_ide
   padding-inline: var(--space-scaled-m-mo5yse, 16px);
 }
 .awsui_overflow-menu-control_k5dlb_1kghj_462:not(#\9):hover {
-  color: var(--color-text-accent-muxmv9, #FF4654);
+  color: var(--color-text-accent-muxmv9, #006499);
   cursor: pointer;
 }
 .awsui_overflow-menu-control-link_k5dlb_1kghj_511:not(#\9) {
@@ -519,7 +519,7 @@ body[data-awsui-focus-visible=true] .awsui_identity_k5dlb_1kghj_235 > .awsui_ide
   font-weight: bold;
 }
 .awsui_overflow-menu-control-expandable-menu-trigger_k5dlb_1kghj_514:not(#\9):hover {
-  color: var(--color-text-accent-muxmv9, #FF4654);
+  color: var(--color-text-accent-muxmv9, #006499);
 }
 body[data-awsui-focus-visible=true] .awsui_overflow-menu-control_k5dlb_1kghj_462:not(#\9):focus {
   position: relative;

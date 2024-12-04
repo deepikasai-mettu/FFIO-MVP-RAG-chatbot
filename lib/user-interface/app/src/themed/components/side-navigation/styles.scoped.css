@@ -317,7 +317,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   font-weight: var(--font-wayfinding-link-active-weight-rbmzei, 700);
   -webkit-font-smoothing: var(--font-smoothing-webkit-m8nc84, antialiased);
   -moz-osx-font-smoothing: var(--font-smoothing-moz-osx-foywby, grayscale);
-  color: var(--color-text-accent-muxmv9, #FF4654);
+  color: var(--color-text-accent-muxmv9, #006499);
 }
 
 .awsui_header-link_l0dv0_bpjn7_194:not(#\9),
@@ -326,7 +326,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
 }
 .awsui_header-link_l0dv0_bpjn7_194:not(#\9):hover,
 .awsui_link_l0dv0_bpjn7_306:not(#\9):hover {
-  color: var(--color-text-accent-muxmv9, #FF4654);
+  color: var(--color-text-accent-muxmv9, #006499);
 }
 .awsui_header-link_l0dv0_bpjn7_194:not(#\9):focus,
 .awsui_link_l0dv0_bpjn7_306:not(#\9):focus {

@@ -295,9 +295,9 @@ body[data-awsui-focus-visible=true] .awsui_button_vjswe_1ehj8_153.awsui_variant-
   cursor: auto;
 }
 .awsui_button_vjswe_1ehj8_153.awsui_variant-primary_vjswe_1ehj8_296:not(#\9) {
-  background: var(--color-background-button-primary-default-jg5g8d, #FF4654);
+  background: var(--color-background-button-primary-default-jg5g8d, #006499);
   color: var(--color-text-button-primary-default-t0t2sj, #ffffff);
-  border-color: var(--color-background-button-primary-default-jg5g8d, #FF4654);
+  border-color: var(--color-background-button-primary-default-jg5g8d, #006499);
   position: relative;
   text-decoration: none;
 }

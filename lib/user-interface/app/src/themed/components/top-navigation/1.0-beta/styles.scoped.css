@@ -216,7 +216,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   color: var(--color-text-top-navigation-title-v9cb3m, #0f141a);
 }
 .awsui_identity_1ca1i_1musa_211 > .awsui_identity-link_1ca1i_1musa_211:not(#\9):hover {
-  color: var(--color-text-accent-muxmv9, #FF4654);
+  color: var(--color-text-accent-muxmv9, #006499);
 }
 body[data-awsui-focus-visible=true] .awsui_identity_1ca1i_1musa_211 > .awsui_identity-link_1ca1i_1musa_211:not(#\9):focus {
   outline: thin dotted;

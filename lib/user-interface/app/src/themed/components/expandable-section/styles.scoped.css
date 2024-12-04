@@ -411,7 +411,7 @@ body[data-awsui-focus-visible=true] .awsui_header-button_gwq0h_wn6xw_364:not(#\9
   flex-direction: column;
 }
 .awsui_header-navigation_gwq0h_wn6xw_399 > .awsui_icon-container_gwq0h_wn6xw_263:not(#\9):hover {
-  color: var(--color-text-expandable-section-hover-4j9hov, #FF4654);
+  color: var(--color-text-expandable-section-hover-4j9hov, #006499);
 }
 body[data-awsui-focus-visible=true] .awsui_header-navigation_gwq0h_wn6xw_399 > .awsui_icon-container_gwq0h_wn6xw_263:not(#\9):focus {
   position: relative;
@@ -481,5 +481,5 @@ body[data-awsui-focus-visible=true] .awsui_focusable_gwq0h_wn6xw_464:not(#\9):fo
   cursor: pointer;
 }
 .awsui_click-target_gwq0h_wn6xw_479:not(#\9):not(.awsui_wrapper-container_gwq0h_wn6xw_286):not(.awsui_header-container-button_gwq0h_wn6xw_364):hover {
-  color: var(--color-text-expandable-section-hover-4j9hov, #FF4654);
+  color: var(--color-text-expandable-section-hover-4j9hov, #006499);
 }

@@ -376,7 +376,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   border-start-end-radius: var(--border-radius-tabs-focus-ring-1q0rjo, 20px);
   border-end-start-radius: var(--border-radius-tabs-focus-ring-1q0rjo, 20px);
   border-end-end-radius: var(--border-radius-tabs-focus-ring-1q0rjo, 20px);
-  background: var(--color-border-tabs-underline-65mp17, #FF4654);
+  background: var(--color-border-tabs-underline-65mp17, #006499);
   opacity: 0;
 }
 .awsui_tabs-tab-header-container_14rmt_16fct_349:not(#\9):not(.awsui_tabs-tab-disabled_14rmt_16fct_368).awsui_refresh_14rmt_16fct_364:after {
@@ -434,7 +434,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   margin-block-start: 0;
 }
 .awsui_tabs-tab-link_14rmt_16fct_410:not(#\9):hover {
-  color: var(--color-text-accent-muxmv9, #FF4654);
+  color: var(--color-text-accent-muxmv9, #006499);
 }
 .awsui_tabs-tab-link_14rmt_16fct_410:not(#\9):focus {
   outline: none;
@@ -484,7 +484,7 @@ body[data-awsui-focus-visible=true] .awsui_tabs-tab-link_14rmt_16fct_410:not(#\9
 }
 
 .awsui_tabs-tab-active_14rmt_16fct_486:not(#\9):not(.awsui_tabs-tab-disabled_14rmt_16fct_368) {
-  color: var(--color-text-accent-muxmv9, #FF4654);
+  color: var(--color-text-accent-muxmv9, #006499);
 }
 .awsui_tabs-tab-active_14rmt_16fct_486:not(#\9):not(.awsui_tabs-tab-disabled_14rmt_16fct_368):after {
   opacity: 1;
