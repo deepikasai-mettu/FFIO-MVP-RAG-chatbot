@@ -15,7 +15,7 @@ import {
 // import {
 //   Button,
 // } from '../../themed/components';
-import Button  from '../themed/components';
+import { Button } from '../themed/components';
 import { useContext, useState, useEffect } from "react";
 import useOnFollow from "../common/hooks/use-on-follow";
 import { useNavigationPanelState } from "../common/hooks/use-navigation-panel-state";
