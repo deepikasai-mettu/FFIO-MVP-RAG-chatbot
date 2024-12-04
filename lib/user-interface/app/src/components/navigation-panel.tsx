@@ -183,6 +183,12 @@ export default function NavigationPanel({ documentIdentifier }) {
             New Chatbot Session
           </Button>
         </div>
+        <div style={{
+        borderBottom: '1px solid #f4f4f4', 
+        padding: '8px 0',
+        margin: '0 30px'
+        }}>
+        </div>
         <div style={{ 
           marginTop: '20px',
           margin: "0 10px",
