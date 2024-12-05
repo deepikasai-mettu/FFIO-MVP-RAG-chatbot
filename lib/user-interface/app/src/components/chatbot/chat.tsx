@@ -79,7 +79,7 @@ useEffect(() => {
       const hist = await apiClient.sessions.getSession(props.sessionId, username);
       console.log("hist: ", hist);
 
-      if (hist) {
+      if (hist && hist.length >0) {
         console.log("in if");
         setMessageHistory(hist);
         window.scrollTo({
@@ -87,20 +87,20 @@ useEffect(() => {
           behavior: "instant",
         });
       }
-      if(hist.length === 0) {
+      else if(hist.length === 0) {
         //const docIdentifier = props.documentIdentifier?.replace(/\/+$/, '');
         const summaryResult = await apiClient.landingPage.getNOFOSummary(props.documentIdentifier);
         const grantName = summaryResult.data.GrantName;
 
         console.log("in else");
-        setMessageHistory([
-          {
-            type: ChatBotMessageType.AI,
+        const initialMessage = {
+          type: ChatBotMessageType.AI,
             //content: `Hello! I see that you are working on . Can you please let me know what agency/municipality we are going to build this narrative for?`,
             content: `Hello! I see that you are working on the ${grantName} grant. Could you please tell me which agency, municipality, or tribe we are building this narrative for?`,
             metadata: {},
-          },
-        ]);
+         };
+        setMessageHistory([initialMessage]);
+
       }
       setSession({ id: props.sessionId, loading: false });
       setRunning(false);
