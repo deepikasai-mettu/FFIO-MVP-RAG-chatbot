@@ -924,6 +924,66 @@
         "dark": "#ffd4bb"
       }
     },
+    "color-background-notification-severity-critical": {
+      "$value": {
+        "light": "#870303",
+        "dark": "#d63f38"
+      }
+    },
+    "color-background-notification-severity-high": {
+      "$value": {
+        "light": "#ce3311",
+        "dark": "#fe6e73"
+      }
+    },
+    "color-background-notification-severity-medium": {
+      "$value": {
+        "light": "#f89256",
+        "dark": "#f89256"
+      }
+    },
+    "color-background-notification-severity-low": {
+      "$value": {
+        "light": "#f2cd54",
+        "dark": "#f2cd54"
+      }
+    },
+    "color-background-notification-severity-neutral": {
+      "$value": {
+        "light": "#656871",
+        "dark": "#656871"
+      }
+    },
+    "color-text-notification-severity-critical": {
+      "$value": {
+        "light": "#f9f9fa",
+        "dark": "#000000"
+      }
+    },
+    "color-text-notification-severity-high": {
+      "$value": {
+        "light": "#f9f9fa",
+        "dark": "#0f141a"
+      }
+    },
+    "color-text-notification-severity-medium": {
+      "$value": {
+        "light": "#0f141a",
+        "dark": "#0f141a"
+      }
+    },
+    "color-text-notification-severity-low": {
+      "$value": {
+        "light": "#0f141a",
+        "dark": "#0f141a"
+      }
+    },
+    "color-text-notification-severity-neutral": {
+      "$value": {
+        "light": "#f9f9fa",
+        "dark": "#f9f9fa"
+      }
+    },
     "color-background-button-normal-active": {
       "$value": {
         "light": "#d1f1ff",
@@ -963,7 +1023,7 @@
     "color-background-button-primary-default": {
       "$value": {
         "light": "#006499",
-        "dark": "#006499"
+        "dark": "#D73A45"
       }
     },
     "color-background-button-primary-disabled": {
@@ -1220,7 +1280,7 @@
     },
     "color-background-chat-bubble-incoming": {
       "$value": {
-        "light": "#f3f3f7",
+        "light": "#f6f6f9",
         "dark": "#0f141a"
       }
     },
@@ -1413,7 +1473,7 @@
     "color-text-accent": {
       "$value": {
         "light": "#006499",
-        "dark": "#006499"
+        "dark": "#D73A45"
       }
     },
     "color-text-body-default": {
@@ -1747,7 +1807,7 @@
       }
     },
     "font-family-base": {
-      "$value": "Arial"
+      "$value": "Open Sans"
     },
     "font-family-monospace": {
       "$value": "Monaco, Menlo, Consolas, 'Courier Prime', Courier, 'Courier New', monospace"
@@ -1775,6 +1835,9 @@
     },
     "font-size-heading-xs": {
       "$value": "14px"
+    },
+    "font-weight-button": {
+      "$value": "700"
     },
     "font-weight-heading-xl": {
       "$value": "700"
@@ -1822,7 +1885,7 @@
       "$value": "4px"
     },
     "border-radius-button": {
-      "$value": "1px"
+      "$value": "8px"
     },
     "border-radius-calendar-day-focus-ring": {
       "$value": "3px"
@@ -1865,6 +1928,15 @@
     },
     "border-radius-tutorial-panel-item": {
       "$value": "8px"
+    },
+    "border-width-alert": {
+      "$value": "2px"
+    },
+    "border-width-field": {
+      "$value": "2px"
+    },
+    "border-width-popover": {
+      "$value": "2px"
     },
     "motion-duration-avatar-gen-ai-gradient": {
       "$value": {
@@ -2998,6 +3070,66 @@
             "dark": "#ffd4bb"
           }
         },
+        "color-background-notification-severity-critical": {
+          "$value": {
+            "light": "#870303",
+            "dark": "#d63f38"
+          }
+        },
+        "color-background-notification-severity-high": {
+          "$value": {
+            "light": "#ce3311",
+            "dark": "#fe6e73"
+          }
+        },
+        "color-background-notification-severity-medium": {
+          "$value": {
+            "light": "#f89256",
+            "dark": "#f89256"
+          }
+        },
+        "color-background-notification-severity-low": {
+          "$value": {
+            "light": "#f2cd54",
+            "dark": "#f2cd54"
+          }
+        },
+        "color-background-notification-severity-neutral": {
+          "$value": {
+            "light": "#656871",
+            "dark": "#656871"
+          }
+        },
+        "color-text-notification-severity-critical": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#000000"
+          }
+        },
+        "color-text-notification-severity-high": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-medium": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-low": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-neutral": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#f9f9fa"
+          }
+        },
         "color-background-button-normal-active": {
           "$value": {
             "light": "#d1f1ff",
@@ -3294,7 +3426,7 @@
         },
         "color-background-chat-bubble-incoming": {
           "$value": {
-            "light": "#f3f3f7",
+            "light": "#f6f6f9",
             "dark": "#0f141a"
           }
         },
@@ -3821,7 +3953,7 @@
           }
         },
         "font-family-base": {
-          "$value": "Arial"
+          "$value": "Open Sans"
         },
         "font-family-monospace": {
           "$value": "Monaco, Menlo, Consolas, 'Courier Prime', Courier, 'Courier New', monospace"
@@ -3849,6 +3981,9 @@
         },
         "font-size-heading-xs": {
           "$value": "14px"
+        },
+        "font-weight-button": {
+          "$value": "700"
         },
         "font-weight-heading-xl": {
           "$value": "700"
@@ -3896,7 +4031,7 @@
           "$value": "4px"
         },
         "border-radius-button": {
-          "$value": "1px"
+          "$value": "8px"
         },
         "border-radius-calendar-day-focus-ring": {
           "$value": "3px"
@@ -3939,6 +4074,15 @@
         },
         "border-radius-tutorial-panel-item": {
           "$value": "8px"
+        },
+        "border-width-alert": {
+          "$value": "2px"
+        },
+        "border-width-field": {
+          "$value": "2px"
+        },
+        "border-width-popover": {
+          "$value": "2px"
         },
         "motion-duration-avatar-gen-ai-gradient": {
           "$value": {
@@ -5072,6 +5216,66 @@
             "dark": "#ffd4bb"
           }
         },
+        "color-background-notification-severity-critical": {
+          "$value": {
+            "light": "#870303",
+            "dark": "#d63f38"
+          }
+        },
+        "color-background-notification-severity-high": {
+          "$value": {
+            "light": "#ce3311",
+            "dark": "#fe6e73"
+          }
+        },
+        "color-background-notification-severity-medium": {
+          "$value": {
+            "light": "#f89256",
+            "dark": "#f89256"
+          }
+        },
+        "color-background-notification-severity-low": {
+          "$value": {
+            "light": "#f2cd54",
+            "dark": "#f2cd54"
+          }
+        },
+        "color-background-notification-severity-neutral": {
+          "$value": {
+            "light": "#656871",
+            "dark": "#656871"
+          }
+        },
+        "color-text-notification-severity-critical": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#000000"
+          }
+        },
+        "color-text-notification-severity-high": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-medium": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-low": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-neutral": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#f9f9fa"
+          }
+        },
         "color-background-button-normal-active": {
           "$value": {
             "light": "#333843",
@@ -5895,7 +6099,7 @@
           }
         },
         "font-family-base": {
-          "$value": "Arial"
+          "$value": "Open Sans"
         },
         "font-family-monospace": {
           "$value": "Monaco, Menlo, Consolas, 'Courier Prime', Courier, 'Courier New', monospace"
@@ -5923,6 +6127,9 @@
         },
         "font-size-heading-xs": {
           "$value": "14px"
+        },
+        "font-weight-button": {
+          "$value": "700"
         },
         "font-weight-heading-xl": {
           "$value": "700"
@@ -5970,7 +6177,7 @@
           "$value": "4px"
         },
         "border-radius-button": {
-          "$value": "1px"
+          "$value": "8px"
         },
         "border-radius-calendar-day-focus-ring": {
           "$value": "3px"
@@ -6013,6 +6220,15 @@
         },
         "border-radius-tutorial-panel-item": {
           "$value": "8px"
+        },
+        "border-width-alert": {
+          "$value": "2px"
+        },
+        "border-width-field": {
+          "$value": "2px"
+        },
+        "border-width-popover": {
+          "$value": "2px"
         },
         "motion-duration-avatar-gen-ai-gradient": {
           "$value": {
@@ -7146,6 +7362,66 @@
             "dark": "#ffd4bb"
           }
         },
+        "color-background-notification-severity-critical": {
+          "$value": {
+            "light": "#870303",
+            "dark": "#d63f38"
+          }
+        },
+        "color-background-notification-severity-high": {
+          "$value": {
+            "light": "#ce3311",
+            "dark": "#fe6e73"
+          }
+        },
+        "color-background-notification-severity-medium": {
+          "$value": {
+            "light": "#f89256",
+            "dark": "#f89256"
+          }
+        },
+        "color-background-notification-severity-low": {
+          "$value": {
+            "light": "#f2cd54",
+            "dark": "#f2cd54"
+          }
+        },
+        "color-background-notification-severity-neutral": {
+          "$value": {
+            "light": "#656871",
+            "dark": "#656871"
+          }
+        },
+        "color-text-notification-severity-critical": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#000000"
+          }
+        },
+        "color-text-notification-severity-high": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-medium": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-low": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-neutral": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#f9f9fa"
+          }
+        },
         "color-background-button-normal-active": {
           "$value": {
             "light": "#333843",
@@ -7969,7 +8245,7 @@
           }
         },
         "font-family-base": {
-          "$value": "Arial"
+          "$value": "Open Sans"
         },
         "font-family-monospace": {
           "$value": "Monaco, Menlo, Consolas, 'Courier Prime', Courier, 'Courier New', monospace"
@@ -7997,6 +8273,9 @@
         },
         "font-size-heading-xs": {
           "$value": "14px"
+        },
+        "font-weight-button": {
+          "$value": "700"
         },
         "font-weight-heading-xl": {
           "$value": "700"
@@ -8044,7 +8323,7 @@
           "$value": "4px"
         },
         "border-radius-button": {
-          "$value": "1px"
+          "$value": "8px"
         },
         "border-radius-calendar-day-focus-ring": {
           "$value": "3px"
@@ -8087,6 +8366,15 @@
         },
         "border-radius-tutorial-panel-item": {
           "$value": "8px"
+        },
+        "border-width-alert": {
+          "$value": "2px"
+        },
+        "border-width-field": {
+          "$value": "2px"
+        },
+        "border-width-popover": {
+          "$value": "2px"
         },
         "motion-duration-avatar-gen-ai-gradient": {
           "$value": {
@@ -9220,6 +9508,66 @@
             "dark": "#ffd4bb"
           }
         },
+        "color-background-notification-severity-critical": {
+          "$value": {
+            "light": "#870303",
+            "dark": "#d63f38"
+          }
+        },
+        "color-background-notification-severity-high": {
+          "$value": {
+            "light": "#ce3311",
+            "dark": "#fe6e73"
+          }
+        },
+        "color-background-notification-severity-medium": {
+          "$value": {
+            "light": "#f89256",
+            "dark": "#f89256"
+          }
+        },
+        "color-background-notification-severity-low": {
+          "$value": {
+            "light": "#f2cd54",
+            "dark": "#f2cd54"
+          }
+        },
+        "color-background-notification-severity-neutral": {
+          "$value": {
+            "light": "#656871",
+            "dark": "#656871"
+          }
+        },
+        "color-text-notification-severity-critical": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#000000"
+          }
+        },
+        "color-text-notification-severity-high": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-medium": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-low": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-neutral": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#f9f9fa"
+          }
+        },
         "color-background-button-normal-active": {
           "$value": {
             "light": "rgba(0, 7, 22, 0.2)",
@@ -9516,7 +9864,7 @@
         },
         "color-background-chat-bubble-incoming": {
           "$value": {
-            "light": "#f3f3f7",
+            "light": "#f6f6f9",
             "dark": "#0f141a"
           }
         },
@@ -10043,7 +10391,7 @@
           }
         },
         "font-family-base": {
-          "$value": "Arial"
+          "$value": "Open Sans"
         },
         "font-family-monospace": {
           "$value": "Monaco, Menlo, Consolas, 'Courier Prime', Courier, 'Courier New', monospace"
@@ -10071,6 +10419,9 @@
         },
         "font-size-heading-xs": {
           "$value": "14px"
+        },
+        "font-weight-button": {
+          "$value": "700"
         },
         "font-weight-heading-xl": {
           "$value": "700"
@@ -10118,7 +10469,7 @@
           "$value": "4px"
         },
         "border-radius-button": {
-          "$value": "1px"
+          "$value": "8px"
         },
         "border-radius-calendar-day-focus-ring": {
           "$value": "3px"
@@ -10161,6 +10512,15 @@
         },
         "border-radius-tutorial-panel-item": {
           "$value": "8px"
+        },
+        "border-width-alert": {
+          "$value": "2px"
+        },
+        "border-width-field": {
+          "$value": "2px"
+        },
+        "border-width-popover": {
+          "$value": "2px"
         },
         "motion-duration-avatar-gen-ai-gradient": {
           "$value": {
@@ -11294,6 +11654,66 @@
             "dark": "#ffd4bb"
           }
         },
+        "color-background-notification-severity-critical": {
+          "$value": {
+            "light": "#870303",
+            "dark": "#d63f38"
+          }
+        },
+        "color-background-notification-severity-high": {
+          "$value": {
+            "light": "#ce3311",
+            "dark": "#fe6e73"
+          }
+        },
+        "color-background-notification-severity-medium": {
+          "$value": {
+            "light": "#f89256",
+            "dark": "#f89256"
+          }
+        },
+        "color-background-notification-severity-low": {
+          "$value": {
+            "light": "#f2cd54",
+            "dark": "#f2cd54"
+          }
+        },
+        "color-background-notification-severity-neutral": {
+          "$value": {
+            "light": "#656871",
+            "dark": "#656871"
+          }
+        },
+        "color-text-notification-severity-critical": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#000000"
+          }
+        },
+        "color-text-notification-severity-high": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-medium": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-low": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-neutral": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#f9f9fa"
+          }
+        },
         "color-background-button-normal-active": {
           "$value": {
             "light": "rgba(0, 7, 22, 0.1)",
@@ -11590,7 +12010,7 @@
         },
         "color-background-chat-bubble-incoming": {
           "$value": {
-            "light": "#f3f3f7",
+            "light": "#f6f6f9",
             "dark": "#0f141a"
           }
         },
@@ -12117,7 +12537,7 @@
           }
         },
         "font-family-base": {
-          "$value": "Arial"
+          "$value": "Open Sans"
         },
         "font-family-monospace": {
           "$value": "Monaco, Menlo, Consolas, 'Courier Prime', Courier, 'Courier New', monospace"
@@ -12145,6 +12565,9 @@
         },
         "font-size-heading-xs": {
           "$value": "14px"
+        },
+        "font-weight-button": {
+          "$value": "700"
         },
         "font-weight-heading-xl": {
           "$value": "700"
@@ -12192,7 +12615,7 @@
           "$value": "4px"
         },
         "border-radius-button": {
-          "$value": "1px"
+          "$value": "8px"
         },
         "border-radius-calendar-day-focus-ring": {
           "$value": "3px"
@@ -12235,6 +12658,15 @@
         },
         "border-radius-tutorial-panel-item": {
           "$value": "8px"
+        },
+        "border-width-alert": {
+          "$value": "2px"
+        },
+        "border-width-field": {
+          "$value": "2px"
+        },
+        "border-width-popover": {
+          "$value": "2px"
         },
         "motion-duration-avatar-gen-ai-gradient": {
           "$value": {
@@ -13368,6 +13800,66 @@
             "dark": "#ffd4bb"
           }
         },
+        "color-background-notification-severity-critical": {
+          "$value": {
+            "light": "#870303",
+            "dark": "#d63f38"
+          }
+        },
+        "color-background-notification-severity-high": {
+          "$value": {
+            "light": "#ce3311",
+            "dark": "#fe6e73"
+          }
+        },
+        "color-background-notification-severity-medium": {
+          "$value": {
+            "light": "#f89256",
+            "dark": "#f89256"
+          }
+        },
+        "color-background-notification-severity-low": {
+          "$value": {
+            "light": "#f2cd54",
+            "dark": "#f2cd54"
+          }
+        },
+        "color-background-notification-severity-neutral": {
+          "$value": {
+            "light": "#656871",
+            "dark": "#656871"
+          }
+        },
+        "color-text-notification-severity-critical": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#000000"
+          }
+        },
+        "color-text-notification-severity-high": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-medium": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-low": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-neutral": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#f9f9fa"
+          }
+        },
         "color-background-button-normal-active": {
           "$value": {
             "light": "rgba(0, 7, 22, 0.1)",
@@ -13664,7 +14156,7 @@
         },
         "color-background-chat-bubble-incoming": {
           "$value": {
-            "light": "#f3f3f7",
+            "light": "#f6f6f9",
             "dark": "#0f141a"
           }
         },
@@ -14191,7 +14683,7 @@
           }
         },
         "font-family-base": {
-          "$value": "Arial"
+          "$value": "Open Sans"
         },
         "font-family-monospace": {
           "$value": "Monaco, Menlo, Consolas, 'Courier Prime', Courier, 'Courier New', monospace"
@@ -14219,6 +14711,9 @@
         },
         "font-size-heading-xs": {
           "$value": "14px"
+        },
+        "font-weight-button": {
+          "$value": "700"
         },
         "font-weight-heading-xl": {
           "$value": "700"
@@ -14266,7 +14761,7 @@
           "$value": "4px"
         },
         "border-radius-button": {
-          "$value": "1px"
+          "$value": "8px"
         },
         "border-radius-calendar-day-focus-ring": {
           "$value": "3px"
@@ -14309,6 +14804,15 @@
         },
         "border-radius-tutorial-panel-item": {
           "$value": "8px"
+        },
+        "border-width-alert": {
+          "$value": "2px"
+        },
+        "border-width-field": {
+          "$value": "2px"
+        },
+        "border-width-popover": {
+          "$value": "2px"
         },
         "motion-duration-avatar-gen-ai-gradient": {
           "$value": {
@@ -15442,6 +15946,66 @@
             "dark": "#ffd4bb"
           }
         },
+        "color-background-notification-severity-critical": {
+          "$value": {
+            "light": "#870303",
+            "dark": "#d63f38"
+          }
+        },
+        "color-background-notification-severity-high": {
+          "$value": {
+            "light": "#ce3311",
+            "dark": "#fe6e73"
+          }
+        },
+        "color-background-notification-severity-medium": {
+          "$value": {
+            "light": "#f89256",
+            "dark": "#f89256"
+          }
+        },
+        "color-background-notification-severity-low": {
+          "$value": {
+            "light": "#f2cd54",
+            "dark": "#f2cd54"
+          }
+        },
+        "color-background-notification-severity-neutral": {
+          "$value": {
+            "light": "#656871",
+            "dark": "#656871"
+          }
+        },
+        "color-text-notification-severity-critical": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#000000"
+          }
+        },
+        "color-text-notification-severity-high": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-medium": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-low": {
+          "$value": {
+            "light": "#0f141a",
+            "dark": "#0f141a"
+          }
+        },
+        "color-text-notification-severity-neutral": {
+          "$value": {
+            "light": "#f9f9fa",
+            "dark": "#f9f9fa"
+          }
+        },
         "color-background-button-normal-active": {
           "$value": {
             "light": "rgba(255, 255, 255, 0.15)",
@@ -16265,7 +16829,7 @@
           }
         },
         "font-family-base": {
-          "$value": "Arial"
+          "$value": "Open Sans"
         },
         "font-family-monospace": {
           "$value": "Monaco, Menlo, Consolas, 'Courier Prime', Courier, 'Courier New', monospace"
@@ -16293,6 +16857,9 @@
         },
         "font-size-heading-xs": {
           "$value": "14px"
+        },
+        "font-weight-button": {
+          "$value": "700"
         },
         "font-weight-heading-xl": {
           "$value": "700"
@@ -16340,7 +16907,7 @@
           "$value": "4px"
         },
         "border-radius-button": {
-          "$value": "1px"
+          "$value": "8px"
         },
         "border-radius-calendar-day-focus-ring": {
           "$value": "3px"
@@ -16383,6 +16950,15 @@
         },
         "border-radius-tutorial-panel-item": {
           "$value": "8px"
+        },
+        "border-width-alert": {
+          "$value": "2px"
+        },
+        "border-width-field": {
+          "$value": "2px"
+        },
+        "border-width-popover": {
+          "$value": "2px"
         },
         "motion-duration-avatar-gen-ai-gradient": {
           "$value": {

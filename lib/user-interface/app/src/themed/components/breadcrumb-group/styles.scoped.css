@@ -138,7 +138,7 @@
 */
 /* Style used for links in slots/components that are text heavy, to help links stand out among
 surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F73#description */
-.awsui_breadcrumb-group_d19fg_140ks_141:not(#\9) {
+.awsui_breadcrumb-group_d19fg_1983a_141:not(#\9) {
   border-collapse: separate;
   border-spacing: 0;
   box-sizing: border-box;
@@ -169,7 +169,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   line-height: var(--line-height-body-m-30ar75, 20px);
   color: var(--color-text-body-default-7v1jfn, #0f141a);
   font-weight: 400;
-  font-family: var(--font-family-base-sigkvs, Arial);
+  font-family: var(--font-family-base-eynpfp, Open Sans);
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
   margin-block: 0;
@@ -177,7 +177,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   padding-block: var(--space-xxs-p8yyaw, 4px);
   padding-inline: 0;
 }
-.awsui_breadcrumb-group_d19fg_140ks_141 > .awsui_breadcrumb-group-list_d19fg_140ks_179:not(#\9) {
+.awsui_breadcrumb-group_d19fg_1983a_141 > .awsui_breadcrumb-group-list_d19fg_1983a_179:not(#\9) {
   display: flex;
   align-items: center;
   padding-block: 0;
@@ -188,32 +188,36 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   inline-size: 100%;
   flex-wrap: nowrap;
 }
-.awsui_breadcrumb-group_d19fg_140ks_141 > .awsui_breadcrumb-group-list_d19fg_140ks_179.awsui_ghost_d19fg_140ks_190:not(#\9) {
+.awsui_breadcrumb-group_d19fg_1983a_141 > .awsui_breadcrumb-group-list_d19fg_1983a_179.awsui_ghost_d19fg_1983a_190:not(#\9) {
   flex-wrap: wrap;
   position: absolute;
   inset-inline-start: -9000px;
 }
-.awsui_breadcrumb-group_d19fg_140ks_141 > .awsui_breadcrumb-group-list_d19fg_140ks_179 > .awsui_item_d19fg_140ks_195:not(#\9),
-.awsui_breadcrumb-group_d19fg_140ks_141 > .awsui_breadcrumb-group-list_d19fg_140ks_179 > .awsui_ghost-item_d19fg_140ks_196:not(#\9),
-.awsui_breadcrumb-group_d19fg_140ks_141 > .awsui_breadcrumb-group-list_d19fg_140ks_179 > .awsui_ellipsis_d19fg_140ks_197:not(#\9) {
+.awsui_breadcrumb-group_d19fg_1983a_141 > .awsui_breadcrumb-group-list_d19fg_1983a_179 > .awsui_item_d19fg_1983a_195:not(#\9),
+.awsui_breadcrumb-group_d19fg_1983a_141 > .awsui_breadcrumb-group-list_d19fg_1983a_179 > .awsui_ghost-item_d19fg_1983a_196:not(#\9),
+.awsui_breadcrumb-group_d19fg_1983a_141 > .awsui_breadcrumb-group-list_d19fg_1983a_179 > .awsui_ellipsis_d19fg_1983a_197:not(#\9) {
   display: inline-block;
   padding-block: 0;
   padding-inline: 0;
   margin-block: 0;
   margin-inline: 0;
 }
-.awsui_breadcrumb-group_d19fg_140ks_141 > .awsui_breadcrumb-group-list_d19fg_140ks_179 > .awsui_item_d19fg_140ks_195.awsui_hide_d19fg_140ks_204:not(#\9) {
+.awsui_breadcrumb-group_d19fg_1983a_141 > .awsui_breadcrumb-group-list_d19fg_1983a_179 > .awsui_item_d19fg_1983a_195.awsui_hide_d19fg_1983a_204:not(#\9) {
   display: none;
 }
-.awsui_breadcrumb-group_d19fg_140ks_141 > .awsui_breadcrumb-group-list_d19fg_140ks_179 > .awsui_ellipsis_d19fg_140ks_197:not(#\9) {
+.awsui_breadcrumb-group_d19fg_1983a_141 > .awsui_breadcrumb-group-list_d19fg_1983a_179 > .awsui_ellipsis_d19fg_1983a_197:not(#\9) {
   display: none;
 }
-.awsui_breadcrumb-group_d19fg_140ks_141 > .awsui_breadcrumb-group-list_d19fg_140ks_179 > .awsui_ellipsis_d19fg_140ks_197.awsui_visible_d19fg_140ks_210:not(#\9) {
+.awsui_breadcrumb-group_d19fg_1983a_141 > .awsui_breadcrumb-group-list_d19fg_1983a_179 > .awsui_ellipsis_d19fg_1983a_197.awsui_visible_d19fg_1983a_210:not(#\9) {
   display: flex;
   flex-shrink: 0;
 }
-.awsui_breadcrumb-group_d19fg_140ks_141 > .awsui_breadcrumb-group-list_d19fg_140ks_179 > .awsui_ellipsis_d19fg_140ks_197 > .awsui_icon_d19fg_140ks_214:not(#\9) {
+.awsui_breadcrumb-group_d19fg_1983a_141 > .awsui_breadcrumb-group-list_d19fg_1983a_179 > .awsui_ellipsis_d19fg_1983a_197 > .awsui_icon_d19fg_1983a_214:not(#\9) {
   margin-block: 0;
   margin-inline: 10px;
   color: var(--color-text-breadcrumb-icon-u5luu4, #8c8c94);
+}
+
+.awsui_breadcrumbs-skeleton_d19fg_1983a_220:not(#\9) {
+  display: none;
 }
