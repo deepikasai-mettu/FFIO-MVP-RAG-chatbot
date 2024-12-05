@@ -97,24 +97,6 @@ export default function NavigationPanel({ documentIdentifier }) {
     let newItems: SideNavigationProps.Item[] = [
       {
         type: "section",
-        text: "Resources",
-        items: [
-          {
-            type: "link",
-            text: "Prompt Engineering Guide",
-            href: "/images/Prompt Suggestions for Grantwell's Chatbot Users.pdf",
-            external: true
-          },
-          { 
-            type: "link", 
-            text: "Provide Feedback", 
-            href: "https://forms.gle/jNHk8usCSNBzhL998", 
-            external: true 
-          },
-        ]
-      },
-      {
-        type: "section",
         text: "Session History",
         items: sessions.map(session => ({
           type: "link",
@@ -194,6 +176,16 @@ export default function NavigationPanel({ documentIdentifier }) {
           margin: "0 10px",
           color: "#666871",
           fontSize: "13px" }}>Navigate to the GrantWell chatbot, which will help you craft your project narrative.</div>
+              <div>
+  <p style={{ fontSize: '13px', color: '#555', marginBottom: '0px' }}>
+    For guidance prompting the chatbot, please navigate to the below
+    <br />
+    <a href="/images/Prompt Suggestions for Grantwell's Chatbot Users.pdf" target="_blank" rel="noopener noreferrer">
+      Prompt Engineering Guide.
+    </a>
+    <br />
+  </p>
+</div>
       </Box>
       <div style={{ 
         borderBottom: '1px solid #dedee2', 
@@ -202,30 +194,31 @@ export default function NavigationPanel({ documentIdentifier }) {
       }}>
         <Box />
       </div>
+    
       
       <Box margin="xs" padding={{ top: "l" }} textAlign="center">
         <SpaceBetween size="s">
           <Box textAlign="right" margin={{ right: "l" }}>
-              <h2 style={{ fontSize: '24px', display: 'inline', color: '#006499' }}>Key Requirements</h2>
+              <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Key Requirements</h2>
           </Box>
           <Box textAlign="right" margin={{ right: "l" }}>
     <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#eligibility`}>
-      <span style={{ color: '#006499' }}>Eligibility Criteria</span>
+      <span style={{ color: '#0073bb' }}>Eligibility Criteria</span>
     </Link>
   </Box>
   <Box textAlign="right" margin={{ right: "l" }}>
     <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#narrative`}>
-      <span style={{ color: '#006499' }}>Project Narrative Components</span>
+      <span style={{ color: '#0073bb' }}>Project Narrative Components</span>
     </Link>
   </Box>
   <Box textAlign="right" margin={{ right: "l" }}>
     <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#documents`}>
-      <span style={{ color: '#006499' }}>Documents Required</span>
+      <span style={{ color: '#0073bb' }}>Documents Required</span>
     </Link>
   </Box>
   <Box textAlign="right" margin={{ right: "l" }}>
     <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#deadlines`}>
-      <span style={{ color: '#006499' }}>Key Deadlines</span>
+      <span style={{ color: '#0073bb' }}>Key Deadlines</span>
     </Link>
   </Box>
         </SpaceBetween>

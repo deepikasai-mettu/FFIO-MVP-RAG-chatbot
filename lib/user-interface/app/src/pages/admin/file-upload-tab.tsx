@@ -230,8 +230,8 @@ export default function DataFileUpload(props: FileUploadTabProps) {
                 tokenLimit={3}
                 constraintText={
                   <div>
-                    <div style={{ marginBottom: '8px' }}>Upload relevant files here, to better inform GrantWell.</div>
-                    <div>Text documents up to 100MB supported ({Array.from(fileExtensions.values()).join(", ")})</div>
+                    <div style={{ marginBottom: '8px' }}>Upload relevant files here, to better inform GrantWell. Click "Manage Backend Files" below to see the documents the chatbot is currently referring to.</div>
+                    <div>Text documents up to 100MB are supported ({Array.from(fileExtensions.values()).join(", ")})</div>
                   </div>
                 }
                 fileErrors={fileErrors}

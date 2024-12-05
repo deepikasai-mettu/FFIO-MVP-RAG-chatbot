@@ -154,7 +154,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
  Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  SPDX-License-Identifier: Apache-2.0
 */
-@keyframes awsui_modal-slide-up_1d2i7_1027a_1 {
+@keyframes awsui_modal-slide-up_1d2i7_xniar_1 {
   0% {
     transform: translate(0, 10px);
   }
@@ -162,12 +162,12 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
     transform: translate(0, 0);
   }
 }
-.awsui_dialog_1d2i7_1027a_165:not(#\9) {
-  animation: awsui_modal-slide-up_1d2i7_1027a_1 var(--motion-duration-slow-z2kaah, 180ms) ease-out, awsui_awsui-motion-fade-in-0_1d2i7_1027a_1 var(--motion-duration-slow-z2kaah, 180ms) ease-out;
+.awsui_dialog_1d2i7_xniar_165:not(#\9) {
+  animation: awsui_modal-slide-up_1d2i7_xniar_1 var(--motion-duration-slow-z2kaah, 180ms) ease-out, awsui_awsui-motion-fade-in-0_1d2i7_xniar_1 var(--motion-duration-slow-z2kaah, 180ms) ease-out;
   animation-delay: var(--motion-duration-fast-sbm3r7, 90ms);
   animation-fill-mode: both;
 }
-@keyframes awsui_awsui-motion-fade-in-0_1d2i7_1027a_1 {
+@keyframes awsui_awsui-motion-fade-in-0_1d2i7_xniar_1 {
   from {
     opacity: 0;
   }
@@ -176,22 +176,22 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .awsui_dialog_1d2i7_1027a_165:not(#\9) {
+  .awsui_dialog_1d2i7_xniar_165:not(#\9) {
     animation: none;
     transition: none;
   }
 }
-.awsui-motion-disabled .awsui_dialog_1d2i7_1027a_165:not(#\9), .awsui-mode-entering .awsui_dialog_1d2i7_1027a_165:not(#\9) {
+.awsui-motion-disabled .awsui_dialog_1d2i7_xniar_165:not(#\9), .awsui-mode-entering .awsui_dialog_1d2i7_xniar_165:not(#\9) {
   animation: none;
   transition: none;
 }
-.awsui_dialog_1d2i7_1027a_165.awsui_refresh_1d2i7_1027a_188:not(#\9) {
-  animation: awsui_awsui-motion-scale-popup_1d2i7_1027a_1, awsui_awsui-motion-fade-in-0_1d2i7_1027a_1;
+.awsui_dialog_1d2i7_xniar_165.awsui_refresh_1d2i7_xniar_188:not(#\9) {
+  animation: awsui_awsui-motion-scale-popup_1d2i7_xniar_1, awsui_awsui-motion-fade-in-0_1d2i7_xniar_1;
   animation-duration: var(--motion-duration-refresh-only-fast-4jn2d7, 115ms);
   animation-timing-function: var(--motion-easing-refresh-only-a-8flf9q, cubic-bezier(0, 0, 0, 1));
   animation-fill-mode: both;
 }
-@keyframes awsui_awsui-motion-fade-in-0_1d2i7_1027a_1 {
+@keyframes awsui_awsui-motion-fade-in-0_1d2i7_xniar_1 {
   from {
     opacity: 0;
   }
@@ -199,7 +199,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
     opacity: 1;
   }
 }
-@keyframes awsui_awsui-motion-scale-popup_1d2i7_1027a_1 {
+@keyframes awsui_awsui-motion-scale-popup_1d2i7_xniar_1 {
   0% {
     transform: scale(0.95);
   }
@@ -208,21 +208,21 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .awsui_dialog_1d2i7_1027a_165.awsui_refresh_1d2i7_1027a_188:not(#\9) {
+  .awsui_dialog_1d2i7_xniar_165.awsui_refresh_1d2i7_xniar_188:not(#\9) {
     animation: none;
     transition: none;
   }
 }
-.awsui-motion-disabled .awsui_dialog_1d2i7_1027a_165.awsui_refresh_1d2i7_1027a_188:not(#\9), .awsui-mode-entering .awsui_dialog_1d2i7_1027a_165.awsui_refresh_1d2i7_1027a_188:not(#\9) {
+.awsui-motion-disabled .awsui_dialog_1d2i7_xniar_165.awsui_refresh_1d2i7_xniar_188:not(#\9), .awsui-mode-entering .awsui_dialog_1d2i7_xniar_165.awsui_refresh_1d2i7_xniar_188:not(#\9) {
   animation: none;
   transition: none;
 }
 
-.awsui_root_1d2i7_1027a_221:not(#\9) {
-  animation: awsui_awsui-motion-fade-in_1d2i7_1027a_1 var(--motion-duration-extra-slow-ngjb9g, 270ms) ease-out;
+.awsui_root_1d2i7_xniar_221:not(#\9) {
+  animation: awsui_awsui-motion-fade-in_1d2i7_xniar_1 var(--motion-duration-extra-slow-ngjb9g, 270ms) ease-out;
   animation-fill-mode: both;
 }
-@keyframes awsui_awsui-motion-fade-in_1d2i7_1027a_1 {
+@keyframes awsui_awsui-motion-fade-in_1d2i7_xniar_1 {
   from {
     opacity: 0.2;
   }
@@ -231,30 +231,30 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .awsui_root_1d2i7_1027a_221:not(#\9) {
+  .awsui_root_1d2i7_xniar_221:not(#\9) {
     animation: none;
     transition: none;
   }
 }
-.awsui-motion-disabled .awsui_root_1d2i7_1027a_221:not(#\9), .awsui-mode-entering .awsui_root_1d2i7_1027a_221:not(#\9) {
+.awsui-motion-disabled .awsui_root_1d2i7_xniar_221:not(#\9), .awsui-mode-entering .awsui_root_1d2i7_xniar_221:not(#\9) {
   animation: none;
   transition: none;
 }
-.awsui_root_1d2i7_1027a_221.awsui_refresh_1d2i7_1027a_188:not(#\9) {
+.awsui_root_1d2i7_xniar_221.awsui_refresh_1d2i7_xniar_188:not(#\9) {
   animation-duration: var(--motion-duration-refresh-only-fast-4jn2d7, 115ms);
 }
 @media (prefers-reduced-motion: reduce) {
-  .awsui_root_1d2i7_1027a_221.awsui_refresh_1d2i7_1027a_188:not(#\9) {
+  .awsui_root_1d2i7_xniar_221.awsui_refresh_1d2i7_xniar_188:not(#\9) {
     animation: none;
     transition: none;
   }
 }
-.awsui-motion-disabled .awsui_root_1d2i7_1027a_221.awsui_refresh_1d2i7_1027a_188:not(#\9), .awsui-mode-entering .awsui_root_1d2i7_1027a_221.awsui_refresh_1d2i7_1027a_188:not(#\9) {
+.awsui-motion-disabled .awsui_root_1d2i7_xniar_221.awsui_refresh_1d2i7_xniar_188:not(#\9), .awsui-mode-entering .awsui_root_1d2i7_xniar_221.awsui_refresh_1d2i7_xniar_188:not(#\9) {
   animation: none;
   transition: none;
 }
 
-.awsui_root_1d2i7_1027a_221:not(#\9) {
+.awsui_root_1d2i7_xniar_221:not(#\9) {
   border-collapse: separate;
   border-spacing: 0;
   box-sizing: border-box;
@@ -285,7 +285,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   line-height: var(--line-height-body-m-30ar75, 20px);
   color: var(--color-text-body-default-7v1jfn, #0f141a);
   font-weight: 400;
-  font-family: var(--font-family-base-sigkvs, Arial);
+  font-family: var(--font-family-base-eynpfp, Open Sans);
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
   background-color: var(--color-background-modal-overlay-lal4at, rgba(35, 43, 55, 0.7));
@@ -299,11 +299,11 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   overflow: auto;
   cursor: pointer;
 }
-.awsui_root_1d2i7_1027a_221.awsui_hidden_1d2i7_1027a_301:not(#\9) {
+.awsui_root_1d2i7_xniar_221.awsui_hidden_1d2i7_xniar_301:not(#\9) {
   display: none;
 }
 
-.awsui_focus-lock_1d2i7_1027a_305:not(#\9) {
+.awsui_focus-lock_1d2i7_xniar_305:not(#\9) {
   align-self: flex-start;
   margin-block: auto;
   margin-inline: auto;
@@ -313,7 +313,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   pointer-events: none;
 }
 
-.awsui_dialog_1d2i7_1027a_165:not(#\9) {
+.awsui_dialog_1d2i7_xniar_165:not(#\9) {
   position: static;
   inset-block-start: 0;
   transform: translate(0, 0);
@@ -323,22 +323,22 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   z-index: 5000;
   pointer-events: all;
 }
-.awsui_dialog_1d2i7_1027a_165.awsui_small_1d2i7_1027a_325:not(#\9) {
+.awsui_dialog_1d2i7_xniar_165.awsui_small_1d2i7_xniar_325:not(#\9) {
   max-inline-size: 320px;
 }
-.awsui_dialog_1d2i7_1027a_165.awsui_medium_1d2i7_1027a_328:not(#\9) {
+.awsui_dialog_1d2i7_xniar_165.awsui_medium_1d2i7_xniar_328:not(#\9) {
   max-inline-size: 600px;
 }
-.awsui_dialog_1d2i7_1027a_165.awsui_large_1d2i7_1027a_331:not(#\9) {
+.awsui_dialog_1d2i7_xniar_165.awsui_large_1d2i7_xniar_331:not(#\9) {
   max-inline-size: 820px;
 }
-.awsui_dialog_1d2i7_1027a_165.awsui_max_1d2i7_1027a_334.awsui_breakpoint-xs_1d2i7_1027a_334:not(#\9) {
+.awsui_dialog_1d2i7_xniar_165.awsui_max_1d2i7_xniar_334.awsui_breakpoint-xs_1d2i7_xniar_334:not(#\9) {
   max-inline-size: calc(100vw - (8 * 10px + var(--space-xxxl-4x2gki, 40px)));
   margin-block: auto;
   margin-inline: auto;
 }
 
-.awsui_container_1d2i7_1027a_340:not(#\9) {
+.awsui_container_1d2i7_xniar_340:not(#\9) {
   border-collapse: separate;
   border-spacing: 0;
   box-sizing: border-box;
@@ -369,7 +369,7 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   line-height: var(--line-height-body-m-30ar75, 20px);
   color: var(--color-text-body-default-7v1jfn, #0f141a);
   font-weight: 400;
-  font-family: var(--font-family-base-sigkvs, Arial);
+  font-family: var(--font-family-base-eynpfp, Open Sans);
   -webkit-font-smoothing: auto;
   -moz-osx-font-smoothing: auto;
   display: block;
@@ -383,17 +383,17 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   box-shadow: var(--shadow-modal-2ennni, 0px 4px 20px 1px rgba(0, 7, 22, 0.1));
 }
 
-.awsui_content_1d2i7_1027a_384:not(#\9) {
+.awsui_content_1d2i7_xniar_384:not(#\9) {
   padding-block-start: var(--space-container-content-top-1ae0r3, 4px);
   padding-block-end: var(--space-modal-content-bottom-hqahub, 16px);
   padding-inline: var(--space-modal-horizontal-f89syl, 20px);
 }
-.awsui_content_1d2i7_1027a_384.awsui_no-paddings_1d2i7_1027a_389:not(#\9) {
+.awsui_content_1d2i7_xniar_384.awsui_no-paddings_1d2i7_xniar_389:not(#\9) {
   padding-block: 0;
   padding-inline: 0;
 }
 
-.awsui_header_1d2i7_1027a_394:not(#\9) {
+.awsui_header_1d2i7_xniar_394:not(#\9) {
   padding-block-start: var(--space-container-header-top-5qav00, 12px);
   padding-block-end: var(--space-container-header-bottom-vj01hn, 8px);
   padding-inline: var(--space-modal-horizontal-f89syl, 20px);
@@ -405,11 +405,11 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   border-end-end-radius: 0;
 }
 
-.awsui_header--text_1d2i7_1027a_406:not(#\9) {
+.awsui_header--text_1d2i7_xniar_406:not(#\9) {
   /* used in test-utils */
 }
 
-.awsui_footer_1d2i7_1027a_410:not(#\9) {
+.awsui_footer_1d2i7_xniar_410:not(#\9) {
   border-block-start: var(--border-divider-section-width-1061zr, 1px) solid var(--color-border-divider-default-cx07f2, #c6c6cd);
   padding-block: var(--space-scaled-s-aqzyko, 12px);
   padding-inline: var(--space-container-horizontal-wfukh3, 20px);
@@ -418,23 +418,23 @@ surrounding text. (WCAG F73) https://www.w3.org/WAI/WCAG21/Techniques/failures/F
   inset-block-end: 0;
   z-index: 800;
 }
-.awsui_footer--stuck_1d2i7_1027a_419:not(#\9) {
+.awsui_footer--stuck_1d2i7_xniar_419:not(#\9) {
   border-start-start-radius: 0;
   border-start-end-radius: 0;
   border-end-start-radius: var(--border-radius-container-wqv1zi, 16px);
   border-end-end-radius: var(--border-radius-container-wqv1zi, 16px);
 }
-.awsui_footer_1d2i7_1027a_410:not(#\9):after {
+.awsui_footer_1d2i7_xniar_410:not(#\9):after {
   content: "";
   display: table;
   clear: both;
 }
 
-.awsui_dismiss-control_1d2i7_1027a_431:not(#\9) {
+.awsui_dismiss-control_1d2i7_xniar_431:not(#\9) {
   /* used in test-utils */
 }
 
-.awsui_modal-open_1d2i7_1027a_435:not(#\9) {
+.awsui_modal-open_1d2i7_xniar_435:not(#\9) {
   overflow: hidden;
   /*
    * When padding-right is added to account for scrollbar being turned

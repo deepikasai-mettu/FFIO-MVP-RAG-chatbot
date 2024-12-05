@@ -238,7 +238,7 @@ export default function Checklists() {
                     variant="default"
                   />
                 </div>
-                <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '500px' }}>
+                <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '50px' }}>
                   When you're ready, navigate to the chatbot using the button above to start drafting your project proposal.
                 </p>
               </>
