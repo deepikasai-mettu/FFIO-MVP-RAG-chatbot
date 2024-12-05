@@ -49,15 +49,15 @@ export default function GlobalHeader() {
   //     setTheme(StorageHelper.applyTheme(Mode.Dark));
   //   }
   // };
-  // const onUserProfileClick = ({
-  //   detail,
-  // }: {
-  //   detail: ButtonDropdownProps.ItemClickDetails;
-  // }) => {
-  //   if (detail.id === "signout") {
-  //     Auth.signOut();
-  //   }
-  // };
+  const onUserProfileClick = ({
+    detail,
+  }: {
+    detail: ButtonDropdownProps.ItemClickDetails;
+  }) => {
+    if (detail.id === "signout") {
+      Auth.signOut();
+    }
+  };
 
   return (
     <div

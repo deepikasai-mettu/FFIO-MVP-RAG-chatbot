@@ -654,8 +654,8 @@ export default function Welcome({ theme }) {
         <ContentBox backgroundColor="#F6FCFF">
           <HistoryPanel />
         </ContentBox>
-
-        {isAdmin && (
+{/* 
+        {isAdmin && ( */}
           <InfoBanner
             title="Admin Panel"
             description="Upload a new NOFO to the NOFO dropdown above. It will take 5-7 minutes for the document to process and appear in the dropdown. Grab a coffee, and it'll be ready for your review!"
@@ -667,7 +667,7 @@ export default function Welcome({ theme }) {
             titleFontSize='24px'
             buttonVariant="primary"
           />
-        )}
+        {/* )} */}
 
         <div style={{ flex: 1 }} />
 
