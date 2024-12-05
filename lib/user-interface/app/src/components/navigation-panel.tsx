@@ -199,26 +199,26 @@ export default function NavigationPanel({ documentIdentifier }) {
       <Box margin="xs" padding={{ top: "l" }} textAlign="center">
         <SpaceBetween size="s">
           <Box textAlign="right" margin={{ right: "l" }}>
-              <h2 style={{ fontSize: '24px', display: 'inline', color: '#006499' }}>Key Requirements</h2>
+              <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Key Requirements</h2>
           </Box>
           <Box textAlign="right" margin={{ right: "l" }}>
     <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#eligibility`}>
-      <span style={{ color: '#006499' }}>Eligibility Criteria</span>
+      <span style={{ color: '#0073bb' }}>Eligibility Criteria</span>
     </Link>
   </Box>
   <Box textAlign="right" margin={{ right: "l" }}>
     <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#narrative`}>
-      <span style={{ color: '#006499' }}>Project Narrative Components</span>
+      <span style={{ color: '#0073bb' }}>Project Narrative Components</span>
     </Link>
   </Box>
   <Box textAlign="right" margin={{ right: "l" }}>
     <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#documents`}>
-      <span style={{ color: '#006499' }}>Documents Required</span>
+      <span style={{ color: '#0073bb' }}>Documents Required</span>
     </Link>
   </Box>
   <Box textAlign="right" margin={{ right: "l" }}>
     <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#deadlines`}>
-      <span style={{ color: '#006499' }}>Key Deadlines</span>
+      <span style={{ color: '#0073bb' }}>Key Deadlines</span>
     </Link>
   </Box>
         </SpaceBetween>

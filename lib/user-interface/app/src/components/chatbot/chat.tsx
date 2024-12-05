@@ -10,6 +10,7 @@ import {
   StatusIndicator,
   Alert,
   Modal,
+  Checkbox,
 } from "@cloudscape-design/components";
 import { v4 as uuidv4 } from "uuid";
 import { AppContext } from "../../common/app-context";
@@ -31,7 +32,29 @@ export default function Chat(props: { sessionId?: string; documentIdentifier?: s
 
   const { notifications, addNotification } = useNotifications();
   const [messageHistory, setMessageHistory] = useState<ChatBotHistoryItem[]>([]);
-  const [showPopup, setShowPopup] = useState<boolean>(true); // State for popup visibility
+  const [showPopup, setShowPopup] = useState<boolean>(true);
+  const [doNotShowAgain, setDoNotShowAgain] = useState<boolean>(false);
+
+  // Check localStorage on component mount
+  useEffect(() => {
+    const shouldShowPopup = localStorage.getItem('showGrantWellPopup');
+    if (shouldShowPopup === 'false') {
+      setShowPopup(false);
+    }
+  }, []);
+
+  // Handle checkbox change
+  const handleDoNotShowAgainChange = ({ detail }: { detail: { checked: boolean } }) => {
+    setDoNotShowAgain(detail.checked);
+  };
+
+  // Handle modal dismiss
+  const handleModalDismiss = () => {
+    if (doNotShowAgain) {
+      localStorage.setItem('showGrantWellPopup', 'false');
+    }
+    setShowPopup(false);
+  };
 
   /** Loads session history */
   // chat.tsx
@@ -160,41 +183,49 @@ useEffect(() => {
       {/* Popup Modal */}
       {showPopup && (
         <Modal
-          onDismiss={() => setShowPopup(false)}
+          onDismiss={handleModalDismiss}
           visible={showPopup}
           closeAriaLabel="Close popup"
           header="Welcome to GrantWell!"
         >
-          <p>
-          Welcome to the GrantWell chatbot interface! The purpose of this chatbot is to prompt you through the project narrative section of your grant.
-          </p>
-          <p>
-          The chatbot will begin by prompting you for some basic information.
-          </p>
-          <p>
-          For GrantWell to work best, upload supplementary data through the "upload data' linkto best help us craft a narrative that reflects your organization.
-          </p>
-          <p>
-          Examples of data could include:
-          </p> 
-          <li>
-            Last year's annual report 
-          </li>
-          <li>
-            Latest accomplishments
-          </li>
-          <li>
-            Previously submitted proposals for this grant
-          </li>
-          <li>
-            Project narrative template
-          </li>
-          <p>
-          You can also provide links to the chatbot directly to relevant sites or articles pertaining to your organization or project goals.
-          </p>
-          <p>
-            Click the "i" icon in the upper right corner to access this information again.
-          </p>
+          {/* <SpaceBetween direction="vertical" size="m"> */}
+            <p>
+              Welcome to the GrantWell chatbot interface! The purpose of this chatbot is to prompt you through the project narrative section of your grant.
+            </p>
+            <p>
+              The chatbot will begin by prompting you for some basic information.
+            </p>
+            <p>
+              For GrantWell to work best, upload supplementary data through the "upload data' link to best help us craft a narrative that reflects your organization.
+            </p>
+            <p>
+              Examples of data could include:
+            </p>
+            <li>
+              Last year's annual report
+            </li>
+            <li>
+              Latest accomplishments
+            </li>
+            <li>
+              Previously submitted proposals for this grant
+            </li>
+            <li>
+              Project narrative template
+            </li>
+            <p>
+              You can also provide links to the chatbot directly to relevant sites or articles pertaining to your organization or project goals.
+            </p>
+            <p>
+              Click the "i" icon in the upper right corner to access this information again.
+            </p>
+            <Checkbox
+              onChange={handleDoNotShowAgainChange}
+              checked={doNotShowAgain}
+            >
+              Do not show this message again
+            </Checkbox>
+          {/* </SpaceBetween> */}
         </Modal>
       )}
 
