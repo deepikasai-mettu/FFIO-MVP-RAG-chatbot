@@ -119,7 +119,7 @@ export default function NavigationPanel({ documentIdentifier }) {
         items: sessions.map(session => ({
           type: "link",
           text: session.title,
-          href: `/chatbot/playground/${session.session_id}`,
+          href: `/chatbot/playground/${session.session_id}?folder=${session.document_identifier}`,
         })).concat([{
           type: "link",
           info: (
