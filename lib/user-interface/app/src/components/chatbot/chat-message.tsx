@@ -48,13 +48,17 @@ export default function ChatMessage(props: ChatMessageProps) {
   const [selectedFeedbackType, setSelectedFeedbackType] = React.useState({label: "Select a Problem", value: "1"});
   const [value, setValue] = useState("");
 
+  if (!props.message) {
+    return null;
+  }
+
 
   const content =
-    props.message.content && props.message.content.length > 0
+  typeof props.message?.content === "string" && props.message.content.length > 0
       ? props.message.content
       : "";
 
-  const showSources = props.message.metadata?.Sources && (props.message.metadata.Sources as any[]).length > 0;
+    const showSources = props.message.metadata?.Sources && Array.isArray(props.message.metadata.Sources) && props.message.metadata.Sources.length > 0;
   
 
   return (
