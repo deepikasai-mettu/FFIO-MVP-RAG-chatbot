@@ -60,7 +60,7 @@ def get_session(session_id, user_id):
     response = {}
     try:
         # Attempt to retrieve an item using the session_id and user_id as keys
-        response = table.get_item(Key={"session_id": session_id, "user_id": user_id})
+        response = table.get_item(Key={"user_id": user_id, "session_id": session_id})
     except ClientError as error:
         print("Caught error: DynamoDB error - could not get session")
         # Handle specific error when the specified resource is not found in DynamoDB
@@ -108,7 +108,7 @@ def update_session(session_id, user_id, new_chat_entry):
         
         # Update the item in DynamoDB with both chat_history and document_identifier
         response = table.update_item(
-            Key={"session_id": session_id, "user_id": user_id},
+            Key={"user_id": user_id, "session_id": session_id},
             UpdateExpression="set chat_history = :chat_history",
             ExpressionAttributeValues={
                 ":chat_history": updated_chat_history,
@@ -154,7 +154,7 @@ def update_session(session_id, user_id, new_chat_entry):
 def delete_session(session_id, user_id):
     try:
         # Attempt to delete an item from the DynamoDB table based on the provided session_id and user_id.
-        table.delete_item(Key={"session_id": session_id, "user_id": user_id})
+        table.delete_item(Key={"user_id": user_id, "session_id": session_id})
     except ClientError as error:
         print("Caught error: DynamoDB error - could not delete session")
         # Handle specific DynamoDB client errors. If the item cannot be found or another error occurs, return the appropriate message.
@@ -302,17 +302,17 @@ def lambda_handler(event, context):
     print("operation",operation)
 
     if operation == 'add_session':
-        return add_session(session_id, user_id, chat_history, title, new_chat_entry, document_identifier)
+        return add_session(user_id, session_id, chat_history, title, new_chat_entry, document_identifier)
     elif operation == 'get_session':
-        return get_session(session_id, user_id)
+        return get_session(user_id, session_id)
     elif operation == 'update_session':
-        return update_session(session_id, user_id, new_chat_entry)
+        return update_session(user_id, session_id, new_chat_entry)
     elif operation == 'list_sessions_by_user_id':
         return list_sessions_by_user_id(user_id, document_identifier=document_identifier)
     elif operation == 'list_all_sessions_by_user_id':
         return list_sessions_by_user_id(user_id,document_identifier=document_identifier, limit=100)
     elif operation == 'delete_session':
-        return delete_session(session_id, user_id)
+        return delete_session(user_id, session_id)
     elif operation == 'delete_user_sessions':
         return delete_user_sessions(user_id)
     else:
