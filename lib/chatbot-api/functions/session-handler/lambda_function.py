@@ -302,17 +302,17 @@ def lambda_handler(event, context):
     print("operation",operation)
 
     if operation == 'add_session':
-        return add_session(user_id, session_id, chat_history, title, new_chat_entry, document_identifier)
+        return add_session(session_id, user_id, chat_history, title, new_chat_entry, document_identifier)
     elif operation == 'get_session':
-        return get_session(user_id, session_id)
+        return get_session(session_id, user_id)
     elif operation == 'update_session':
-        return update_session(user_id, session_id, new_chat_entry)
+        return update_session(session_id, user_id, new_chat_entry)
     elif operation == 'list_sessions_by_user_id':
         return list_sessions_by_user_id(user_id, document_identifier=document_identifier)
     elif operation == 'list_all_sessions_by_user_id':
         return list_sessions_by_user_id(user_id,document_identifier=document_identifier, limit=100)
     elif operation == 'delete_session':
-        return delete_session(user_id, session_id)
+        return delete_session(session_id, user_id)
     elif operation == 'delete_user_sessions':
         return delete_user_sessions(user_id)
     else:

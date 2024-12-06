@@ -110,15 +110,13 @@ useEffect(() => {
           behavior: "instant",
         });
       }
-      else if(hist.length === 0) {
-        //const docIdentifier = props.documentIdentifier?.replace(/\/+$/, '');
+      else if(hist.length == 0) {
         const summaryResult = await apiClient.landingPage.getNOFOSummary(props.documentIdentifier);
         const grantName = summaryResult.data.GrantName;
 
         console.log("in else");
         const initialMessage = {
           type: ChatBotMessageType.AI,
-            //content: `Hello! I see that you are working on . Can you please let me know what agency/municipality we are going to build this narrative for?`,
             content: `Hello! I see that you are working on the ${grantName} grant. Could you please tell me which agency, municipality, or tribe we are building this narrative for?`,
             metadata: {},
          };
