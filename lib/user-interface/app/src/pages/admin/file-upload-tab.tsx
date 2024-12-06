@@ -1,5 +1,5 @@
 import {
-  Button,
+  // Button,
   Container,
   FileUpload,
   Flashbar,
@@ -10,6 +10,9 @@ import {
   ProgressBarProps,
   SpaceBetween,
 } from "@cloudscape-design/components";
+import {
+  Button,
+} from '../../themed/components';
 import { useContext, useState } from "react";
 import { AppContext } from "../../common/app-context";
 import { ApiClient } from "../../common/api-client/api-client";
@@ -225,9 +228,12 @@ export default function DataFileUpload(props: FileUploadTabProps) {
                 showFileSize
                 showFileThumbnail
                 tokenLimit={3}
-                constraintText={`Text documents up to 100MB supported (${Array.from(
-                  fileExtensions.values()
-                ).join(", ")})`}
+                constraintText={
+                  <div>
+                    <div style={{ marginBottom: '8px' }}>Upload relevant files here, to better inform GrantWell. Click "Manage Backend Files" below to see the documents the chatbot is currently referring to.</div>
+                    <div>Text documents up to 100MB are supported ({Array.from(fileExtensions.values()).join(", ")})</div>
+                  </div>
+                }
                 fileErrors={fileErrors}
                 errorText={uploadError}
               />

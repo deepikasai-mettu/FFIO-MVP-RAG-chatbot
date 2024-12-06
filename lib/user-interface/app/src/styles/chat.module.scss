@@ -1,12 +1,10 @@
 @use "@cloudscape-design/design-tokens/index" as awsui;
 
 .chat_container {
-  margin-bottom: -40px;
-  min-height: calc(100vh - 96px);
+  position: relative;
+  height: calc(100vh - 100px);
   display: flex;
   flex-direction: column;
-  padding-bottom: 20px;
-  justify-content: space-between;
 }
 
 .session_link {
@@ -50,26 +48,16 @@
 }
 
 .welcome_text {
-  color: awsui.$color-text-body-default;
-  font-size: 3rem;
-  font-weight: bolder;
-  opacity: 0.4;
+  text-align: center;
+  margin: 20px 0;
 }
 
 .input_container {
   position: sticky;
   bottom: 0;
-  padding-bottom: awsui.$space-scaled-l;
-  padding-top: awsui.$space-scaled-xxl;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    awsui.$color-background-container-content 20%
-  );
-  margin-left: -8px;
-  margin-right: -8px;
-  container-type: inline-size;
-  container-name: input_container;
+  background-color: white;
+  padding-top: 10px;
+  z-index: 1;
 }
 
 .input_textarea_container {

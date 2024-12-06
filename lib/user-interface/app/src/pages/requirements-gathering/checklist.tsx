@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { Box, Header, SpaceBetween, Button, Tabs, Spinner, SegmentedControl } from '@cloudscape-design/components';
 import BaseAppLayout from '../../components/base-app-layout';
-import ReqNav from '../../components/req-nav';
+// import ReqNav from '../../components/req-nav';
 import ReactMarkdown from 'react-markdown';
 import { ApiClient } from "../../common/api-client/api-client";
 import { AppContext } from '../../common/app-context';
 import '../../styles/checklists.css';
 import BackArrowIcon from "../../../public/images/back-arrow.jsx";
+import ForwardArrowIcon from "../../../public/images/forward-arrow.jsx";
 import { v4 as uuidv4 } from "uuid";
 
 export interface SectionProps {
@@ -36,7 +37,12 @@ export default function Checklists() {
     const navigate = useNavigate();
     const location = useLocation();
     const { documentIdentifier } = useParams();
-    console.log("CHECKLIST IDENTIFIER: ", documentIdentifier);
+    const [searchParams] = useSearchParams();
+    const folderParam = searchParams.get("folder") || documentIdentifier;
+    
+    console.log("Checklist - documentIdentifier:", documentIdentifier);
+    console.log("Checklist - folderParam:", folderParam);
+
     const appContext = useContext(AppContext);
     const apiClient = new ApiClient(appContext);
     const [llmData, setLlmData] = useState({
@@ -48,6 +54,16 @@ export default function Checklists() {
     });
     const [isloading, setLoading] = useState(true);
     const [selectedSegment, setSelectedSegment] = useState("seg-2");
+    const [activeTabId, setActiveTabId] = useState("eligibility");
+
+    useEffect(() => {
+        // Get the hash from the URL (removing the # symbol)
+        const hash = window.location.hash.replace('#', '');
+        // If there's a valid hash that matches one of our tab IDs, set it as active
+        if (["eligibility", "narrative", "documents", "deadlines"].includes(hash)) {
+            setActiveTabId(hash);
+        }
+    }, [location]); // React to location changes
 
     const getNOFOSummary = async () => {
         try {
@@ -77,11 +93,7 @@ export default function Checklists() {
 
   return (
     <BaseAppLayout
-      // navigation={<ReqNav documentIdentifier={documentIdentifier} />}
-      navigation={null}
-      navigationHide={true} // Completely hide the hamburger icon
-      navigationOpen={false}
-      onNavigationChange={() => { }} // Disable the hamburger toggle behavior
+      documentIdentifier={folderParam}
       content={
 
         <SpaceBetween direction="vertical" size="xl">
@@ -95,21 +107,21 @@ export default function Checklists() {
                 gap: "1rem", // Spacing between items
                 flexWrap: "wrap", // Ensure items wrap if the screen is too narrow
                 marginTop: "15px",
-                marginBottom: "80px", // Space below the toolbar
+                marginBottom: "0px", // Space below the toolbar
               }}
             >
               {/* Left Button */}
-              <Button
+              {/* <Button
                 onClick={() => navigate('/landing-page/basePage')}
                 variant="primary"
                 aria-label="Return to Home Page"
                 iconSvg={<BackArrowIcon />}
               >
                 Back to Home
-              </Button>
+              </Button> */}
 
               {/* Segmented Control */}
-              <SegmentedControl
+              {/* <SegmentedControl
                 selectedId={selectedSegment}
                 onChange={({ detail }) => {
                   setSelectedSegment(detail.selectedId);
@@ -125,10 +137,10 @@ export default function Checklists() {
                   { text: "(2) Key Information", id: "seg-2" }, // Highlighted by default on this page
                   { text: "(3) Draft Narrative", id: "seg-3" },
                 ]}
-              />
+              /> */}
 
               {/* Right Button */}
-              <Button
+              {/* <Button
                 onClick={() => navigate(linkUrl)}
                 variant="primary"
                 aria-label="Open Settings"
@@ -136,7 +148,7 @@ export default function Checklists() {
                 iconAlign="right"
               >
                 Go to Chatbot
-              </Button>
+              </Button> */}
             </div>
 
 
@@ -170,6 +182,8 @@ export default function Checklists() {
                   }}
                 >
                   <Tabs
+                    activeTabId={activeTabId}
+                    onChange={({ detail }) => setActiveTabId(detail.activeTabId)}
                     tabs={[
                       {
                         label: "Eligibility Criteria",
@@ -224,8 +238,8 @@ export default function Checklists() {
                     variant="default"
                   />
                 </div>
-                <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '20px' }}>
-                  When you're ready, use navigation buttons above to start drafting your project proposal.
+                <p style={{ fontSize: '16px', color: '#555', marginTop: '10px', marginBottom: '50px' }}>
+                  When you're ready, navigate to the chatbot using the button above to start drafting your project proposal.
                 </p>
               </>
             )}

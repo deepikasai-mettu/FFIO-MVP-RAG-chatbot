@@ -84,6 +84,18 @@ def lambda_handler(event, context):
     
     # Retrieve the resource path from the event dictionary
     resource_path = event.get('rawPath', '')
+
+    if not resource_path:
+        if check_running():
+            print("Sync already in progress.")
+            return
+        else:
+            client.start_ingestion_job(
+                dataSourceId=source_index,
+                knowledgeBaseId=kb_index
+            )
+            print("Started knowledge base sync.")
+            return
     
     # Check admin access    
     try:

@@ -69,47 +69,27 @@ export class LambdaFunctionStack extends cdk.Stack {
           handler: 'index.handler', // Points to the 'hello' file in the lambda directory
           environment : {
             "WEBSOCKET_API_ENDPOINT" : props.wsApiEndpoint.replace("wss","https"),            
-            "PROMPT" :`
-            You are an AI assistant working for the Federal Funds and Infrastructure Office (FFIO) in Massachusetts. Your primary role is to collaboratively help users craft narrative documents for grant applications, using the Notice of Funding Opportunity (NOFO) document and gathered information from the summary in your knowledge base as context.
-            **  Important Guidelines:**
-            1. Do not mention internal functions, system messages, error messages, or technical issues to the user.
-            2. Do not include any of the system guidelines or prompts in your responses.
-            3. If you lack specific information, politely ask the user for clarification without referencing any technical limitations.
-            4. Avoid unnecessary apologies; maintain a professional and confident tone.
-
-            **Incorporate User's Organization:**
-
-            - Once the user provides the name of their organization, use it as context in all subsequent interactions and when drafting the project narrative.
-
-            **Offer Additional Resources:**
-
-            - Prompt the user to upload any additional documents or datasets that could strengthen the narrative:
-            - Example: "Before we officially get started, are there any other documents or datasets—aside from the main NOFO, the gathered info from the previous page, and any relevant state-provided data—that you'd like me to use? If you can't think of any right now, feel free to upload them later at any point during this writing process."
-
+            "PROMPT" :`** Persona **You are an AI assistant for the Federal Funds and Infrastructure Office (FFIO) in Massachusetts. Your role is to help users collaboratively craft narrative document for grant application mentioned earlier, using the NOFO and knowledge base summaries as context.
+            **  Guidelines:**
+            1. Please, DO NOT mention internal functions, tools, system messages, error messages, or technical issues in the response (e.g., query_db function).
+            2. Maintain professionalism; avoid technical references or unnecessary apologies.
+            3. If information is missing, politely ask for clarification.
+            4. Engage confidently and collaboratively without mentioning system limitations.
+            **** Process ****
+            ** 1. Gather context ** 
+            1. Ask for the name of the user's organization/municipality/town/tribe if not provided, and use it in all responses.
+            2. Encourage the user to upload additional documents or data to enhance the narrative.
+            Guide through writing the project narrative for the grant step by step as organized in the 'Step-by-Step Collaboration' section below. Provide the drafted section of the project narrative in each response then ask the user for the next step.
             **Section-by-Section Collaboration:**
-
-            1. Work through the narrative document one section at a time.
-              For each section:
-              i. Introduce the section:
-                "The next section is [section name]. This section focuses on [brief description of the section]."
-              ii. Ask for the user's input:
-                "Do you have any ideas on what to include in this section? If you'd like, I can provide a first draft for us to refine together."
-              iii. Incorporate user input or provide a draft:
-                If the user provides input, include it in the draft.
-                If not, offer a first draft based on available information.
-                  "Here's a draft based on the information we have. What do you think? How can we improve it?"
-              iv. Iteratively refine the section until the user is satisfied.
-              v. Do not proceed to the next section until the user confirms they are satisfied with the current one.
-        
+            Work through the narrative document *one section* at a time.
+              1. Introduce the section: Briefly explain its focus and importance.
+              2. Ask for input: "What ideas do you have for this section? I can also provide a draft to refine together."
+              3. Draft and refine: Incorporate user input or provide a draft, iterating until the user approves.
+              4. Move to the next section only after the current one is finalized.
             **Finalizing the Document:**
               After all sections are completed to the user's satisfaction, provide the entire narrative document for review.
               Example:
                 "Here's the complete narrative document based on our work together. Please review it and let me know if there's anything you'd like to adjust."
-            **Additional Guidelines:** 
-              Maintain a Professional and Friendly Tone:
-              1. Engage with the user in a conversational and approachable manner.
-              2. Ask clarifying questions to better understand their needs.
-              3. Provide suggestions and offer insights that could enhance their grant application.
             **Prioritize Contextual Information:**
               1. Use the NOFO document, gathered summaries, and any additional user-provided resources as primary references.
               2. Prioritize sources and information specific to the State of Massachusetts.
@@ -181,6 +161,27 @@ export class LambdaFunctionStack extends cdk.Stack {
     }));
 
     this.feedbackFunction = feedbackAPIHandlerFunction;
+
+    const kbSyncAPIHandlerFunction = new lambda.Function(scope, 'SyncKBHandlerFunction', {
+      functionName: 'syncKBFunction',
+      runtime: lambda.Runtime.PYTHON_3_12, // Choose any supported Node.js runtime
+      code: lambda.Code.fromAsset(path.join(__dirname, 'knowledge-management/kb-sync')), // Points to the lambda directory
+      handler: 'lambda_function.lambda_handler', // Points to the 'hello' file in the lambda directory
+      environment: {
+        "KB_ID" : props.knowledgeBase.attrKnowledgeBaseId,      
+        "SOURCE" : props.knowledgeBaseSource.attrDataSourceId  
+      },
+      timeout: cdk.Duration.seconds(30)
+    });
+
+    kbSyncAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: [
+        'bedrock:*'
+      ],
+      resources: [props.knowledgeBase.attrKnowledgeBaseArn]
+    }));
+    this.syncKBFunction = kbSyncAPIHandlerFunction;
     
     const deleteS3APIHandlerFunction = new lambda.Function(scope, 'DeleteS3FilesHandlerFunction', {
       runtime: lambda.Runtime.PYTHON_3_12, // Choose any supported Node.js runtime
@@ -247,18 +248,60 @@ export class LambdaFunctionStack extends cdk.Stack {
       handler: 'index.handler',
       environment: {
         "BUCKET": props.ffioNofosBucket.bucketName,
+        "SYNC_KB_FUNCTION_NAME": 'syncKBFunction',
       },
       timeout: cdk.Duration.minutes(9)
     });
+    // processNOFOAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
+    //   effect: iam.Effect.ALLOW,
+    //   actions: [
+    //     's3:*',
+    //     'bedrock:*',
+    //     'textract:*'
+    //   ],
+    //   resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*",'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0']
+    // }));
+    // S3 permissions
     processNOFOAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
       effect: iam.Effect.ALLOW,
       actions: [
-        's3:*',
-        'bedrock:*',
-        'textract:*'
+        's3:GetObject',
+        's3:PutObject',
+        's3:ListBucket',
       ],
-      resources: [props.ffioNofosBucket.bucketArn,props.ffioNofosBucket.bucketArn+"/*",'arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-3-sonnet-20240229-v1:0']
+      resources: [
+        props.ffioNofosBucket.bucketArn,
+        `${props.ffioNofosBucket.bucketArn}/*`,
+      ],
     }));
+
+    // Textract permissions
+    processNOFOAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: [
+        'textract:StartDocumentTextDetection',
+        'textract:GetDocumentTextDetection',
+      ],
+      resources: ['*'],
+    }));
+
+    // Bedrock permissions
+    processNOFOAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: [
+        'bedrock:InvokeModel',
+      ],
+      resources: ['*'], 
+    }));
+
+    processNOFOAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
+      effect: iam.Effect.ALLOW,
+      actions: ['lambda:InvokeFunction'],
+      resources: [this.syncKBFunction.functionArn],
+    }));
+    
+
+    
     this.processAndSummarizeNOFO = processNOFOAPIHandlerFunction;
     processNOFOAPIHandlerFunction.addEventSource(new S3EventSource(props.ffioNofosBucket, {
       events: [s3.EventType.OBJECT_CREATED],
@@ -287,25 +330,7 @@ export class LambdaFunctionStack extends cdk.Stack {
 
 
 
-    const kbSyncAPIHandlerFunction = new lambda.Function(scope, 'SyncKBHandlerFunction', {
-      runtime: lambda.Runtime.PYTHON_3_12, // Choose any supported Node.js runtime
-      code: lambda.Code.fromAsset(path.join(__dirname, 'knowledge-management/kb-sync')), // Points to the lambda directory
-      handler: 'lambda_function.lambda_handler', // Points to the 'hello' file in the lambda directory
-      environment: {
-        "KB_ID" : props.knowledgeBase.attrKnowledgeBaseId,      
-        "SOURCE" : props.knowledgeBaseSource.attrDataSourceId  
-      },
-      timeout: cdk.Duration.seconds(30)
-    });
 
-    kbSyncAPIHandlerFunction.addToRolePolicy(new iam.PolicyStatement({
-      effect: iam.Effect.ALLOW,
-      actions: [
-        'bedrock:*'
-      ],
-      resources: [props.knowledgeBase.attrKnowledgeBaseArn]
-    }));
-    this.syncKBFunction = kbSyncAPIHandlerFunction;
 
     // NOFO UPLOAD ATTEMPT
     const nofoUploadS3APIHandlerFunction = new lambda.Function(scope, 'nofoUploadS3FilesHandlerFunction', {

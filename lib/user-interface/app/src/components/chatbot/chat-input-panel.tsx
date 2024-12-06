@@ -1,5 +1,5 @@
 import {
-  Button,
+  //Button,
   Container,
   Icon,
   Select,
@@ -8,6 +8,7 @@ import {
   Spinner,
   StatusIndicator,
 } from "@cloudscape-design/components";
+import { Button } from '../../themed/components';
 import {
   Dispatch,
   SetStateAction,
@@ -160,17 +161,22 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
       props.setRunning(true);
       let receivedData = '';
 
+      if(messageHistoryRef.current.length === 0){
+        const initialMessage = props.messageHistory[0];
+        if (initialMessage){
+          messageHistoryRef.current.push(initialMessage);
+        }
+      }
+
       /**Add the user's query to the message history and a blank dummy message
        * for the chatbot as the response loads
        */
       messageHistoryRef.current = [
         ...messageHistoryRef.current,
-
         {
           type: ChatBotMessageType.Human,
           content: messageToSend,
-          metadata: {
-          },
+          metadata: {},
         },
         {
           type: ChatBotMessageType.AI,

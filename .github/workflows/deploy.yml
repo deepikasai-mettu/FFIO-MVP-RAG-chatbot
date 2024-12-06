@@ -23,6 +23,7 @@ jobs:
       run: |
         cd lib/user-interface/app
         npm install
+        npm run build:theme
     # Step 5: Configure AWS credentials
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v2

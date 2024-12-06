@@ -49,15 +49,15 @@ export default function GlobalHeader() {
   //     setTheme(StorageHelper.applyTheme(Mode.Dark));
   //   }
   // };
-  // const onUserProfileClick = ({
-  //   detail,
-  // }: {
-  //   detail: ButtonDropdownProps.ItemClickDetails;
-  // }) => {
-  //   if (detail.id === "signout") {
-  //     Auth.signOut();
-  //   }
-  // };
+  const onUserProfileClick = ({
+    detail,
+  }: {
+    detail: ButtonDropdownProps.ItemClickDetails;
+  }) => {
+    if (detail.id === "signout") {
+      Auth.signOut();
+    }
+  };
 
   return (
     <div
@@ -68,7 +68,7 @@ export default function GlobalHeader() {
         left: 0, 
         right: 0, 
         position: "fixed",
-        backgroundColor: "#006499"
+        backgroundColor: "#0073bb"
       }}
       className="awsui-context-top-navigation"
     >

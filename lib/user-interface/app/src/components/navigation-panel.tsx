@@ -2,7 +2,7 @@ import {
   SideNavigation,
   SideNavigationProps,
   Header,
-  Button,
+  // Button,
   Link,
   Box,
   StatusIndicator,
@@ -12,6 +12,10 @@ import {
   Tabs,
   Alert
 } from "@cloudscape-design/components";
+// import {
+//   Button,
+// } from '../../themed/components';
+import { Button } from '../themed/components';
 import { useContext, useState, useEffect } from "react";
 import useOnFollow from "../common/hooks/use-on-follow";
 import { useNavigationPanelState } from "../common/hooks/use-navigation-panel-state";
@@ -28,8 +32,17 @@ import { Utils } from "../common/utils.js";
 import BackArrowIcon from "../../public/images/back-arrow.jsx";
 import DocumentsTab from "../pages/admin/documents-tab";
 import DataFileUpload from "../pages/admin/file-upload-tab";
+import { useSearchParams } from "react-router-dom";
 
 export default function NavigationPanel({ documentIdentifier }) {
+  const [searchParams] = useSearchParams();
+  const folderParam = searchParams.get("folder");
+  const identifier = documentIdentifier || folderParam;
+
+  console.log("NavigationPanel - documentIdentifier:", documentIdentifier);
+  console.log("NavigationPanel - folderParam:", folderParam);
+  console.log("NavigationPanel - identifier:", identifier);
+
   const appContext = useContext(AppContext);
   const apiClient = new ApiClient(appContext);
   const onFollow = useOnFollow();
@@ -46,6 +59,7 @@ export default function NavigationPanel({ documentIdentifier }) {
   const [showUnsyncedAlert, setShowUnsyncedAlert] = useState(false);
   
   console.log("NAV PANEL: ", documentIdentifier);
+  const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(identifier)}`
 
   const loadSessions = async () => {
     let username;
@@ -87,58 +101,18 @@ export default function NavigationPanel({ documentIdentifier }) {
         items: sessions.map(session => ({
           type: "link",
           text: session.title,
-          href: `/chatbot/playground/${session.session_id}`,
+          href: `/chatbot/playground/${session.session_id}?folder=${session.document_identifier}`,
         })).concat([{
           type: "link",
           info: (
             <Box margin="xxs" textAlign="center">
               <RouterButton href={`/chatbot/sessions?folder=${encodeURIComponent(documentIdentifier || '')}`} loading={loadingSessions} variant="link">View All Sessions</RouterButton>
-              <Button onClick={onReloadClick} iconName="refresh" loading={loadingSessions} variant="link">Reload Sessions</Button>
+                  <Button onClick={onReloadClick} iconName="refresh" loading={loadingSessions} variant="link">
+                    Reload Sessions
+                  </Button>
             </Box>
           ),
         }]),
-      },
-      {
-        type: "section",
-        text: "Resources",
-        items: [
-          {
-            type: "link",
-            //text: "Current Files",
-            href: "#",
-            info: (
-              <DocumentsTab
-                tabChangeFunction={() => setActiveTab("add-data")}
-                documentType="file"
-                statusRefreshFunction={refreshSyncTime}
-                lastSyncTime={lastSyncTime}
-                setShowUnsyncedAlert={setShowUnsyncedAlert}
-              />
-            ),
-          },
-          {
-            type: "link",
-            text: "Add Files",
-            href: "#",
-            info: (
-              <DataFileUpload 
-                tabChangeFunction={() => setActiveTab("file")}
-              />
-            ),
-          },
-          {
-            type: "link",
-            text: "Prompt Engineering Guide",
-            href: "/images/Prompt Suggestions for Grantwell's Chatbot Users.pdf",
-            external: true
-          },
-          { 
-            type: "link", 
-            text: "Provide Feedback", 
-            href: "https://forms.gle/jNHk8usCSNBzhL998", 
-            external: true 
-          },
-        ]
       }
     ];
     setItems(newItems);
@@ -169,46 +143,179 @@ export default function NavigationPanel({ documentIdentifier }) {
 
   return (
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ flex: 1, minHeight: 0 }}>
       <Box margin="xs" padding={{ top: "l" }} textAlign="center">
-      <SpaceBetween size="xl">
-        <Button 
-          onClick={() => navigate(`/landing-page/basePage/checklists/${encodeURIComponent(documentIdentifier)}`)}
-          variant="primary"
-          aria-label="Return to Home Page"
-          iconSvg={<BackArrowIcon />}
-        >
-          Back to requirements
-        </Button>
-
-        <RouterButton
-          iconAlign="right"
-          iconSvg={<PencilSquareIcon />}
-          variant="primary"
-          //href={`/chatbot/playground/${uuidv4()}`}
-          href={`/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}`}
-          data-alignment="right"
-          className="new-chat-button"
-          style={{ textAlign: "right" }}
-        >
-          Start new session
-        </RouterButton>
+        <div style={{ 
+          display: 'flex', 
+          justifyContent: 'center',
+        }}>
+          <Button
+            iconAlign="left"
+            iconSvg={<PencilSquareIcon />}
+            variant="primary"
+            onClick={() => navigate(`/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(identifier)}`)}
+            className="new-chat-button"
+            // style={{ 
+            //   textAlign: "center",
+            //   justifyContent: "center",
+            //   display: "inline-flex",
+            //   alignItems: "center",
+            //   width: "250px"
+            // }}
+          >
+            New Chatbot Session
+          </Button>
+        </div>
+        <div style={{
+        borderBottom: '1px solid #f4f4f4', 
+        padding: '8px 0',
+        margin: '0 30px'
+        }}>
+        </div>
+        <div style={{ 
+          marginTop: '20px',
+          margin: "0 10px",
+          color: "#666871",
+          fontSize: "13px" }}>Navigate to the GrantWell chatbot, which will help you craft your project narrative.</div>
+              <div>
+  <p style={{ fontSize: '13px', color: '#555', marginBottom: '0px' }}>
+    For guidance prompting the chatbot, please navigate to the below
+    <br />
+    <a href="/images/Prompt Suggestions for Grantwell's Chatbot Users.pdf" target="_blank" rel="noopener noreferrer">
+      Prompt Engineering Guide.
+    </a>
+    <br />
+  </p>
+</div>
+      </Box>
+      <div style={{ 
+        borderBottom: '1px solid #dedee2', 
+        padding: '8px 0',
+        margin: '0 30px'
+      }}>
+        <Box />
+      </div>
+    
+      
+      <Box margin="xs" padding={{ top: "l" }} textAlign="center">
+        <SpaceBetween size="s">
+          <Box textAlign="right" margin={{ right: "l" }}>
+              <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Key Requirements</h2>
+          </Box>
+          <Box textAlign="right" margin={{ right: "l" }}>
+    <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#eligibility`}>
+      <span style={{ color: '#0073bb' }}>Eligibility Criteria</span>
+    </Link>
+  </Box>
+  <Box textAlign="right" margin={{ right: "l" }}>
+    <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#narrative`}>
+      <span style={{ color: '#0073bb' }}>Project Narrative Components</span>
+    </Link>
+  </Box>
+  <Box textAlign="right" margin={{ right: "l" }}>
+    <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#documents`}>
+      <span style={{ color: '#0073bb' }}>Documents Required</span>
+    </Link>
+  </Box>
+  <Box textAlign="right" margin={{ right: "l" }}>
+    <Link href={`/landing-page/basePage/checklists/${encodeURIComponent(identifier)}?folder=${encodeURIComponent(identifier)}#deadlines`}>
+      <span style={{ color: '#0073bb' }}>Key Deadlines</span>
+    </Link>
+  </Box>
         </SpaceBetween>
       </Box>
-
-        {loaded ? (
-          <SideNavigation
-            activeHref={activeHref}
-            onFollow={event => {
-              if (!event.detail.external) {
-                event.preventDefault();
-                setActiveHref(event.detail.href);
-                onFollow(event);
-              }
-            }}
-            onChange={onChange}
-            items={items}
+      <div style={{ 
+        borderBottom: '1px solid #dedee2', 
+        padding: '8px 0',
+        margin: '0 30px'
+      }}>
+        <Box />
+      </div>
+      
+      <Box margin="xs" padding={{ top: "l" }} textAlign="center">
+        <SpaceBetween size="xl">
+          <Box textAlign="right" margin={{ right: "l" }}>
+            <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>File Upload</h2>
+          </Box>
+        </SpaceBetween>
+      </Box>
+      <Box margin={{ horizontal: "l" }}>
+        <SpaceBetween size="l">
+          <DataFileUpload 
+            tabChangeFunction={() => setActiveTab("file")}
           />
+          <Button
+            variant="link"
+            iconName={activeTab === "backend-controls" ? "caret-down" : "caret-up"}
+            onClick={() => setActiveTab(activeTab === "backend-controls" ? "" : "backend-controls")}
+          >
+            Manage Backend Files
+          </Button>
+          {activeTab === "backend-controls" && (
+            <DocumentsTab
+              tabChangeFunction={() => setActiveTab("add-data")}
+              documentType="file"
+              statusRefreshFunction={refreshSyncTime}
+              lastSyncTime={lastSyncTime}
+              setShowUnsyncedAlert={setShowUnsyncedAlert}
+            />
+          )}
+        </SpaceBetween>
+      </Box>
+      <div style={{ 
+        borderBottom: '1px solid #dedee2', 
+        padding: '8px 0',
+        margin: '0 30px'
+      }}>
+        <Box />
+      </div>
+      
+      <Box margin="xs" padding={{ top: "l" }} textAlign="center">
+        <SpaceBetween size="xl">
+          <Box textAlign="right" margin={{ right: "l" }}>
+            <h2 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Session History</h2>
+          </Box>
+        </SpaceBetween>
+      </Box>
+      <div style={{ flex: 1, minHeight: 0 }}>
+        {loaded ? (
+          <Box margin={{ horizontal: "l" }}>
+            <SpaceBetween size="m">
+              {items
+                .find((section): section is SideNavigationProps.Section => 
+                  'text' in section && section.text === "Session History")
+                ?.items
+                .filter((item): item is SideNavigationProps.Link => 
+                  item.type === "link" && 'text' in item)
+                .map(session => (
+                  <Box textAlign="right" margin={{ right: "l" }} key={session.href}>
+                    <Link href={session.href}>
+                      <span style={{ color: '#0073bb' }}>{session.text}</span>
+                    </Link>
+                  </Box>
+                ))}
+              <Box textAlign="right" margin={{ right: "l" }}>
+                <SpaceBetween size="xs" direction="horizontal">
+                  <Button 
+                    onClick={() => navigate(`/chatbot/sessions?folder=${encodeURIComponent(documentIdentifier || '')}`)}
+                    loading={loadingSessions} 
+                    variant="link"
+                  >
+                    View All Sessions
+                  </Button>
+                  <Box margin={{ bottom: "s" }}>
+                    <Button 
+                      onClick={onReloadClick} 
+                      iconName="refresh" 
+                      loading={loadingSessions} 
+                      variant="link"
+                    >
+                      Reload Sessions
+                    </Button>
+                  </Box>
+                </SpaceBetween>
+              </Box>
+            </SpaceBetween>
+          </Box>
         ) : (
           <Box textAlign="center">
             <StatusIndicator type="loading">Loading sessions...</StatusIndicator>

@@ -8,11 +8,13 @@ import {
   Select,
   Container,
   Link,
-  Button,
+  // Button
 } from '@cloudscape-design/components';
+import { Button } from '../../themed/components';
 import { ApiClient } from '../../common/api-client/api-client';
 import { AppContext } from '../../common/app-context';
 import { v4 as uuidv4 } from 'uuid';
+import '../styles/base-page.css'
 
 export default function Welcome({ theme }) {
   console.log('entering base page');
@@ -82,7 +84,7 @@ export default function Welcome({ theme }) {
   };
 
   // **Effect Hooks**
-  // Check for admin status
+  // Check for admin privilege
   useEffect(() => {
     (async () => {
       try {
@@ -283,19 +285,89 @@ export default function Welcome({ theme }) {
     buttonAction = null,
     imageSrc = null, // Default to null if not provided
     imageAlt = '',
+    height,
     backgroundColor = '#06293d',
     mainTextColor = '#ffffff',
     bodyTextColor = '#ffffff',
-    buttonColor = '#FF9B00',
+    // buttonColor = '#FF9B00',
     titleFontSize = '24px',
-  }) => (
+    buttonVariant = "normal", // Default to "normal"
+    linkUrl = null,
+    imagePosition = 'right',
+    titleAlign = 'left',
+    imageWidth = '150px',
+  }: {
+    title: string;
+    description: string;
+    buttonText?: string;
+    buttonAction?: (() => void) | null;
+    imageSrc?: string | null;
+    imageAlt?: string;
+    backgroundColor?: string;
+    mainTextColor?: string;
+    bodyTextColor?: string;
+    titleFontSize?: string;
+    buttonVariant?: "primary" | "normal" | "link" | "icon";
+    linkUrl?: any;
+    height?: any;
+    imagePosition?: string;
+    titleAlign?: any;
+    imageWidth?: any;
+  }) => {
+    const content = (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          maxWidth: '900px',
+          alignItems: 'center',
+          margin: '0 auto',
+          flexDirection: 'row',
+          gap: '30px',
+          marginTop: '15px',
+        }}
+      >
+          {imagePosition === 'left' && imageSrc && (
+            <img src={imageSrc} alt={imageAlt} style={{width:imageWidth}}/>
+          )}
+          <div
+            style={{
+              display:'flex',
+              justifyContent: 'center',
+              flexDirection: 'column',
+              textAlign: titleAlign,
+            }}
+          >
+              { title && (
+                <h1 style={{ fontSize: titleFontSize, margin: 1, color:mainTextColor}}>
+                  {title}
+                </h1>
+              )}
+              <p style={{ fontSize: '13px', color: bodyTextColor}}>
+                {description}
+              </p>
+        </div>
+        {imagePosition === 'right' && imageSrc && (
+        <img src={imageSrc} alt={imageAlt} style={{ width: imageWidth }} />
+      )}
+        {buttonText && buttonAction && (
+          <Button
+            onClick={buttonAction}
+            variant={buttonVariant}
+            ariaLabel={buttonText}>
+              {buttonText}
+            </Button>
+        )}
+        </div>
+    );
+    return(
     <div
       style={{
         backgroundColor: backgroundColor,
         padding: '20px',
         marginBlockEnd: '0',
         width: '100vw',
-        height: "175px",
+        height: height,
         position: 'relative',
         left: '50%',
         right: '50%',
@@ -305,7 +377,22 @@ export default function Welcome({ theme }) {
         marginBottom: "0px",
       }}
     >
-      <div
+      {linkUrl ? (
+        <a
+          href={linkUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ textDecoration: 'none', color: 'inherit' }}
+          >
+            {content}
+          </a>
+      ): (
+        content
+      )}
+      </div>
+    );
+  };
+      {/* <div
         style={{
           display: 'flex',
           justifyContent: 'space-between',
@@ -313,7 +400,7 @@ export default function Welcome({ theme }) {
           alignItems: 'center',
           margin: '0 auto',
           flexDirection: 'row',
-          height: '120px',
+          //height: '120px',
           gap: '30px',
           marginTop: '15px',
         }}
@@ -331,7 +418,7 @@ export default function Welcome({ theme }) {
         {buttonText && buttonAction && (
           <Button 
             onClick={buttonAction} 
-            variant="normal"
+            variant={buttonVariant}
             aria-label={buttonText}
           >
             {buttonText}
@@ -342,7 +429,7 @@ export default function Welcome({ theme }) {
         )}
       </div>
     </div>
-  );
+  ); */}
 
   const ContentBox = ({ children, backgroundColor = '#f1f6f9' }) => (
     <div
@@ -370,6 +457,80 @@ export default function Welcome({ theme }) {
       >
         {children}
       </div>
+    </div>
+  );
+
+  // Replace the existing Cards component with this:
+  const ResourcesPanel = () => (
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(3, 1fr)", 
+        gap: "25px",
+        marginBottom: "30px"
+      }}
+    >
+      <h2 style={{ 
+        gridColumn: "span 3", 
+        fontSize: "24px", 
+        lineHeight: "1", 
+        textAlign: "center", 
+        color: mainTextColor 
+      }}>
+        Additional Resources
+      </h2>
+      {[
+        {
+          title: "Federal Grant Finder",
+          href: "https://www.usdigitalresponse.org/grant/grant-finder",
+          description: "Find grants you are eligible for with U.S. Digital Response's Federal Grants Finder.",
+        },
+        {
+          title: "Register for Federal Funds Partnership Meetings",
+          href: "https://us02web.zoom.us/meeting/register/tZUucuyhrzguHNJkkh-XlmZBlQQKxxG_Acjl",
+          description: "Stay updated on current funding opportunities by joining our monthly informational sessions.",
+        },
+        {
+          title: "Federal Grant Application Resources",
+          href: "https://www.mass.gov/lists/federal-funds-grant-application-resources",
+          description: "Access categorized grant resources on mass.gov.",
+        },
+      ].map((resource, index) => (
+        <div
+          key={index}
+          style={{
+            padding: "15px",
+            border: "1px solid #e1e4e8",
+            borderRadius: "8px",
+            backgroundColor: "#f9f9f9",
+            boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+            textAlign: "center" // Center all text content
+          }}
+        >
+          <Link
+            href={resource.href}
+            external
+          >
+            <span style={{ 
+              fontSize: "18px", 
+              fontWeight: "bold", 
+              display: "block", 
+              marginBottom: "8px", 
+              color: mainTextColor,
+              textAlign: "center" // Center the title specifically
+            }}>
+              {resource.title}
+            </span>
+          </Link>
+          <div style={{ 
+            fontSize: "14px", 
+            color: bodyTextColor,
+            textAlign: "center" // Center the description specifically
+          }}>
+            {resource.description}
+          </div>
+        </div>
+      ))}
     </div>
   );
 
@@ -497,13 +658,14 @@ export default function Welcome({ theme }) {
         {isAdmin && (
           <InfoBanner
             title="Admin Panel"
-            description="Upload a new NOFO to the dropdown above. It takes 5-7 minutes for the document to process and appear in the dropdown. Grab a coffee, and it'll be ready for your review!"
+            description="Upload a new NOFO to the NOFO dropdown above. It will take 5-7 minutes for the document to process and appear in the dropdown. Grab a coffee, and it'll be ready for your review!"
             buttonText="Upload New NOFO"
             buttonAction={uploadNOFO}
             backgroundColor="##f1f6f9"
             mainTextColor="#006499"
             bodyTextColor="#6c757d"
             titleFontSize='24px'
+            buttonVariant="primary"
           />
         )}
 
@@ -511,106 +673,45 @@ export default function Welcome({ theme }) {
 
         {/* "Additional Resources" Panel */}
         <ContentBox>
-          <h2 style={{ fontSize: '24px', marginBottom: '40px', color: mainTextColor }}>Additional Resources</h2>
-          <Cards
-            cardDefinition={{
-              header: (item) => (
-                <div
-                  style={{
-                    height: '60px', // Fixed height for the header
-                    overflow: 'hidden', // Hide overflow if title exceeds height
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: mainTextColor
-                  }}
-                >
-                  <Link href={item.href} external fontSize="heading-m">
-                    {item.name}
-                  </Link>
-                </div>
-              ),
-              sections: [
-                {
-                  content: (item) => (
-                    <div style={{ minHeight: '200px' }}>
-                      <img
-                        src={item.img}
-                        alt={item.altText}
-                        style={{
-                          width: '100%',
-                          height: '200px',
-                          objectFit: 'cover',
-                          borderRadius: '20px',
-                        }}
-                      />
-                    </div>
-                  ),
-                },
-                {
-                  content: (item) => (
-                    <div style={{ fontSize: '16px', color: '#555' }}>
-                      {item.description}
-                    </div>
-                  ),
-                },
-              ],
-            }}
-            cardsPerRow={[{ cards: 1 }, { minWidth: 700, cards: 3, }]}
-            items={[
-              {
-                name: 'Register for Federal Funds Partnership Meetings',
-                external: true,
-                href:
-                  'https://us02web.zoom.us/meeting/register/tZUucuyhrzguHNJkkh-XlmZBlQQKxxG_Acjl',
-                img: '/images/Welcome/massFlag.png',
-                altText: 'The Massachusetts state flag waving in the wind',
-                description:
-                  'Stay updated on funding opportunities by joining our monthly sessions.',
-              },
-              {
-                name: 'Federal Grant Application Resources',
-                external: true,
-                href:
-                  'https://www.mass.gov/lists/federal-funds-grant-application-resources',
-                img: '/images/Welcome/resources.png',
-                altText:
-                  'Skyline of downtown Boston at sunset, featuring historic and modern buildings',
-                description:
-                  'Access categorized grant resources for streamlined applications.',
-              },
-              {
-                name: 'Federal Grant Finder',
-                external: true,
-                href: 'https://www.usdigitalresponse.org/grant/grant-finder',
-                img: '/images/Welcome/grantFinder.png',
-                altText:
-                  'Animated illustration of four characters celebrating federal grant funding, holding a check, coins, and a magnifying glass',
-                description:
-                  'Enhanced search and collaboration tools to optimize access to grants.',
-              },
-            ]}
-          />
+          <ResourcesPanel />
         </ContentBox>
 
         {/* </SpaceBetween> */}
         {/* Feedback Section */}
         <InfoBanner
           title="We Value Your Feedback!"
+          height="150px"
           description="Help us make GrantWell better by sharing your thoughts and suggestions."
           buttonText="Open Feedback Form"
           buttonAction={() =>
             window.open('https://forms.gle/M2PHgWTVVRrRubpc7', '_blank')
           }
           backgroundColor='#006499'
-          buttonColor="#FF9B00"
+          // buttonColor="#FF9B00"
         />
 
         {/* Affiliations Section */}
         <InfoBanner
           title="Our Affiliations"
-          description="GrantWell is proudly owned by the Burnes Center for Social Change."
+          height= "125px"
+          description=""
           imageSrc="/images/burnesLogo.png"
           imageAlt="Burnes Center Logo"
+          titleAlign="left"
+          imagePosition='right'
+          imageWidth="200px"
+        />
+        <InfoBanner
+          title=''
+          height= "100px"
+          imageSrc='/images/creativeCommons.png'
+          imageAlt='Creative Commons'
+          description="This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License"
+          linkUrl={'https://creativecommons.org/licenses/by-sa/4.0/'}
+          backgroundColor='#000000'
+          titleFontSize='16px'
+          imagePosition='left'
+          imageWidth="75px"
         />
       </div>
     </Container>
