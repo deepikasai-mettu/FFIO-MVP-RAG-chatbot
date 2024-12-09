@@ -2,9 +2,10 @@
 
 .chat_container {
   position: relative;
-  height: calc(100vh - 100px);
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .session_link {
@@ -53,11 +54,14 @@
 }
 
 .input_container {
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  left: 0;
+  right: 0;
   background-color: white;
-  padding-top: 10px;
-  z-index: 1;
+  padding: 20px;
+  border-top: 1px solid #eaeded;
+  z-index: 100;
 }
 
 .input_textarea_container {
