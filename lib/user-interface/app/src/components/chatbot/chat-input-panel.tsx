@@ -161,11 +161,27 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
       props.setRunning(true);
       let receivedData = '';
 
-      if(messageHistoryRef.current.length === 0){
-        const initialMessage = props.messageHistory[0];
-        if (initialMessage){
-          messageHistoryRef.current.push(initialMessage);
-        }
+      let newChatEntry = [];
+
+      const isFirstMessage = messageHistoryRef.current.length === 1;
+
+      if(isFirstMessage){
+        newChatEntry = [
+          messageHistoryRef.current[0],
+          {
+            type: ChatBotMessageType.Human,
+            content: messageToSend,
+            metadata: {},
+          },
+        ];
+      } else {
+        newChatEntry = [
+          {
+            type:ChatBotMessageType.Human,
+            content: messageToSend,
+            metadata: {},
+          },
+        ];
       }
 
       /**Add the user's query to the message history and a blank dummy message
@@ -173,11 +189,8 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
        */
       messageHistoryRef.current = [
         ...messageHistoryRef.current,
-        {
-          type: ChatBotMessageType.Human,
-          content: messageToSend,
-          metadata: {},
-        },
+        ...newChatEntry.slice(isFirstMessage ? 1 : 0),
+
         {
           type: ChatBotMessageType.AI,
           content: receivedData,
