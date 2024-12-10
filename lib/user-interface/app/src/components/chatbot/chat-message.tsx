@@ -48,17 +48,27 @@ export default function ChatMessage(props: ChatMessageProps) {
   const [selectedFeedbackType, setSelectedFeedbackType] = React.useState({label: "Select a Problem", value: "1"});
   const [value, setValue] = useState("");
 
-  if (!props.message) {
+  console.log("Props.message: ",props.message);
+
+  if (props.message.content === "undefined") {
+    console.log("in chat props")
     return null;
   }
 
 
-  const content =
-  typeof props.message?.content === "string" && props.message.content.length > 0
-      ? props.message.content
-      : "";
+  // const content =
+  // typeof props.message?.content === "string" && props.message.content.length > 0
+  //     ? props.message.content
+  //     : "";
 
-    const showSources = props.message.metadata?.Sources && Array.isArray(props.message.metadata.Sources) && props.message.metadata.Sources.length > 0;
+
+    //const showSources = props.message.metadata?.Sources && Array.isArray(props.message.metadata.Sources) && props.message.metadata.Sources.length > 0;
+    const content = typeof props.message.content === "string" && props.message.content.length > 0
+  ? props.message.content
+  : "";
+
+const showSources = Array.isArray(props.message.metadata?.Sources) && props.message.metadata.Sources.length > 0;
+
   
 
   return (

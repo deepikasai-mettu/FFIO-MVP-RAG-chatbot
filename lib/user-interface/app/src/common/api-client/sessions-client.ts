@@ -133,30 +133,61 @@ export class SessionsClient {
     if (!validData) {
       throw new Error(errorMessage)
     }
+    console.log("Raw output from backend: ", output);
+
+    let normalizedOutput: any[] = [];
     let history: ChatBotHistoryItem[] = [];
-    // console.log(output);
     if (output === undefined) {
+      console.log("in the sessions-clients undefined output");
       return history;
     }
-    output.forEach(function (value) {
-      console.log("Sources from sessions-client: ", value.metadata);
-      let metadata = {}
-      if (value.metadata) {
-        metadata = { "Sources": JSON.parse(value.metadata) }
+
+    // Check each element. If it's an array, we spread it into normalizedOutput; otherwise, push directly.
+    output.forEach((element: any) => {
+      if (Array.isArray(element)) {
+        normalizedOutput.push(...element);
+      } else {
+        normalizedOutput.push(element);
       }
-      history.push({
-        type: ChatBotMessageType.Human,
-        content: value.user,
-        metadata: {
-        },
-      },
-        {
+    });
+
+    
+    console.log("Normalized output: ", normalizedOutput);
+
+    
+    normalizedOutput.forEach((item: any) => {
+      console.log("Each item: ", item);
+
+      // Parse metadata if it's a string, otherwise keep it as is.
+      const parsedMetadata = typeof item.metadata === "string" 
+        ? JSON.parse(item.metadata) 
+        : item.metadata;
+
+      // If there's a user message, add it as a human message in the history
+      if (item.user) {
+        console.log("User message found: ", item.user);
+        history.push({
+          type: ChatBotMessageType.Human,
+          content: item.user || "",
+          metadata: {}
+        });
+      }
+
+      // If there's a chatbot message, add it as an AI message in the history
+      if (item.chatbot) {
+        console.log("Chatbot response found: ", item.chatbot);
+        history.push({
           type: ChatBotMessageType.AI,
-          content: value.chatbot,
-          metadata: metadata,
-        },)
-    })
+          content: item.chatbot || "",
+          metadata: parsedMetadata || {}
+        });
+      }
+    });
+
+    console.log("Parsed session history: ", history);
+
     return history;
+
   }
 
   /**Deletes a given session but this is not exposed in the UI */
@@ -182,36 +213,5 @@ export class SessionsClient {
     }
     return "DONE";
   }
-
-  // async createSession (
-  //   sessionId: string,
-  //   userId: string,
-  //   documentIdentifier: string,
-  // ) {
-  //   console.log("create session with document identifier: ", documentIdentifier);
-  //     const auth = await Utils.authenticate();
-  //     const response = await fetch(this.API + '/user-session', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Authorization': 'Bearer ' + auth,
-  //       },
-  //       body: JSON.stringify({
-  //         operation: "add_session",
-  //         session_id: sessionId,
-  //         user_id: userId,
-  //         document_identifier: documentIdentifier,
-  //         new_chat_entry: [{
-  //           type: 'system',
-  //           content: 'Hello! Welcome to grantwell. I see that you are working on ${documentIdentifier}. How can I help you today?',  // can modify later
-  //         },],
-  //       }),
-
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error ('Error creating new session: ${response.statusText}');
-  //     }
-  //     return await response.json()
-  // }
 
 }
