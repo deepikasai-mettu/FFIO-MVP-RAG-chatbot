@@ -25,7 +25,7 @@ The chatbot will prompt the applicant to provide details about who is applying f
 
 <p>For more information, visit the <a href="https://aws-samples.github.io/aws-genai-llm-chatbot/" target="_blank">AWS GenAI LLM Chatbot</a>.</p>
 
-# Developers (link all of our Githubs here)
+# Developers 
 <p><a href="" target="_blank">Deepika Mettu</a></p>
 
 <p><a href="" target="_blank">Serena Green</a></p>
