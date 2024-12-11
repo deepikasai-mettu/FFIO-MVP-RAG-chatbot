@@ -64,18 +64,6 @@ export default function ChatMessage(props: ChatMessageProps) {
     const content = typeof props.message.content === "string" && props.message.content.length > 0
   ? props.message.content
   : "";
-  // const content =
-  // typeof props.message?.content === "string" && props.message.content.length > 0
-  //     ? props.message.content
-  //     : "";
-
-
-    //const showSources = props.message.metadata?.Sources && Array.isArray(props.message.metadata.Sources) && props.message.metadata.Sources.length > 0;
-    const content = typeof props.message.content === "string" && props.message.content.length > 0
-  ? props.message.content
-  : "";
-
-const showSources = Array.isArray(props.message.metadata?.Sources) && props.message.metadata.Sources.length > 0;
 
 const showSources = Array.isArray(props.message.metadata?.Sources) && props.message.metadata.Sources.length > 0;
 
