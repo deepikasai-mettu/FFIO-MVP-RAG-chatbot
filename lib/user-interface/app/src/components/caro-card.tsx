@@ -22,10 +22,8 @@ const onFollow = useOnFollow();
 
   const handleFollow = (event, url) => {
     event.preventDefault();
-    console.log("in handle follow of the try it button.");
     const newEvent = new CustomEvent("follow", { detail: { href: url, external: false } });
     onFollow(newEvent);
-    console.log("after on follow");
   };
   return (
     <div onClick={(e)=>handleFollow(e, props.url)} style={{ cursor: 'pointer' }}>

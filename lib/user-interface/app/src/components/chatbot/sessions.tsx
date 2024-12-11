@@ -175,7 +175,6 @@ export default function Sessions(props: SessionsProps) {
         // variant="full-page"
         items={items}
         onSelectionChange={({ detail }) => {
-          console.log(detail);
           setSelectedItems(detail.selectedItems);
         }}
         selectedItems={selectedItems}

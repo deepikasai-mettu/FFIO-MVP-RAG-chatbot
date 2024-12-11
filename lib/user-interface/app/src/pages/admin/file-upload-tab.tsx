@@ -138,7 +138,6 @@ export default function DataFileUpload(props: FileUploadTabProps) {
         const fileExtension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
         const fileType = mimeTypes[fileExtension];
         const result = await apiClient.knowledgeManagement.getUploadURL(file.name,fileType);
-        // console.log(result);      
         try {
           await uploader.upload(
             file,

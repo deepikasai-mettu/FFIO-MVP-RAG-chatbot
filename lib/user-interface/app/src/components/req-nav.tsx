@@ -44,8 +44,6 @@ export default function NavigationPanel({ documentIdentifier }) {
   const [activeTab, setActiveTab] = useState("file");
   const [lastSyncTime, setLastSyncTime] = useState("");
   const [showUnsyncedAlert, setShowUnsyncedAlert] = useState(false);
-  
-  console.log("NAV PANEL: ", documentIdentifier);
   const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(documentIdentifier)}`
 
   const loadSessions = async () => {

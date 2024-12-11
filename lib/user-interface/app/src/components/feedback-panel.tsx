@@ -13,7 +13,6 @@ export interface FeedbackPanelProps {
 export default function EmailPanel(props: FeedbackPanelProps) {
 
   useEffect(() => {
-    console.log(props.selectedFeedback)
   }, [props.selectedFeedback]);
 
   return (

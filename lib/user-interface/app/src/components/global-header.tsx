@@ -27,7 +27,6 @@ export default function GlobalHeader() {
   useEffect(() => {
     (async () => {
       const result = await Auth.currentAuthenticatedUser();    
-      // console.log(result);  
       if (!result || Object.keys(result).length === 0) {
         console.log("Signed out!")
         Auth.signOut();

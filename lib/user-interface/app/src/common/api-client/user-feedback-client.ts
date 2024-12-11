@@ -13,7 +13,6 @@ export class UserFeedbackClient {
   // Takes in a piece of feedback (which has a prompt, completion, session ID, and the actual feedback (1 or 0))
   async sendUserFeedback(feedbackData) {
 
-    console.log(feedbackData);
     const auth = await Utils.authenticate();
     const response = await fetch(this.API + '/user-feedback', {
       method: 'POST',
@@ -26,7 +25,6 @@ export class UserFeedbackClient {
     /** TODO: add error handling for when it does not go through successfully.
      * I neglected to do so because this is not critical functionality
      */
-    console.log(response);
   }
 
   /** This is similar to getUserFeedback below, but initiates a CSV download */

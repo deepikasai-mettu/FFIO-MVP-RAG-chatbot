@@ -65,7 +65,6 @@ export class SessionsClient {
     if (!validData) {
       throw new Error(errorMessage);
     }
-    // console.log(output);
     return output;
   }
 
@@ -133,7 +132,6 @@ export class SessionsClient {
     if (!validData) {
       throw new Error(errorMessage)
     }
-    console.log("Raw output from backend: ", output);
 
     let normalizedOutput: any[] = [];
     let history: ChatBotHistoryItem[] = [];
@@ -152,11 +150,7 @@ export class SessionsClient {
     });
 
     
-    console.log("Normalized output: ", normalizedOutput);
-
-    
     normalizedOutput.forEach((item: any) => {
-      console.log("Each item: ", item);
 
       // Parse metadata if it's a string, otherwise keep it as is.
       const parsedMetadata = typeof item.metadata === "string" 
@@ -165,7 +159,6 @@ export class SessionsClient {
 
       // If there's a user message, add it as a human message in the history
       if (item.user) {
-        console.log("User message found: ", item.user);
         history.push({
           type: ChatBotMessageType.Human,
           content: item.user || "",
@@ -175,7 +168,6 @@ export class SessionsClient {
 
       // If there's a chatbot message, add it as an AI message in the history
       if (item.chatbot) {
-        console.log("Chatbot response found: ", item.chatbot);
         history.push({
           type: ChatBotMessageType.AI,
           content: item.chatbot || "",
@@ -184,9 +176,8 @@ export class SessionsClient {
       }
     });
 
-    console.log("Parsed session history: ", history);
-
     return history;
+
 
   }
 

@@ -96,7 +96,6 @@ export default function FeedbackTab(props: FeedbackTabProps) {
             return [...current];
           } else {
             /** Otherwise, not, and just append it to the end and hope it's correct */
-            console.log("pages?")
             return [...current, result];
           }
         });
@@ -116,7 +115,6 @@ export default function FeedbackTab(props: FeedbackTabProps) {
     setCurrentPageIndex(1);
     setSelectedItems([]);
     if (needsRefresh.current) {
-      // console.log("needs refresh!")
       getFeedback({ pageIndex: 1 });
     } else {
       getFeedback({ pageIndex: currentPageIndex });
@@ -205,8 +203,6 @@ export default function FeedbackTab(props: FeedbackTabProps) {
           columnDefinitions={columnDefinitions}
           selectionType="single"
           onSelectionChange={({ detail }) => {
-            // console.log(detail);
-            // needsRefresh.current = true;
             props.updateSelectedFeedback(detail.selectedItems[0])
             setSelectedItems(detail.selectedItems);
           }}

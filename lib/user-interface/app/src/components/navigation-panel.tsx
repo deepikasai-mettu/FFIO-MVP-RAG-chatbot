@@ -38,11 +38,6 @@ export default function NavigationPanel({ documentIdentifier }) {
   const [searchParams] = useSearchParams();
   const folderParam = searchParams.get("folder");
   const identifier = documentIdentifier || folderParam;
-
-  console.log("NavigationPanel - documentIdentifier:", documentIdentifier);
-  console.log("NavigationPanel - folderParam:", folderParam);
-  console.log("NavigationPanel - identifier:", identifier);
-
   const appContext = useContext(AppContext);
   const apiClient = new ApiClient(appContext);
   const onFollow = useOnFollow();
@@ -57,8 +52,6 @@ export default function NavigationPanel({ documentIdentifier }) {
   const [activeTab, setActiveTab] = useState("file");
   const [lastSyncTime, setLastSyncTime] = useState("");
   const [showUnsyncedAlert, setShowUnsyncedAlert] = useState(false);
-  
-  console.log("NAV PANEL: ", documentIdentifier);
   const linkUrl = `/chatbot/playground/${uuidv4()}?folder=${encodeURIComponent(identifier)}`
 
   const loadSessions = async () => {

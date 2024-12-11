@@ -28,9 +28,7 @@ export default function UserFeedbackPage() {
   useEffect(() => {
     (async () => {
       const result = await Auth.currentAuthenticatedUser();
-      // console.log(result);  
       if (!result || Object.keys(result).length === 0) {
-        console.log("Signed out!")
         Auth.signOut();
         return;
       }
@@ -46,8 +44,6 @@ export default function UserFeedbackPage() {
         }
       }
       catch (e){
-        // const userName = result?.attributes?.email;
-        console.log(e);
       }
     })();
   }, []);

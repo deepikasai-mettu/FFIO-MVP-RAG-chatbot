@@ -8,7 +8,6 @@ export default function Playground() {
   const { sessionId } = useParams();
   const [searchParams] = useSearchParams();
   const documentIdentifier = searchParams.get("folder"); // Retrieve documentIdentifier
-  console.log("PLAYGROUND Identifier:", documentIdentifier); // For debugging
 
   return (    
     <BaseAppLayout

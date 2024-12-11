@@ -22,7 +22,6 @@ import { CHATBOT_NAME } from "../../common/constants";
 import { useNotifications } from "../notif-manager";
 
 export default function Chat(props: { sessionId?: string; documentIdentifier?: string }) {
-  console.log("Chat props doc identifier: ", props.documentIdentifier);
   const appContext = useContext(AppContext);
   const [running, setRunning] = useState<boolean>(true);
   const [session, setSession] = useState<{ id: string; loading: boolean }>({
@@ -89,8 +88,6 @@ useEffect(() => {
       return;
     }
 
-    console.log("This is running");
-
     setSession({ id: props.sessionId, loading: true });
     
     const apiClient = new ApiClient(appContext);
@@ -100,10 +97,8 @@ useEffect(() => {
       );
       if (!username) return;
       const hist = await apiClient.sessions.getSession(props.sessionId, username);
-      console.log("hist: ", hist);
 
       if (hist && hist.length >0) {
-        console.log("in if");
         setMessageHistory(hist);
         window.scrollTo({
           top: 0,
@@ -114,7 +109,6 @@ useEffect(() => {
         const summaryResult = await apiClient.landingPage.getNOFOSummary(props.documentIdentifier);
         const grantName = summaryResult.data.GrantName;
 
-        console.log("in else");
         const initialMessage = {
           type: ChatBotMessageType.AI,
             content: `Hello! I see that you are working on the ${grantName} grant. Could you please tell me which agency, municipality, or tribe we are building this narrative for?`,
@@ -145,8 +139,6 @@ useEffect(() => {
     feedbackMessage?: string
   ) => {
     if (props.sessionId) {
-      console.log("submitting feedback...");
-
       const prompt = messageHistory[idx - 1].content;
       const completion = message.content;
 

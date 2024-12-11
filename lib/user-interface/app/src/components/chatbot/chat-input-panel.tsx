@@ -234,7 +234,6 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
 
       // The system prompt here will be over written by the one in functions.ts. Make sure to change the prompt there.
       ws.addEventListener('open', function open() {
-        console.log('Connected to the WebSocket server');
         const message = JSON.stringify({
           "action": "getChatbotResponse",
           "data": {
@@ -330,7 +329,6 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
             }
           })
           sources = { "Sources": sourceData }
-          console.log(sources);
         }
 
         // Update the chat history state with the new message        
@@ -364,7 +362,6 @@ export default function ChatInputPanel(props: ChatInputPanelProps) {
           Utils.delay(1500).then(() => setNeedsRefresh(true));
         }
         props.setRunning(false);
-        console.log('Disconnected from the WebSocket server');
       });
 
     } catch (error) {

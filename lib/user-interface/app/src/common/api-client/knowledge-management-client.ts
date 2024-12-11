@@ -57,7 +57,6 @@ export class KnowledgeManagementClient {
       }),
 
     });
-    console.log("FOLDER PREFIX CLIENT:", folderPrefix)
     if (!response.ok) {
       throw new Error('Failed to get files');
     }

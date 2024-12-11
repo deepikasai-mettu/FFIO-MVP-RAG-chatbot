@@ -17,8 +17,6 @@ import { v4 as uuidv4 } from 'uuid';
 import '../styles/base-page.css'
 
 export default function Welcome({ theme }) {
-  console.log('entering base page');
-
   // **State Variables**
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false); // Track admin status
@@ -90,7 +88,6 @@ export default function Welcome({ theme }) {
       try {
         const result = await Auth.currentAuthenticatedUser();
         if (!result || Object.keys(result).length === 0) {
-          console.log('Signed out!');
           Auth.signOut();
           return;
         }

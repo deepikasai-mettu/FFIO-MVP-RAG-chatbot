@@ -17,32 +17,12 @@ export interface SectionProps {
     isOpenDefault?: boolean;
 }
 
-const RightArrowIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    fill="currentColor"
-    className="bi bi-arrow-right"
-    viewBox="0 0 16 16"
-  >
-    <path
-      fillRule="evenodd"
-      d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
-    />
-  </svg>
-);
-
 export default function Checklists() {
     const navigate = useNavigate();
     const location = useLocation();
     const { documentIdentifier } = useParams();
     const [searchParams] = useSearchParams();
     const folderParam = searchParams.get("folder") || documentIdentifier;
-    
-    console.log("Checklist - documentIdentifier:", documentIdentifier);
-    console.log("Checklist - folderParam:", folderParam);
-
     const appContext = useContext(AppContext);
     const apiClient = new ApiClient(appContext);
     const [llmData, setLlmData] = useState({
@@ -67,9 +47,7 @@ export default function Checklists() {
 
     const getNOFOSummary = async () => {
         try {
-            console.log("document key: ", documentIdentifier);
             const result = await apiClient.landingPage.getNOFOSummary(documentIdentifier);
-            console.log("result: ", result);
             setLlmData({
                 grantName: result.data.GrantName,
                 narrative: result.data.ProjectNarrativeSections.map(section => `- **${section.item}**: ${section.description}`).join('\n'),
@@ -99,7 +77,6 @@ export default function Checklists() {
           <div style={{
             height: "calc(100vh - 100px)", // Adjust height to leave space for header
             overflowY: "auto", // Enable scrolling
-            //paddingBottom: "0px" // Add some bottom padding
           }}>
             <Box padding="m">
               <div
@@ -113,49 +90,7 @@ export default function Checklists() {
                   marginBottom: "0px", // Space below the toolbar
                 }}
               >
-                {/* Left Button */}
-                {/* <Button
-                  onClick={() => navigate('/landing-page/basePage')}
-                  variant="primary"
-                  aria-label="Return to Home Page"
-                  iconSvg={<BackArrowIcon />}
-                >
-                  Back to Home
-                </Button> */}
-
-                {/* Segmented Control */}
-                {/* <SegmentedControl
-                  selectedId={selectedSegment}
-                  onChange={({ detail }) => {
-                    setSelectedSegment(detail.selectedId);
-                    if (detail.selectedId === "seg-1") {
-                      navigate('/landing-page/basePage'); // Segment 1 takes you back to Home
-                    } else if (detail.selectedId === "seg-3") {
-                      navigate(linkUrl); // Segment 3 takes you to the Chatbot
-                    }
-                  }}
-                  label="Choose segment"
-                  options={[
-                    { text: "(1) NOFO Select", id: "seg-1" },
-                    { text: "(2) Key Information", id: "seg-2" }, // Highlighted by default on this page
-                    { text: "(3) Draft Narrative", id: "seg-3" },
-                  ]}
-                /> */}
-
-                {/* Right Button */}
-                {/* <Button
-                  onClick={() => navigate(linkUrl)}
-                  variant="primary"
-                  aria-label="Open Settings"
-                  iconSvg={<RightArrowIcon />}
-                  iconAlign="right"
-                >
-                  Go to Chatbot
-                </Button> */}
               </div>
-
-
-              {/* </SpaceBetween> */}
               {isloading ? (
                 <Box textAlign="center">
                   <Spinner size="large" />

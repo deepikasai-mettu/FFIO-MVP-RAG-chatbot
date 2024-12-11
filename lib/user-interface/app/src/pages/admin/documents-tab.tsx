@@ -43,8 +43,6 @@ export default function DocumentsTab(props: DocumentsTabProps) {
   //const { documentIdentifier } = useParams();
   const [searchParams] = useSearchParams();
   const documentIdentifier = searchParams.get("folder");
-  console.log("INSIDE OF DATA TAB")
-  console.log("DATA IDENTIFIER", documentIdentifier);
 
   /** Pagination, but this is currently not working.
    * You will likely need to take the items object from useCollection in the
@@ -100,7 +98,6 @@ export default function DocumentsTab(props: DocumentsTabProps) {
       
         return date;
       } catch (error) {
-        console.log(error)
         return new Date();
       }
     };
@@ -118,45 +115,11 @@ export default function DocumentsTab(props: DocumentsTabProps) {
     props.setShowUnsyncedAlert(hasUnsyncedFiles);
   }, [pages, props.lastSyncTime, props.setShowUnsyncedAlert]);
 
-  /** Function to get documents */
-  // const getDocuments = useCallback(
-  //   async (params: { continuationToken?: string; pageIndex?: number }) => {
-  //     setLoading(true);
-  //     try {
-  //       const result = await apiClient.knowledgeManagement.getDocuments(params?.continuationToken, params?.pageIndex)
-  //       console.log("Result: ", result);
-  //       await props.statusRefreshFunction();
-  //       setPages((current) => {
-  //         if (params.pageIndex !== undefined) {
-  //           current[params.pageIndex - 1] = result.CommonPrefixes.map((doc) => ({
-  //             key: doc.Prefix.replace(/\/$/, ''),
-  //             //Key: `${doc.Prefix.replace(/\/$/, '')}-${index}`,
-  //           }));
-  //           return [...current];
-  //         } else {
-  //           console.log("enter else");
-  //           const finalResult = result.CommonPrefixes.map((document) => ({
-  //             key: document.Prefix.replace(/\/$/, '')
-  //           }));
-  //           console.log("print result: ", finalResult);
-  //           return [...current, finalResult];
-  //         }
-  //       });
-  //     } catch (error) {
-  //       console.error(Utils.getErrorMessage(error));
-  //     }
-
-  //     console.log("Pages: ", pages);
-  //     setLoading(false);
-  //   },
-  //   [appContext, props.documentType]
-  // );
   const getDocuments = useCallback(
     async (params: { folderPrefix?: string, continuationToken?: string; pageIndex?: number }) => {
       setLoading(true);
       try {
         const result = await apiClient.knowledgeManagement.getDocuments(documentIdentifier, params.continuationToken, params.pageIndex);
-        console.log("Result: ", result);
         await props.statusRefreshFunction();
   
         // Map over result.Contents instead of result.CommonPrefixes
@@ -175,7 +138,6 @@ export default function DocumentsTab(props: DocumentsTabProps) {
         console.error(Utils.getErrorMessage(error));
       }
   
-      console.log("Pages: ", pages);
       setLoading(false);
     },
     [appContext, props.documentType, documentIdentifier]
@@ -209,7 +171,6 @@ export default function DocumentsTab(props: DocumentsTabProps) {
 
   /** Handle refreshes */
   const refreshPage = async () => {
-    // console.log(pages[Math.min(pages.length - 1, currentPageIndex - 1)]?.Contents!)
     if (currentPageIndex <= 1) {
       await getDocuments({ folderPrefix: documentIdentifier, pageIndex: currentPageIndex });
     } else {
@@ -218,7 +179,6 @@ export default function DocumentsTab(props: DocumentsTabProps) {
     }
   };
 
-  //const columnDefinitions = getColumnDefinition(props.documentType);
  const columnDefinitions = [
     {
       id: "key",
@@ -231,11 +191,6 @@ export default function DocumentsTab(props: DocumentsTabProps) {
       header: "Last Modified",
       cell: (item) => new Date(item.LastModified).toLocaleString(),
     },
-    // {
-    //   id: "size",
-    //   header: "Size",
-    //   cell: (item) => Utils.bytesToSize(item.Size),
-    // },
   ];
   
 
@@ -271,7 +226,6 @@ export default function DocumentsTab(props: DocumentsTabProps) {
     const getStatus = async () => {
       try {
         const result = await apiClient.knowledgeManagement.kendraIsSyncing();
-        console.log(result);
         /** If the status is anything other than DONE SYNCING, then just
          * keep the button disabled as if a sync is still running
          */
@@ -297,13 +251,11 @@ export default function DocumentsTab(props: DocumentsTabProps) {
     setSyncing(true);
     try {
       const state = await apiClient.knowledgeManagement.syncKendra();
-      console.log(state);
       if (state != "STARTED SYNCING") {
         addNotification("error", "Error running sync, please try again later.")
         setSyncing(false)
       }
     } catch (error) {
-      console.log(error);
       addNotification("error", "Error running sync, please try again later.")
       setSyncing(false)
     }
@@ -340,7 +292,6 @@ export default function DocumentsTab(props: DocumentsTabProps) {
         columnDefinitions={columnDefinitions}
         selectionType="multi"
         onSelectionChange={({ detail }) => {
-          console.log(detail);
           setSelectedItems(detail.selectedItems);
         }}
         selectedItems={selectedItems}

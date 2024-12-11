@@ -17,7 +17,6 @@ const HistoryCarousel: React.FC<HistoryCarouselProps> = ({ onNOFOSelect }) => {
             key={nofo.id}
             variant="link"
             onClick={() => {
-              console.log("Navigating to NOFO:", nofo.id); // Log navigation
               //onNOFOSelect(/landing-page/basePage/requirements/${nofo.id});
             }}
           >
