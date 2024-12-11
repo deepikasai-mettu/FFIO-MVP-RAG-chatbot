@@ -21,17 +21,16 @@ The chatbot will prompt the applicant to provide details about who is applying f
 - NOFO documents must be properly named on your Desktop before upload to GrantWell. The documents you upload will show up in the system as the file's name at time of upload.
 
 # Architecture 
-img go here
+<img src="https://raw.githubusercontent.com/deepikasai-mettu/FFIO-MVP-RAG-chatbot/main/lib/user-interface/app/public/images/architecture.png" alt="FFIO Architecture" width="500">
 
-# Deployment Guide
-Deployment Guide Link go here
+<p>For more information, visit the <a href="https://aws-samples.github.io/aws-genai-llm-chatbot/" target="_blank">AWS GenAI LLM Chatbot</a>.</p>
 
 # Developers (link all of our Githubs here)
-Deepika Mettu
+<p><a href="" target="_blank">Deepika Mettu</a></p>
 
-Serena Green
+<p><a href="" target="_blank">Serena Green</a></p>
 
-Shreya Thalvayapati
+<p><a href="" target="_blank">Shreya Thalvayapati</a></p>
 
 
 
