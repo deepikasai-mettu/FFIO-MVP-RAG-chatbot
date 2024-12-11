@@ -14,10 +14,10 @@ export default function Playground() {
       info={
         <HelpPanel 
           //header={<Header variant="h3" color="#2E2E2E">Welcome to the GrantWell chatbot interface!</Header>}
-          header = {<h3 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Welcome to the GrantWell chatbot interface!</h3>}
+          header = {<h3 style={{ fontSize: '24px', display: 'inline', color: '#006499' }}>Welcome to the GrantWell chatbot interface!</h3>}
         
         >
-          <div style={{ color: '#0073bb' }}>
+          <div style={{ color: '#006499' }}>
             <p>
               The purpose of this chatbot is to prompt you through the project narrative section of your grant. 
             </p>
@@ -42,15 +42,15 @@ export default function Playground() {
             <p>
               You can also provide links to relevant sites or articles pertaining to your organization or project goals.
             </p>
-            <h3 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Sources</h3>
+            <h3 style={{ fontSize: '24px', display: 'inline', color: '#006499' }}>Sources</h3>
             <p>
               If the chatbot references any files you've uploaded, they will show up
               underneath the relevant message. Add or delete files through the "upload data" button in the other toolbar.
             </p>
-            <h3 style={{ fontSize: '24px', display: 'inline', color: '#0073bb' }}>Session history</h3>
+            <h3 style={{ fontSize: '24px', display: 'inline', color: '#006499' }}>Session history</h3>
             <p>
               All conversations are saved and can be later accessed via {" "}
-              <Link to="/chatbot/sessions" style={{ color: '#0073bb' }}>Sessions</Link>.
+              <Link to="/chatbot/sessions" style={{ color: '#006499' }}>Sessions</Link>.
             </p>
           </div>
         </HelpPanel>

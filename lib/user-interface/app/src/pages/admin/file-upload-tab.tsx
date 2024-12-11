@@ -271,10 +271,6 @@ export default function DataFileUpload(props: FileUploadTabProps) {
                 dismissible:
                   uploadingStatus === "success" || uploadingStatus === "error",
                 onDismiss: () => setUploadPanelDismissed(true),
-                buttonText:
-                  uploadingStatus === "success" ? "View files" : undefined,
-                onButtonClick: () =>
-                  props.tabChangeFunction()
               },
             ]}
           />
