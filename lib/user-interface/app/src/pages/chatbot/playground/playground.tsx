@@ -39,9 +39,6 @@ export default function Playground() {
             <li>
               Project narrative template
             </li>
-            <p>
-              You can also provide links to relevant sites or articles pertaining to your organization or project goals.
-            </p>
             <h3 style={{ fontSize: '24px', display: 'inline', color: '#006499' }}>Sources</h3>
             <p>
               If the chatbot references any files you've uploaded, they will show up
