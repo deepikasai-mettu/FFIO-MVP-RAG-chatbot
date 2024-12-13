@@ -9,12 +9,12 @@ GrantWell is organized into three key pages: 1) a homepage for selecting NOFOs, 
 # Homepage
 The homepage of GrantWell provides admin users with the ability to upload NOFOs that they want summarized. Once the system parses through the document and extracts the necessary requirements, grant applicants can select the NOFO that they'd like to work on from the top of the screen.
 
-<img src="" alt="Homepage gif" width="500">
+<img src="https://github.com/deepikasai-mettu/FFIO-MVP-RAG-chatbot/blob/main/lib/user-interface/app/public/images/landingpage.gif?raw=true" alt="Homepage gif" width="500">
 
 # Extracted Requirements Page
 Grant applicants can review the output of the summarized NOFO document on this page, as well as upload any relevant backend files that they would like the chatbot to have access to.
 
-<img src="" alt="Requirements gif" width="500">
+<img src="https://github.com/deepikasai-mettu/FFIO-MVP-RAG-chatbot/blob/main/lib/user-interface/app/public/images/reqpage.gif?raw=true" alt="Requirements gif" width="500">
 
 # Narrative Drafting Page
 The chatbot will prompt the applicant to provide details about who is applying for the grant. Users are encouraged to upload as much supplementary, application-related data to the backend before engaging in conversation with the chatbot.
