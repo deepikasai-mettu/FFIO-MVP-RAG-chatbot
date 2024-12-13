@@ -22,7 +22,7 @@ export default function Playground() {
               The purpose of this chatbot is to prompt you through the project narrative section of your grant. 
             </p>
             <p>
-              For GrantWell to work best, upload supplementary data through the "upload data' linkto best help us craft a narrative that reflects your organization.
+              For GrantWell to work best, upload supplementary data through the "upload data' link to best help us craft a narrative that reflects your organization.
             </p>
             <p>
               Examples of data could include:
@@ -39,6 +39,9 @@ export default function Playground() {
             <li>
               Project narrative template
             </li>
+            <p>
+              Ensure you upload all supplementary data before beginning conversation with the chatbot.
+            </p>
             <h3 style={{ fontSize: '24px', display: 'inline', color: '#006499' }}>Sources</h3>
             <p>
               If the chatbot references any files you've uploaded, they will show up
