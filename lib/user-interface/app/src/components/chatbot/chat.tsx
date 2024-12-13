@@ -204,7 +204,7 @@ useEffect(() => {
               Project narrative template
             </li>
             <p>
-              You can also provide links to the chatbot directly to relevant sites or articles pertaining to your organization or project goals.
+              Ensure you upload all supplementary data before beginning conversation with the chatbot.
             </p>
             <p>
               Click the "i" icon in the upper right corner to access this information again.
