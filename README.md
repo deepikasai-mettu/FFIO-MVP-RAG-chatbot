@@ -19,7 +19,7 @@ Grant applicants can review the output of the summarized NOFO document on this p
 # Narrative Drafting Page
 The chatbot will prompt the applicant to provide details about who is applying for the grant. Users are encouraged to upload as much supplementary, application-related data to the backend before engaging in conversation with the chatbot.
 
-<img src="" alt="Chatbot gif" width="500">
+<img src="https://github.com/deepikasai-mettu/FFIO-MVP-RAG-chatbot/blob/main/lib/user-interface/app/public/images/chatbotreal-compress.gif?raw=true" alt="Requirements gif" width="500">
 
 # Important Notes
 - This tool is functional, but has undergone minimal user testing. Thus, bugs may arise. Report any bugs through the Google Form at the bottom of the landing page.
