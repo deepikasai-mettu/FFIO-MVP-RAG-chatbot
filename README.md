@@ -1,7 +1,7 @@
 # Welcome to GrantWell
 
 # Overview
-GrantWell is generative AI-powered grant-writing assistant designed to streamline the process of applying for federal funding. GrantWell will scan lengthy Notice of Funding Opportunities (NOFOs) for municipalities looking to apply for a given grant. It will then assist users with drafting their project's narrative. Currently released for internal use by Federal Funds and Infrastructure (FFIO) staff. 
+GrantWell is generative AI-powered grant-writing assistant designed to streamline the process of applying for federal funding. GrantWell will scan lengthy Notice of Funding Opportunities (NOFOs) for municipalities looking to apply for a given grant. It will then assist users with drafting their project's narrative. Currently released for internal use for the Massachusetts Federal Funds and Infrastructure (FFIO) staff. 
 
 # GrantWell Features
 GrantWell is organized into three key pages: 1) a homepage for selecting NOFOs, 2) an extracted requirements page, and 3) a narrative drafting page.
@@ -19,7 +19,7 @@ Grant applicants can review the output of the summarized NOFO document on this p
 # Narrative Drafting Page
 The chatbot will prompt the applicant to provide details about who is applying for the grant. Users are encouraged to upload as much supplementary, application-related data to the backend before engaging in conversation with the chatbot.
 
-<img src="" alt="Chatbot gif" width="500">
+<img src="https://github.com/deepikasai-mettu/FFIO-MVP-RAG-chatbot/blob/main/lib/user-interface/app/public/images/chatbotreal-compress.gif?raw=true" alt="Requirements gif" width="500">
 
 # Important Notes
 - This tool is functional, but has undergone minimal user testing. Thus, bugs may arise. Report any bugs through the Google Form at the bottom of the landing page.
