@@ -35,7 +35,7 @@ export class ChatBotApi extends Construct {
   constructor(scope: Construct, id: string, props: ChatBotApiProps) {
     super(scope, id);
 
-    const tables = new TableStack(this, "TableStack"); // adding this here to create tables for dynamoDB
+    const tables = new TableStack(this, "TableStack"); // adding this here to create tables for dynamoDBs
     const buckets = new S3BucketStack(this, "BucketStack");
     
     const openSearch = new OpenSearchStack(this,"OpenSearchStack",{})
